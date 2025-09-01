@@ -7,19 +7,47 @@ using UnityEngine.UI;
 
 public class DialogueUI : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI dialogueText;
-    [SerializeField] private TextMeshProUGUI speakerNameText;
+    [Header("Dialogue Text")]
 
+    [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] private float typingDuration = 1f;
 
+    [Header("Speaker")]
+
+    [SerializeField] private TextMeshProUGUI speakerNameText;
     [SerializeField] private Image leftImage;
     [SerializeField] private Image rightImage;
+
+    [Header("Options")]
 
     [SerializeField] private TextMeshProUGUI OptionA;
     [SerializeField] private TextMeshProUGUI OptionB;
 
+    [SerializeField] private Button OptionA_button;
+    [SerializeField] private Button OptionB_button;
 
-    public void SetText(string textToType, string optionAText = null, string optionBText = null)
+
+    private void Start()
+    {
+        var _dialogueManager = FindAnyObjectByType<DialogueManager>();
+        OptionA_button.onClick.AddListener(_dialogueManager.OnOptionAPicked);
+        OptionB_button.onClick.AddListener(_dialogueManager.OnOptionBPicked);
+
+    }
+
+    public void UpdateTextView(string textToType, string speakerName, string optionAText = null, string optionBText = null )
+    {
+        dialogueText.text = "";
+        float duration = typingDuration * textToType.Length / 236;
+
+        SetSpeakerName(speakerName);
+
+        dialogueText.DOText(textToType, duration, richTextEnabled: true)
+            .OnComplete(() => SetOptions(optionAText, optionBText));
+
+    }
+
+    public void SetDialogueText(string textToType, string optionAText = null, string optionBText = null)
     {
         dialogueText.text = "";
         float duration = typingDuration * textToType.Length / 236;

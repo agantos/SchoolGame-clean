@@ -26,3 +26,4 @@ MonoBehaviour:
     nextNode: {fileID: 11400000, guid: cafbb1158fe9e7e4eac1035e5f48220c, type: 2}
   - optionText: Fuck off!
     nextNode: {fileID: 11400000, guid: 855308778e9401642a04b4ac2aad21a6, type: 2}
+  tag: FirstNode

@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using System;
 using UnityEngine;
 
 public class DialogueManager : MonoBehaviour
@@ -6,56 +7,106 @@ public class DialogueManager : MonoBehaviour
     SCR_DialogueNode currentNode;
     SCR_DialogueNode _nextNode;
 
-    DialogueUI dialogueUI;
+    [SerializeField] DialogueEventPlanner_Base _eventPlanner;
+    [SerializeField] DialogueUI dialogueUI;
+
+    public SCR_DialogueNode DialogueTest;
 
     int _currentStep = 0;
 
-    public void StartNode()
+    public void StartDialogueTest()
     {
-
+        OpenNode(DialogueTest);
     }
 
-    public void OnNext()
+    public void OpenNode(SCR_DialogueNode node)
     {
+        currentNode = node;
+        _currentStep = 0;
 
+        if (dialogueUI.gameObject.activeSelf == false)
+            dialogueUI.gameObject.SetActive(true);
+
+        UpdateView();
+        _eventPlanner.OnNodeStart(currentNode);
     }
 
-    public void ApplyStep(int index)
+    public void CloseDialogue()
     {
-        if (index >= currentNode.steps.Count) return;
+        _eventPlanner.OnNodeEnd(currentNode);
+        currentNode = null;
+        dialogueUI.gameObject.SetActive(false);
+    }
 
-        //Last Step
-        if(index == currentNode.steps.Count - 1)
+    public void OnNextPressed()
+    {
+        _currentStep++;
+
+        if (_currentStep == currentNode.steps.Count)
         {
-            if (dialogueUI.gameObject.activeSelf == false)
-                dialogueUI.gameObject.SetActive(true);
-
-            var step = currentNode.steps[index];
-
-            dialogueUI.SetSpeakerName(step.speakerName);
-            dialogueUI.SetImages(step.leftSpeakerImage, step.rightSpeakerImage);
-            
-            if(currentNode.options.Length > 0)
-            {
-                dialogueUI.SetText(step.stepText, currentNode.options[0].optionText, currentNode.options[1].optionText);
-            }
-            else
-            {
-                dialogueUI.SetText(step.stepText);
-            }
+            CloseDialogue();
+            return;
         }
 
-        //First Or Middle Step
-        else if (index < currentNode.steps.Count)
+        var step = currentNode.steps[_currentStep];
+
+        // middle step
+        if (_currentStep < currentNode.steps.Count)
         {
-            if(dialogueUI.gameObject.activeSelf == false)
-                dialogueUI.gameObject.SetActive(true);
+            UpdateView();
+        }
 
-            var step = currentNode.steps[index];
+        // Last Step
+        if (_currentStep == currentNode.steps.Count - 1)
+        {
+            UpdateView();
+        }
+    }
 
-            dialogueUI.SetText(step.stepText);
-            dialogueUI.SetSpeakerName(step.speakerName);
-            dialogueUI.SetImages(step.leftSpeakerImage, step.rightSpeakerImage);
-        }        
+    public void OnOptionAPicked()
+    {
+        _eventPlanner.OnNodeOptionAPick(currentNode);
+
+        var nextNode = currentNode.options[0].nextNode;
+
+        if (nextNode)
+        {
+            OpenNode(nextNode);
+        }
+        else
+        {
+            dialogueUI.gameObject.SetActive(false);
+        }
+    }
+
+    public void OnOptionBPicked()
+    {
+        _eventPlanner.OnNodeOptionBPick(currentNode);
+
+        var nextNode = currentNode.options[1].nextNode;
+
+        if (nextNode)
+        {
+            OpenNode(nextNode);
+        }
+        else
+        {
+            dialogueUI.gameObject.SetActive(false);
+        }
+    }
+
+    public void UpdateView()
+    {
+        var step = currentNode.steps[_currentStep];
+
+        // Update View
+        if (currentNode.options.Length > 0 && _currentStep == currentNode.steps.Count - 1)
+        {
+            dialogueUI.UpdateTextView(step.stepText, step.speakerName, currentNode.options[0].optionText, currentNode.options[1].optionText);
+        }
+        else
+        {
+            dialogueUI.UpdateTextView(step.stepText, step.speakerName, null, null);
+        }
     }
 }

@@ -12,6 +12,7 @@ public class SCR_DialogueNode : ScriptableObject
     [Header("Player Options")]
     [Tooltip("Choices the player can select after this dialogue.")]
     public DialogueOption[] options;
+    public string tag;
 
     [Serializable]
     public class DialogueStep

@@ -26,3 +26,4 @@ MonoBehaviour:
     leftSpeakerImage: {fileID: 21300000, guid: 22ac17d283a150c47873b5f410319c22, type: 3}
     rightSpeakerImage: {fileID: 21300000, guid: 5a690226c4173d14ebba8e4f01138117, type: 3}
   options: []
+  tag: GoodEnding
