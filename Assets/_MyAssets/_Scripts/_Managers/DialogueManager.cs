@@ -4,28 +4,40 @@ using UnityEngine;
 
 public class DialogueManager : MonoBehaviour
 {
+    public SCR_DialogueNode DialogueToStart;
+
     SCR_DialogueNode currentNode;
     SCR_DialogueNode _nextNode;
 
     [SerializeField] DialogueEventPlanner_Base _eventPlanner;
     [SerializeField] DialogueUI dialogueUI;
 
-    public SCR_DialogueNode DialogueTest;
+    InputManager _inputManager;
 
     int _currentStep = 0;
 
-    public void StartDialogueTest()
+    private void Start()
     {
-        OpenNode(DialogueTest);
+        _inputManager = FindAnyObjectByType<InputManager>();
     }
 
-    public void OpenNode(SCR_DialogueNode node)
+    public void StartDialogue()
+    {
+        if (DialogueToStart != null) { 
+            OpenNode(DialogueToStart);
+        }
+    }
+
+    void OpenNode(SCR_DialogueNode node)
     {
         currentNode = node;
         _currentStep = 0;
 
         if (dialogueUI.gameObject.activeSelf == false)
+        {
             dialogueUI.gameObject.SetActive(true);
+            _inputManager.playerActions.Disable();
+        }
 
         UpdateView();
         _eventPlanner.OnNodeStart(currentNode);
@@ -36,6 +48,8 @@ public class DialogueManager : MonoBehaviour
         _eventPlanner.OnNodeEnd(currentNode);
         currentNode = null;
         dialogueUI.gameObject.SetActive(false);
+
+        _inputManager.playerActions.Enable();
     }
 
     public void OnNextPressed()
