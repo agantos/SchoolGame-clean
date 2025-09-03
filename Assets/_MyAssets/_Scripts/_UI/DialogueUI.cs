@@ -1,12 +1,14 @@
+using DG.Tweening;
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
-using DG.Tweening;
 using UnityEngine.UI;
 
 
 public class DialogueUI : MonoBehaviour
 {
+    #region Variables
     [Header("Dialogue Text")]
 
     [SerializeField] private TextMeshProUGUI dialogueText;
@@ -26,34 +28,41 @@ public class DialogueUI : MonoBehaviour
     [SerializeField] private Button OptionA_button;
     [SerializeField] private Button OptionB_button;
 
+    [SerializeField] private AudioSource _audioSource;
 
-    private void Start()
+    [SerializeField] private Button nextButton;
+    #endregion
+
+
+    #region Events
+    public event Action OnStepFinished_NodeMethods;
+
+    public void ClearOnStepFinished()
     {
-        var _dialogueManager = FindAnyObjectByType<DialogueManager>();
-        OptionA_button.onClick.AddListener(_dialogueManager.OnOptionAPicked);
-        OptionB_button.onClick.AddListener(_dialogueManager.OnOptionBPicked);
-
+        OnStepFinished_NodeMethods = null;
     }
+    #endregion
 
-    public void UpdateTextView(string textToType, string speakerName, string optionAText = null, string optionBText = null )
+    #region Audio/Visual__Changes
+    public void UpdateTextView(string textToType, string speakerName, string optionAText = null, string optionBText = null, AudioClip clip = null)
     {
         dialogueText.text = "";
-        float duration = typingDuration * textToType.Length / 236;
+        float duration = typingDuration * textToType.Length / 50;
+        if (clip != null) duration = clip.length;
 
         SetSpeakerName(speakerName);
 
         dialogueText.DOText(textToType, duration, richTextEnabled: true)
-            .OnComplete(() => SetOptions(optionAText, optionBText));
+            .OnComplete(() => {
+                SetOptions(optionAText, optionBText);
+                if (optionAText == null && optionBText == null)
+                {
+                    EnableNext();
+                }
 
-    }
+                OnStepFinished_NodeMethods?.Invoke();
+            });
 
-    public void SetDialogueText(string textToType, string optionAText = null, string optionBText = null)
-    {
-        dialogueText.text = "";
-        float duration = typingDuration * textToType.Length / 236;
-
-        dialogueText.DOText(textToType, duration, richTextEnabled: true)
-            .OnComplete(() => SetOptions(optionAText, optionBText));
     }
 
     public void SetOptions(string optionAText = null, string optionBText = null)
@@ -83,6 +92,13 @@ public class DialogueUI : MonoBehaviour
         speakerNameText.text = speaker;
     }
 
+    public void PlayAudio(AudioClip audioClip)
+    {
+        if (audioClip == null) return;
+        _audioSource.Stop();
+        _audioSource.clip = audioClip;
+        _audioSource.Play();
+    }
 
     public void SetImages(Sprite leftSprite = null, Sprite rightSprite = null)
     {
@@ -114,4 +130,37 @@ public class DialogueUI : MonoBehaviour
             }
         }
     }
+    #endregion
+
+    #region Mono
+    private void Start()
+    {
+        var _dialogueManager = FindAnyObjectByType<DialogueManager>();
+
+        OptionA_button.onClick.AddListener(_dialogueManager.OnOptionAPicked);
+        OptionB_button.onClick.AddListener(_dialogueManager.OnOptionBPicked);
+
+        OptionA_button.gameObject.SetActive(false);
+        OptionB_button.gameObject.SetActive(false);
+
+        nextButton.onClick.AddListener(_dialogueManager.OnNextPressed);
+        nextButton.onClick.AddListener(DisableNext);
+
+        nextButton.gameObject.SetActive(false);
+
+        gameObject.SetActive(false);
+    }
+    #endregion
+
+    #region Next
+    public void EnableNext()
+    {
+        nextButton.gameObject.SetActive(true);
+    }
+
+    public void DisableNext()
+    {
+        nextButton.gameObject.SetActive(false);
+    }
+    #endregion
 }

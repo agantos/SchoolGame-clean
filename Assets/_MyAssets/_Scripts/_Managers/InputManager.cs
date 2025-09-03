@@ -23,7 +23,6 @@ public class InputManager : MonoBehaviour
     {
         _inputActions.Player.Enable();
         _inputActions.UI.Disable();
-
     }
 
     private void OnDisable()

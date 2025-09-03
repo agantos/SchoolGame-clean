@@ -3,16 +3,27 @@ using UnityEngine.UI;
 
 public class DialogueButton : Button
 {
-    DialogueManager _dialogueManager;
+    private DialogueManager _dialogueManager;
 
-    protected override void Start()
+    protected override void OnEnable()
     {
-        base.Start();
-        _dialogueManager = FindAnyObjectByType<DialogueManager>();
+        base.OnEnable();
+
+        if (_dialogueManager == null)
+        {
+            _dialogueManager = FindAnyObjectByType<DialogueManager>();
+        }
+
         onClick.AddListener(OnClick);
     }
 
-    void OnClick()
+    protected override void OnDisable()
+    {
+        base.OnDisable();
+        onClick.RemoveListener(OnClick);
+    }
+
+    private void OnClick()
     {
         if (_dialogueManager != null)
         {

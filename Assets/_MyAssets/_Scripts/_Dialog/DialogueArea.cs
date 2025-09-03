@@ -5,6 +5,8 @@ public class DialogueArea : MonoBehaviour
     private RightSideButtonsHandler _rightSideButtonsHandler;
     private DialogueManager _dialogueManager;
 
+    [SerializeField] private Transform LookAt;
+    [SerializeField] private Transform CameraPosition;
 
     [SerializeField] private LayerMask playerLayer;
     [SerializeField] private SCR_DialogueNode dialog;

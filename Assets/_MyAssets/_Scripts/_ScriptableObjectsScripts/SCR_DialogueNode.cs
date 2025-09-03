@@ -13,6 +13,7 @@ public class SCR_DialogueNode : ScriptableObject
     [Tooltip("Choices the player can select after this dialogue.")]
     public DialogueOption[] options;
     public string tag;
+    public bool autoChangeSteps;
 
     [Serializable]
     public class DialogueStep
@@ -24,6 +25,10 @@ public class SCR_DialogueNode : ScriptableObject
 
         [Tooltip("Name of the speaker.")]
         public string speakerName;
+
+        [Tooltip("AudioClip")]
+        public AudioClip clip;
+
 
         [Space(5)]
         [Tooltip("Left-side portrait of the speaker.")]
@@ -37,7 +42,7 @@ public class SCR_DialogueNode : ScriptableObject
     public class DialogueOption
     {
         [Tooltip("Text for the player's choice.")]
-        [TextArea(1, 3)]
+        [TextArea(1, 5)]
         public string optionText;
 
         [Tooltip("Next dialogue node this option leads to.")]
