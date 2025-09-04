@@ -65,7 +65,16 @@ public class DialogueUI : MonoBehaviour
 
     }
 
-    public void SetOptions(string optionAText = null, string optionBText = null)
+    public void ResetView()
+    {
+		GameObject optionAGameObject = OptionA.transform.parent.gameObject;
+		GameObject optionBGameObject = OptionB.transform.parent.gameObject;
+
+		optionAGameObject.SetActive(false);
+		optionBGameObject.SetActive(false);
+	}
+
+	public void SetOptions(string optionAText = null, string optionBText = null)
     {
         GameObject optionAGameObject = OptionA.transform.parent.gameObject;
         GameObject optionBGameObject = OptionB.transform.parent.gameObject;

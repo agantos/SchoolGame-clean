@@ -5,18 +5,19 @@ public class DialogueArea : MonoBehaviour
     private RightSideButtonsHandler _rightSideButtonsHandler;
     private DialogueManager _dialogueManager;
 
-    [SerializeField] private Transform LookAt;
-    [SerializeField] private Transform CameraPosition;
-
     [SerializeField] private LayerMask playerLayer;
     [SerializeField] private SCR_DialogueNode dialog;
+	[SerializeField] private DialogueEventPlanner_Base eventPlanner;
 
 
-    private void Awake()
+
+	private void Awake()
     {
         _rightSideButtonsHandler = FindAnyObjectByType<RightSideButtonsHandler>();
         _dialogueManager = FindAnyObjectByType<DialogueManager>();
-    }
+        
+        if(eventPlanner != null) _dialogueManager.EventPlanner = eventPlanner;
+	}
     
     private void OnTriggerEnter(Collider other)
     {

@@ -9,23 +9,16 @@ public class PlayerMovementController : MonoBehaviour
 
     Rigidbody _rb;
     MobileJoystick _joystick;
-    MobileTurnCamera _turnCamera;
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
-
         _joystick = FindAnyObjectByType<MobileJoystick>(FindObjectsInactive.Include);
-
-        _turnCamera = gameObject.AddComponent<MobileTurnCamera>();
-        _turnCamera.Initialize(player, cameraPivot);
     }
 
     private void FixedUpdate()
     {
         Move(_joystick.GetDirection());
-        _turnCamera.RotatePlayerAndCamera();
-
     }
 
     private void Update()

@@ -9,7 +9,7 @@ public class DialogueManager : MonoBehaviour
     SCR_DialogueNode currentNode;
     SCR_DialogueNode _nextNode;
 
-    [SerializeField] DialogueEventPlanner_Base _eventPlanner;
+    public DialogueEventPlanner_Base EventPlanner;
     [SerializeField] DialogueUI dialogueUI;
 
     InputManager _inputManager;
@@ -21,17 +21,19 @@ public class DialogueManager : MonoBehaviour
         _inputManager = FindAnyObjectByType<InputManager>();
     }
 
-    public void StartDialogue()
+    public async void StartDialogue()
     {
         if (DialogueToStart != null) { 
-            OpenNode(DialogueToStart);
+            await OpenNode(DialogueToStart);
         }
     }
 
-    void OpenNode(SCR_DialogueNode node)
+    async UniTask OpenNode(SCR_DialogueNode node)
     {
         // We reset the current vaiables
         dialogueUI.ClearOnStepFinished();
+        dialogueUI.ResetView();
+
         currentNode = node;
         _currentStep = 0;
 
@@ -44,13 +46,13 @@ public class DialogueManager : MonoBehaviour
             _inputManager.playerActions.Disable();
         }
 
-        Dialog_AudioVisual_Display();
-        _eventPlanner.OnNodeStart(currentNode);
+        Update_Dialog_AudioVisuals();
+        await EventPlanner.OnNodeStart(currentNode);
     }
 
-    public void CloseDialogue()
+    public async void CloseDialogue()
     {
-        _eventPlanner.OnNodeEnd(currentNode);
+        await EventPlanner.OnNodeEnd(currentNode);
         currentNode = null;
         dialogueUI.gameObject.SetActive(false);
 
@@ -68,7 +70,7 @@ public class DialogueManager : MonoBehaviour
         _currentStep++;
 
         var step = currentNode.steps[_currentStep];
-        Dialog_AudioVisual_Display();
+        Update_Dialog_AudioVisuals();
 
     }
 
@@ -87,49 +89,48 @@ public class DialogueManager : MonoBehaviour
         // middle step
         if (_currentStep < currentNode.steps.Count)
         {
-            Dialog_AudioVisual_Display();
+            Update_Dialog_AudioVisuals();
         }
 
         // Last Step
         if (_currentStep == currentNode.steps.Count - 1)
         {
-            Dialog_AudioVisual_Display();
+            Update_Dialog_AudioVisuals();
         }
     }
 
-    public void OnOptionAPicked()
+    public async void OnOptionAPicked()
     {
-        _eventPlanner.OnNodeOptionAPick(currentNode);
+		dialogueUI.gameObject.SetActive(false);
 
-        var nextNode = currentNode.options[0].nextNode;
+		await EventPlanner.OnNodeOptionAPick(currentNode);
+
+		Debug.Log("after await option A");
+
+
+		var nextNode = currentNode.options[0].nextNode;
 
         if (nextNode)
         {
-            OpenNode(nextNode);
-        }
-        else
-        {
-            dialogueUI.gameObject.SetActive(false);
+            await OpenNode(nextNode);
         }
     }
 
-    public void OnOptionBPicked()
+    public async void OnOptionBPicked()
     {
-        _eventPlanner.OnNodeOptionBPick(currentNode);
+		dialogueUI.gameObject.SetActive(false);
+
+		await EventPlanner.OnNodeOptionBPick(currentNode);
 
         var nextNode = currentNode.options[1].nextNode;
 
         if (nextNode)
         {
-            OpenNode(nextNode);
-        }
-        else
-        {
-            dialogueUI.gameObject.SetActive(false);
+            await OpenNode(nextNode);
         }
     }
 
-    public void Dialog_AudioVisual_Display()
+    public void Update_Dialog_AudioVisuals()
     {
         var step = currentNode.steps[_currentStep];
 

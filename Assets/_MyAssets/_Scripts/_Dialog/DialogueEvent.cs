@@ -1,17 +1,17 @@
-using UnityEngine;
-using UnityEngine.Events;
+using Cysharp.Threading.Tasks;
+using System;
 
 public class DialogueEvent
 {
-    public UnityEvent eventToCall;
-    public string NodeTag;
-    public OnDialogueEvent callTime;
-    
-    public enum OnDialogueEvent
-    {
-        START_NODE,
-        END_NODE,
-        OPTION_A,
-        OPTION_B,
-    }
+	public Func<UniTask> eventToCallAsync;
+	public string NodeTag;
+	public OnDialogueEvent callTime;
+
+	public enum OnDialogueEvent
+	{
+		START_NODE,
+		END_NODE,
+		OPTION_A,
+		OPTION_B,
+	}
 }

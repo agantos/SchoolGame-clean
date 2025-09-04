@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,7 +13,7 @@ public class DialogueEventPlanner_Base : MonoBehaviour
         events = new Dictionary<string, List<DialogueEvent>>();
     }
 
-    public void OnNodeStart(SCR_DialogueNode node)
+    public async UniTask OnNodeStart(SCR_DialogueNode node)
     {
         if (events == null || !events.ContainsKey(node.tag)) return;
 
@@ -20,51 +21,50 @@ public class DialogueEventPlanner_Base : MonoBehaviour
         {
             if (e.callTime == DialogueEvent.OnDialogueEvent.START_NODE)
             {
-                e.eventToCall.Invoke();
+                await e.eventToCallAsync.Invoke();
             }
         }
     }
 
-    public void OnNodeEnd(SCR_DialogueNode node)
-    {
-        if (events == null || !events.ContainsKey(node.tag)) return;
+	public async UniTask OnNodeEnd(SCR_DialogueNode node)
+	{
+		if (!events.ContainsKey(node.tag)) return;
 
-        foreach (var e in events[node.tag])
-        {
-            if (e.callTime == DialogueEvent.OnDialogueEvent.END_NODE)
-            {
-                e.eventToCall.Invoke();
-            }
-        }
-    }
+		foreach (var e in events[node.tag])
+		{
+			if (e.callTime == DialogueEvent.OnDialogueEvent.END_NODE && e.eventToCallAsync != null)
+			{
+				await e.eventToCallAsync.Invoke();
+			}
+		}
+	}
 
-    public void OnNodeOptionAPick(SCR_DialogueNode node)
-    {
-        if (events == null || !events.ContainsKey(node.tag)) return;
+	public async UniTask OnNodeOptionAPick(SCR_DialogueNode node)
+	{
+		if (!events.ContainsKey(node.tag)) return;
 
-        foreach (var e in events[node.tag])
-        {
-            if (e.callTime == DialogueEvent.OnDialogueEvent.OPTION_A)
-            {
-                e.eventToCall.Invoke();
-            }
-        }
-    }
+		foreach (var e in events[node.tag])
+		{
+			if (e.callTime == DialogueEvent.OnDialogueEvent.OPTION_A && e.eventToCallAsync != null)
+			{
+				await e.eventToCallAsync.Invoke();
+			}
+		}
+	}
+	public async UniTask OnNodeOptionBPick(SCR_DialogueNode node)
+	{
+		if (!events.ContainsKey(node.tag)) return;
 
-    public void OnNodeOptionBPick(SCR_DialogueNode node)
-    {
-        if (events == null || !events.ContainsKey(node.tag)) return;
+		foreach (var e in events[node.tag])
+		{
+			if (e.callTime == DialogueEvent.OnDialogueEvent.OPTION_B && e.eventToCallAsync != null)
+			{
+				await e.eventToCallAsync.Invoke();
+			}
+		}
+	}
 
-        foreach (var e in events[node.tag])
-        {
-            if (e.callTime == DialogueEvent.OnDialogueEvent.OPTION_B)
-            {
-                e.eventToCall.Invoke();
-            }
-        }
-    }
-
-    public void CreateEvent(string tag, DialogueEvent.OnDialogueEvent callTime, Action functionToInvoke)
+    public void CreateEvent(string tag, DialogueEvent.OnDialogueEvent callTime, Func<UniTask> functionToInvoke)
     {
         if (string.IsNullOrEmpty(tag))
         {
@@ -72,21 +72,13 @@ public class DialogueEventPlanner_Base : MonoBehaviour
             return;
         }
 
-        // Build a new UnityEvent and attach the function
-        UnityEvent unityEvent = new UnityEvent();
-        if (functionToInvoke != null)
-        {
-            unityEvent.AddListener(() => functionToInvoke());
-        }
-
-        // Create the DialogueEvent object
         DialogueEvent newEvent = new DialogueEvent
         {
             callTime = callTime,
-            eventToCall = unityEvent
+            eventToCallAsync = functionToInvoke,
+            NodeTag = tag
         };
 
-        // Register it in the dictionary
         if (events.ContainsKey(tag))
         {
             events[tag].Add(newEvent);
