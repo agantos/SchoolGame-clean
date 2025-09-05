@@ -71,32 +71,31 @@ public class DialogueManager : MonoBehaviour
 
         var step = currentNode.steps[_currentStep];
         Update_Dialog_AudioVisuals();
-
     }
 
     public void OnNextPressed()
     {
-        _currentStep++;
+		_currentStep++;
 
-        if (_currentStep == currentNode.steps.Count)
-        {
-            CloseDialogue();
-            return;
-        }
+		if (_currentStep == currentNode.steps.Count)
+		{
+			CloseDialogue();
+			return;
+		}
 
-        var step = currentNode.steps[_currentStep];
+		var step = currentNode.steps[_currentStep];
 
-        // middle step
-        if (_currentStep < currentNode.steps.Count)
-        {
-            Update_Dialog_AudioVisuals();
-        }
+		// middle step
+		if (_currentStep < currentNode.steps.Count)
+		{
+			Update_Dialog_AudioVisuals();
+		}
 
-        // Last Step
-        if (_currentStep == currentNode.steps.Count - 1)
-        {
-            Update_Dialog_AudioVisuals();
-        }
+		// Last Step
+		if (_currentStep == currentNode.steps.Count - 1)
+		{
+			Update_Dialog_AudioVisuals();
+		}
     }
 
     public async void OnOptionAPicked()
@@ -104,9 +103,6 @@ public class DialogueManager : MonoBehaviour
 		dialogueUI.gameObject.SetActive(false);
 
 		await EventPlanner.OnNodeOptionAPick(currentNode);
-
-		Debug.Log("after await option A");
-
 
 		var nextNode = currentNode.options[0].nextNode;
 
@@ -135,10 +131,18 @@ public class DialogueManager : MonoBehaviour
         var step = currentNode.steps[_currentStep];
 
         // Update View
-        if (currentNode.options.Length > 0 && _currentStep == currentNode.steps.Count - 1)
+        if (_currentStep == currentNode.steps.Count - 1)
         {
-            dialogueUI.UpdateTextView(step.stepText, step.speakerName, currentNode.options[0].optionText, currentNode.options[1].optionText, step.clip);
-            dialogueUI.PlayAudio(step.clip);
+            if (currentNode.options.Length == 2)
+                dialogueUI.UpdateTextView(step.stepText, step.speakerName, currentNode.options[0].optionText, currentNode.options[1].optionText, step.clip);
+			else if(currentNode.options.Length == 1)
+				dialogueUI.UpdateTextView(step.stepText, step.speakerName, currentNode.options[0].optionText, null, step.clip);
+            else
+            {
+				dialogueUI.UpdateTextView(step.stepText, step.speakerName, null, null, step.clip);
+			}
+
+			dialogueUI.PlayAudio(step.clip);
         }
         else
         {

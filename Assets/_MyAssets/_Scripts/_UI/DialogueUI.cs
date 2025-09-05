@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using System;
 using System.Collections;
@@ -13,8 +14,9 @@ public class DialogueUI : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] private float typingDuration = 1f;
+	private Tween _activeTextTween;
 
-    [Header("Speaker")]
+	[Header("Speaker")]
 
     [SerializeField] private TextMeshProUGUI speakerNameText;
     [SerializeField] private Image leftImage;
@@ -31,8 +33,9 @@ public class DialogueUI : MonoBehaviour
     [SerializeField] private AudioSource _audioSource;
 
     [SerializeField] private Button nextButton;
-    #endregion
 
+    DialogueManager _dialogueManager;
+    #endregion
 
     #region Events
     public event Action OnStepFinished_NodeMethods;
@@ -46,26 +49,32 @@ public class DialogueUI : MonoBehaviour
     #region Audio/Visual__Changes
     public void UpdateTextView(string textToType, string speakerName, string optionAText = null, string optionBText = null, AudioClip clip = null)
     {
-        dialogueText.text = "";
+		EnableNext();
+
+		dialogueText.text = "";
         float duration = typingDuration * textToType.Length / 50;
         if (clip != null) duration = clip.length;
 
         SetSpeakerName(speakerName);
 
-        dialogueText.DOText(textToType, duration, richTextEnabled: true)
+        _activeTextTween = dialogueText.DOText(textToType, duration, richTextEnabled: true)
             .OnComplete(() => {
                 SetOptions(optionAText, optionBText);
-                if (optionAText == null && optionBText == null)
+                if (optionAText != null || optionBText != null)
                 {
-                    EnableNext();
-                }
+					DisableNext();
+				}
 
-                OnStepFinished_NodeMethods?.Invoke();
+				_audioSource.Stop();
+                _audioSource.clip = null;
+				_activeTextTween = null;
+
+			    OnStepFinished_NodeMethods?.Invoke();
             });
 
     }
 
-    public void ResetView()
+	public void ResetView()
     {
 		GameObject optionAGameObject = OptionA.transform.parent.gameObject;
 		GameObject optionBGameObject = OptionB.transform.parent.gameObject;
@@ -104,7 +113,6 @@ public class DialogueUI : MonoBehaviour
     public void PlayAudio(AudioClip audioClip)
     {
         if (audioClip == null) return;
-        _audioSource.Stop();
         _audioSource.clip = audioClip;
         _audioSource.Play();
     }
@@ -144,7 +152,7 @@ public class DialogueUI : MonoBehaviour
     #region Mono
     private void Start()
     {
-        var _dialogueManager = FindAnyObjectByType<DialogueManager>();
+		_dialogueManager = FindAnyObjectByType<DialogueManager>();
 
         OptionA_button.onClick.AddListener(_dialogueManager.OnOptionAPicked);
         OptionB_button.onClick.AddListener(_dialogueManager.OnOptionBPicked);
@@ -152,8 +160,7 @@ public class DialogueUI : MonoBehaviour
         OptionA_button.gameObject.SetActive(false);
         OptionB_button.gameObject.SetActive(false);
 
-        nextButton.onClick.AddListener(_dialogueManager.OnNextPressed);
-        nextButton.onClick.AddListener(DisableNext);
+        nextButton.onClick.AddListener(OnNext);
 
         nextButton.gameObject.SetActive(false);
 
@@ -171,5 +178,34 @@ public class DialogueUI : MonoBehaviour
     {
         nextButton.gameObject.SetActive(false);
     }
-    #endregion
+
+	public bool DialogHasCompleted()
+	{
+		return _activeTextTween == null || !_activeTextTween.IsPlaying();
+	}
+
+	public void CompleteTextTween()
+	{
+		if (_activeTextTween != null && _activeTextTween.IsActive() && _activeTextTween.IsPlaying())
+		{
+			_activeTextTween.Complete();
+		}
+	}
+
+	void OnNext()
+	{
+		if (_activeTextTween != null && _activeTextTween.IsActive() && _activeTextTween.IsPlaying())
+		{
+			CompleteTextTween();
+		}
+		else
+		{
+			if (_dialogueManager != null)
+			{
+				_dialogueManager.OnNextPressed();
+			}
+		}
+	}
+
+	#endregion
 }

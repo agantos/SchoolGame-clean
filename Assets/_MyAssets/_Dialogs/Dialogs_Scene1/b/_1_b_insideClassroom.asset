@@ -32,7 +32,7 @@ MonoBehaviour:
     rightSpeakerImage: {fileID: 0}
   options:
   - optionText: Raise your hand and say good morning to everyone
-    nextNode: {fileID: 11400000, guid: 0a6bbc49dc551554f967eda20d181f56, type: 2}
+    nextNode: {fileID: 11400000, guid: 070e3fe5096cd6843ace85cd029d95d3, type: 2}
   - optionText: "Don\u2019t say good morning"
     nextNode: {fileID: 11400000, guid: 0a6bbc49dc551554f967eda20d181f56, type: 2}
   tag: 
