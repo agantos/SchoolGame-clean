@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08b42a0dbf8327e48835bf7d615d551f, type: 3}
+  m_Name: 1_f
+  m_EditorClassIdentifier: 
+  steps:
+  - stepText: '*I was patient!*'
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: 17f9f8844c0bb4444a2eb9e39c863c32, type: 3}
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: "*It wasn\u2019t easy, but I started counting to 10 in my head, and
+      I knew what to do.*"
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: f7fcbcf592ada744fb83edb8b10179aa, type: 3}
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: "*I felt way better when I waited my turn, and Miss Anna smiled at
+      me.*\r"
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: 07dcaf33237bbaa4a9b824f7392b6093, type: 3}
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: Please open your tablets so we can get started with the lesson.
+    speakerName: Mrs. Anne
+    clip: {fileID: 8300000, guid: a1ad00b58f00c734c9869b701035b26d, type: 3}
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  options:
+  - optionText: Open Tablet
+    nextNode: {fileID: 0}
+  tag: RaisedHand
+  autoChangeSteps: 1

@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08b42a0dbf8327e48835bf7d615d551f, type: 3}
+  m_Name: 1_openTablet
+  m_EditorClassIdentifier: 
+  steps:
+  - stepText: Please open your tablets so we can get started with the lesson.
+    speakerName: Mrs Anne
+    clip: {fileID: 8300000, guid: a1ad00b58f00c734c9869b701035b26d, type: 3}
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: "*It wasn\u2019t easy, but I started counting to 10 in my head, and
+      I knew what to do.*"
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: ff3655f061c4ba940b1f027667bdbaff, type: 3}
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: "*I felt way better when I waited my turn, and Miss Anna smiled at
+      me.*\r"
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: 07dcaf33237bbaa4a9b824f7392b6093, type: 3}
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  options: []
+  tag: OpenTablet
+  autoChangeSteps: 1
