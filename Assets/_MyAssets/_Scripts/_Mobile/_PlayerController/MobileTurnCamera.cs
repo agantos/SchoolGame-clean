@@ -50,4 +50,31 @@ public class MobileTurnCamera : MonoBehaviour
 
 		player.rotation = Quaternion.Euler(0f, panTilt.PanAxis.Value, 0f);
 	}
+
+    public void SetRotation(Quaternion worldRotation)
+    {
+        if (panTilt == null) panTilt = virtualCam.GetComponent<CinemachinePanTilt>();
+        if (panTilt == null) return;
+
+        // Take the forward vector of the given rotation
+        Vector3 fwd = worldRotation * Vector3.forward;
+
+        // Pan (yaw) around Y
+        float pan = Mathf.Atan2(fwd.x, fwd.z) * Mathf.Rad2Deg;
+
+        // Tilt (pitch)
+        float horiz = new Vector2(fwd.x, fwd.z).magnitude;
+        float pitchDeg = Mathf.Atan2(fwd.y, horiz) * Mathf.Rad2Deg;
+
+        // Depending on axis setup, you might need to remove the minus
+        float tilt = -pitchDeg;
+
+        panTilt.PanAxis.Value = pan;
+        panTilt.TiltAxis.Value = tilt;
+
+        // Keep the player facing same direction as pan
+        player.rotation = Quaternion.Euler(0f, pan, 0f);
+    }
+
+    public void SetRotation(Vector3 eulerAngles) => SetRotation(Quaternion.Euler(eulerAngles));
 }

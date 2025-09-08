@@ -29,8 +29,11 @@ public class SCR_DialogueNode : ScriptableObject
         [Tooltip("AudioClip")]
         public AudioClip clip;
 
+        [Tooltip("In Autoplay, seconds to wait before this step starts")]
+        public float nextDelay = 0;
 
-        [Space(5)]
+        [Space(30)]
+        [Header("Step Content")]
         [Tooltip("Left-side portrait of the speaker.")]
         public Sprite leftSpeakerImage;
 

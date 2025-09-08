@@ -4,18 +4,21 @@ using System.Collections.Generic;
 
 public class CinemachineCameraChanger : MonoBehaviour
 {
-    [SerializeField] CinemachineCamera[] cameras;
-	[SerializeField] CinemachineCamera[] _camerasOrdered;
+    CinemachineCamera[] _cameras;
+	CinemachineCamera[] _camerasOrdered;
 
 	CinemachineCamera _activeCamera;
 	private void Start()
 	{
-		_camerasOrdered = cameras;
+		_cameras = FindObjectsByType<CinemachineCamera>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+		_camerasOrdered = _cameras;
 
-		foreach (var cam in cameras)
+		foreach (var cam in _cameras)
 		{
-			_camerasOrdered[cam.Priority] = cam;
-		}
+			if (cam.Priority >= 0) {
+                _camerasOrdered[cam.Priority] = cam;
+            }
+        }
 
 		_activeCamera = _camerasOrdered[0];
 	}

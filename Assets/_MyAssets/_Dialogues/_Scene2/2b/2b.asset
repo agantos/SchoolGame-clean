@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08b42a0dbf8327e48835bf7d615d551f, type: 3}
+  m_Name: 2b
+  m_EditorClassIdentifier: 
+  steps:
+  - stepText: Hello Peter!
+    speakerName: Margaret
+    clip: {fileID: 8300000, guid: 8b725604508b90c4691f55adc4bf19ab, type: 3}
+    nextDelay: 0.3
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: "*That\u2019s Margaret, my best friend!*"
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: 02f7daa9a2a8ce441b066b0c23a3eae4, type: 3}
+    nextDelay: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: "*Margaret is 9 years old too, but she\u2019s in a different classroom.*"
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: df5f1b3c9d3538142839450be4fd2cee, type: 3}
+    nextDelay: 0.4
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  options:
+  - optionText: Say hello to Margaret.
+    nextNode: {fileID: 11400000, guid: 21893b47003b54c4181f6dac626eed50, type: 2}
+  - optionText: "Don\u2019t say hello and just run straight to the snack shop!"
+    nextNode: {fileID: 11400000, guid: 3921df6791339de4bb55520f03578267, type: 2}
+  tag: 
+  autoChangeSteps: 1

@@ -22,6 +22,6 @@ MonoBehaviour:
   - optionText: Enter Classroom
     nextNode: {fileID: 11400000, guid: e046460835e40db4fbd504141383bd10, type: 2}
   - optionText: Don't go yet.
-    nextNode: {fileID: 11400000, guid: 0a6bbc49dc551554f967eda20d181f56, type: 2}
+    nextNode: {fileID: 0}
   tag: ToClassroom
   autoChangeSteps: 1

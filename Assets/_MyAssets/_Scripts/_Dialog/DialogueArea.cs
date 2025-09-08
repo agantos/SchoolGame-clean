@@ -8,10 +8,12 @@ public class DialogueArea : MonoBehaviour
     [SerializeField] private LayerMask playerLayer;
     [SerializeField] private SCR_DialogueNode dialog;
 	[SerializeField] private DialogueEventPlanner_Base eventPlanner;
+    [SerializeField] private bool startOnTriggerEnter;
 
 
 
-	private void Awake()
+
+    private void Awake()
     {
         _rightSideButtonsHandler = FindAnyObjectByType<RightSideButtonsHandler>();
         _dialogueManager = FindAnyObjectByType<DialogueManager>();
@@ -44,6 +46,11 @@ public class DialogueArea : MonoBehaviour
     {
         _rightSideButtonsHandler?.ToggleDialogueButton(true);
         _dialogueManager.DialogueToStart = dialog;
+
+        if (startOnTriggerEnter) {            
+            _dialogueManager.StartDialogue();
+            gameObject.SetActive(false);
+        }
     }
 
     void OutsidePlayerArea()

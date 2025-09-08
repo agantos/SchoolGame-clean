@@ -38,7 +38,7 @@ public class DialogueUI : MonoBehaviour
     #endregion
 
     #region Events
-    public event Action OnStepFinished_NodeMethods;
+    public Func<UniTask> OnStepFinished_NodeMethods;
 
     public void ClearOnStepFinished()
     {
@@ -49,27 +49,29 @@ public class DialogueUI : MonoBehaviour
     #region Audio/Visual__Changes
     public void UpdateTextView(string textToType, string speakerName, string optionAText = null, string optionBText = null, AudioClip clip = null)
     {
-		EnableNext();
+        EnableNext();
 
-		dialogueText.text = "";
+        dialogueText.text = "";
         float duration = typingDuration * textToType.Length / 50;
         if (clip != null) duration = clip.length;
 
         SetSpeakerName(speakerName);
 
         _activeTextTween = dialogueText.DOText(textToType, duration, richTextEnabled: true)
-            .OnComplete(() => {
-                SetOptions(optionAText, optionBText);
-                if (optionAText != null || optionBText != null)
-                {
-					DisableNext();
-				}
+            .OnComplete(async () => {                
+                bool hasOptions = optionAText != null || optionBText != null;
+                if (hasOptions) DisableNext();
 
 				_audioSource.Stop();
                 _audioSource.clip = null;
 				_activeTextTween = null;
 
-			    OnStepFinished_NodeMethods?.Invoke();
+                if (OnStepFinished_NodeMethods != null)
+                {
+                    await OnStepFinished_NodeMethods.Invoke();
+                }
+
+                SetOptions(optionAText, optionBText);
             });
 
     }

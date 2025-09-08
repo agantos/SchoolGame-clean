@@ -12,13 +12,13 @@ public class DialogueManager : MonoBehaviour
     public DialogueEventPlanner_Base EventPlanner;
     [SerializeField] DialogueUI dialogueUI;
 
-    InputManager _inputManager;
+    PlayerMovementController _playerMovementController;
 
     int _currentStep = 0;
 
     private void Start()
     {
-        _inputManager = FindAnyObjectByType<InputManager>();
+        _playerMovementController = FindAnyObjectByType<PlayerMovementController>();
     }
 
     public async void StartDialogue()
@@ -43,24 +43,37 @@ public class DialogueManager : MonoBehaviour
         if (dialogueUI.gameObject.activeSelf == false)
         {
             dialogueUI.gameObject.SetActive(true);
-            _inputManager.playerActions.Disable();
+            _playerMovementController.DisableMovement();
         }
 
         Update_Dialog_AudioVisuals();
-        await EventPlanner.OnNodeStart(currentNode);
+        if(EventPlanner!=null) await EventPlanner.OnNodeStart(currentNode);
     }
 
     public async void CloseDialogue()
     {
-        await EventPlanner.OnNodeEnd(currentNode);
+        var node = currentNode;
         currentNode = null;
+        DialogueToStart = null;
+
         dialogueUI.gameObject.SetActive(false);
 
-        _inputManager.playerActions.Enable();
+        _playerMovementController.EnableMovement();
+        if (EventPlanner != null) await EventPlanner.OnNodeEnd(node);
+
     }
 
-    void AutomaticNext()
+    bool waitingOnAutomatic = false;
+
+    async UniTask AutomaticNext()
     {
+        int delay = (int)MathF.Ceiling(currentNode.steps[_currentStep].nextDelay * 1000);
+
+        waitingOnAutomatic = true;
+        await UniTask.Delay(delay);
+        waitingOnAutomatic = false;
+
+
         // Last Step
         if (_currentStep == currentNode.steps.Count - 1)
         {
@@ -71,10 +84,13 @@ public class DialogueManager : MonoBehaviour
 
         var step = currentNode.steps[_currentStep];
         Update_Dialog_AudioVisuals();
+
     }
 
     public void OnNextPressed()
     {
+        if (waitingOnAutomatic) return;
+
 		_currentStep++;
 
 		if (_currentStep == currentNode.steps.Count)
@@ -102,7 +118,7 @@ public class DialogueManager : MonoBehaviour
     {
 		dialogueUI.gameObject.SetActive(false);
 
-		await EventPlanner.OnNodeOptionAPick(currentNode);
+        if (EventPlanner != null) await EventPlanner.OnNodeOptionAPick(currentNode);
 
 		var nextNode = currentNode.options[0].nextNode;
 
@@ -116,7 +132,7 @@ public class DialogueManager : MonoBehaviour
     {
 		dialogueUI.gameObject.SetActive(false);
 
-		await EventPlanner.OnNodeOptionBPick(currentNode);
+        if (EventPlanner != null) await EventPlanner.OnNodeOptionBPick(currentNode);
 
         var nextNode = currentNode.options[1].nextNode;
 
@@ -134,7 +150,7 @@ public class DialogueManager : MonoBehaviour
         if (_currentStep == currentNode.steps.Count - 1)
         {
             if (currentNode.options.Length == 2)
-                dialogueUI.UpdateTextView(step.stepText, step.speakerName, currentNode.options[0].optionText, currentNode.options[1].optionText, step.clip);
+                dialogueUI.UpdateTextView(step.stepText, step.speakerName,  currentNode.options[0].optionText, currentNode.options[1].optionText, step.clip);
 			else if(currentNode.options.Length == 1)
 				dialogueUI.UpdateTextView(step.stepText, step.speakerName, currentNode.options[0].optionText, null, step.clip);
             else
