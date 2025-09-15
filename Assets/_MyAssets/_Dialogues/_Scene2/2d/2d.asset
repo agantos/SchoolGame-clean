@@ -32,5 +32,5 @@ MonoBehaviour:
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
   options: []
-  tag: 
+  tag: GoToSnackShopDialogue
   autoChangeSteps: 1

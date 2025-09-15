@@ -20,6 +20,8 @@ public class RightSideButtonsHandler : MonoBehaviour
         GrabButton.gameObject.SetActive(false);
         DialogueButton.gameObject.SetActive(false);
         ReleaseButton.gameObject.SetActive(false);
+
+        DialogueButton.onClick.AddListener(() => { ToggleDialogueButton(false); }); 
     }
 
     #region Toggle Visibility Button Methods

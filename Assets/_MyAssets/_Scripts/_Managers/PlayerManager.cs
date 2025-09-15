@@ -5,60 +5,151 @@ using UnityEngine;
 public class PlayerManager : MonoBehaviour
 {
     [SerializeField] CinemachineBrain cameraBrain;
-    [SerializeField] CinemachineCamera focusOnObjectCamera;
-
     [SerializeField] Transform playerBodyTransform;
 
-    PlayerMovementController _playerMovementController;
+    public PlayerMovementController PlayerMovementController { private set; get; }
+
+    private CinemachineCamera activeCamera;
+    private Quaternion _originalPlayerRotation;
+    private Quaternion _originalCameraRotation;
+
     private void Start()
     {
-        _playerMovementController = FindAnyObjectByType<PlayerMovementController>();
+        PlayerMovementController = FindAnyObjectByType<PlayerMovementController>();
+    } 
+
+    private void Update()
+    {
     }
 
-    public async UniTask LookAt(Transform target, bool keepFocus = false)
+    public void MoveToPosition(Vector3 position)
     {
-        var activeCamera = cameraBrain.ActiveVirtualCamera as CinemachineCamera;
-        if (activeCamera == null) return;
+        PlayerMovementController.MoveImmediately(position);
+    }
 
-        // 1. Freeze player movement
-        _playerMovementController.DisableMovement();
+    public void LookImmediately(Transform lookAt)
+    {
+        Vector3 direction = lookAt.position - playerBodyTransform.position;
+        Quaternion targetRotation = Quaternion.LookRotation(direction);
 
-        // 2. Sync starting position/rotation (optional, for smooth blending)
-        focusOnObjectCamera.transform.position = activeCamera.transform.position;
-        focusOnObjectCamera.transform.rotation = activeCamera.transform.rotation;
+        PlayerMovementController.SetRotation(targetRotation.eulerAngles);
+    }
 
-        // 3. Assign target for Hard Look At
-        focusOnObjectCamera.LookAt = target;
+    public async UniTask CameraLookAt(
+        Transform target,
+        bool playerLooksThereToo = false,
+        float minDuration = 0.5f,  // shortest possible rotation time
+        float maxDuration = 1f   // longest possible rotation time
+    )
+    {
+        activeCamera = cameraBrain.ActiveVirtualCamera as CinemachineCamera;
 
-        // 4. Blend by adjusting priority
-        int oldPriority = activeCamera.Priority;
-        focusOnObjectCamera.Priority = oldPriority + 1;
+        if (activeCamera == null)
+            return;
 
-        // 5. Wait until blending is done
-        await UniTask.WaitUntil(() => !cameraBrain.IsBlending);
+        _originalCameraRotation = activeCamera.transform.rotation;
+        _originalPlayerRotation = playerBodyTransform.rotation;
 
-        // Keep looking at target if requested
-        if (keepFocus)
+        PlayerMovementController.DisableMovement();
+
+        // --- Calculate target rotations ---
+        Vector3 cameraToTarget = target.position - activeCamera.transform.position;
+        Quaternion targetCameraRot = Quaternion.LookRotation(cameraToTarget);
+
+        Vector3 playerToTarget = target.position - playerBodyTransform.position;
+        playerToTarget.y = 0;
+        Quaternion targetPlayerRot = Quaternion.LookRotation(playerToTarget);
+
+        // --- Calculate angle difference ---
+        float angle = Quaternion.Angle(_originalCameraRotation, targetCameraRot);
+
+        // --- Map angle to duration ---
+        // Scale duration proportionally: 0° = minDuration, 180° = maxDuration
+        float t = Mathf.InverseLerp(0, 180, angle);
+        float duration = Mathf.Lerp(minDuration, maxDuration, t);
+
+        float elapsed = 0f;
+
+        while (elapsed < duration)
         {
-            var playerCam = activeCamera.GetComponent<MobileTurnCamera>();
-            if (playerCam != null)
+            elapsed += Time.deltaTime;
+            float progress = Mathf.Clamp01(elapsed / duration);
+
+            // --- Make camera follow player ---
+            Vector3 cameraOffset = new Vector3(0f, playerBodyTransform.localScale.y / 1.5f, 0f);
+            activeCamera.transform.position = playerBodyTransform.position + cameraOffset;
+
+            // --- Smooth rotate camera ---
+            activeCamera.transform.rotation = Quaternion.Slerp(
+                _originalCameraRotation,
+                targetCameraRot,
+                progress
+            );
+
+            if (playerLooksThereToo)
             {
-                playerCam.SetRotation(focusOnObjectCamera.transform.rotation);
+                playerBodyTransform.rotation = Quaternion.Slerp(
+                    _originalPlayerRotation,
+                    targetPlayerRot,
+                    progress
+                );
             }
+
+            await UniTask.Yield();
         }
+
+        // Snap to final rotations
+        activeCamera.transform.rotation = targetCameraRot;
+        if (playerLooksThereToo)
+            playerBodyTransform.rotation = targetPlayerRot;
     }
 
-    public async UniTask ReturnToPlayer()
+    public async UniTask ReturnToOriginalPlayerView(
+        bool returnMovement = true,
+        float minDuration = 0.25f,   // shortest rotation time
+        float maxDuration = 0.75f    // longest rotation time
+    )
     {
-        var activeCamera = cameraBrain.ActiveVirtualCamera as CinemachineCamera;
-        if (activeCamera == null) return;
+        PlayerMovementController.DisableMovement();
 
-        // Lower focus camera priority so player cam becomes active again
-        focusOnObjectCamera.Priority = -1;
+        if (activeCamera == null)
+            return;
 
-        await UniTask.WaitUntil(() => !cameraBrain.IsBlending);
+        // --- Calculate angle differences ---
+        float cameraAngle = Quaternion.Angle(activeCamera.transform.rotation, _originalCameraRotation);
+        float playerAngle = Quaternion.Angle(playerBodyTransform.rotation, _originalPlayerRotation);
 
-        // Restore movement
-        _playerMovementController.EnableMovement();
+        // Take the larger angle as the basis
+        float maxAngle = Mathf.Max(cameraAngle, playerAngle);
+
+        // --- Map angle to duration ---
+        float t = Mathf.InverseLerp(0, 180, maxAngle);
+        float duration = Mathf.Lerp(minDuration, maxDuration, t);
+
+        float elapsed = 0f;
+
+        // Store starting points
+        Quaternion startCameraRot = activeCamera.transform.rotation;
+        Quaternion startPlayerRot = playerBodyTransform.rotation;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float progress = Mathf.Clamp01(elapsed / duration);
+
+            // Smoothly rotate camera & player back to original
+            activeCamera.transform.rotation = Quaternion.Slerp(startCameraRot, _originalCameraRotation, progress);
+            playerBodyTransform.rotation = Quaternion.Slerp(startPlayerRot, _originalPlayerRotation, progress);
+
+            await UniTask.Yield();
+        }
+
+        // Snap to exact originals at the end
+        activeCamera.transform.rotation = _originalCameraRotation;
+        playerBodyTransform.rotation = _originalPlayerRotation;
+
+        if (returnMovement)
+            PlayerMovementController.EnableMovement();
     }
+
 }

@@ -14,13 +14,13 @@ public class CinemachineCameraTransition : MonoBehaviour
 		_changer = FindAnyObjectByType<CinemachineCameraChanger>();
 	}
 
-	public async void PerformTransitions()
+	public async UniTask PerformTransitions()
 	{
 		int i = 0;
 
 		foreach(var c in cameras)
 		{
-			_changer.TransitionToCam(c);
+			await _changer.TransitionToCam(c);
 			
 			if(delays.Length > i)
 				await UniTask.Delay(Mathf.CeilToInt(delays[i] * 1000));

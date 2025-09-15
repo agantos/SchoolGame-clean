@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08b42a0dbf8327e48835bf7d615d551f, type: 3}
+  m_Name: 3_6_NoAsk
+  m_EditorClassIdentifier: 
+  steps:
+  - stepText: I just turned around and walked away. I guess I'll stay hungry.
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: 59f76318e02053b45ad9512972939d92, type: 3}
+    nextDelay: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: "Now I feel the pain because I\u2019m so hungry!"
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: 3ec0c8cdf9bbca14ebeeb907b07afed3, type: 3}
+    nextDelay: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: "I\u2019m too embarrassed to ask again..But I really wanna know if
+      they have anything else!\r"
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: 8bf99ad81374dcb40ab1207b6dedb40c, type: 3}
+    nextDelay: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: "Maybe I should just ask...\r"
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: 422432505f02b06469eed566600a22ad, type: 3}
+    nextDelay: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  options: []
+  tag: 3_6_NoAsk
+  autoChangeSteps: 1

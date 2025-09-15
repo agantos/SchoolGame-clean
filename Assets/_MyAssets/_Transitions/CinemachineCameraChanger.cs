@@ -1,32 +1,39 @@
 using Unity.Cinemachine;
 using UnityEngine;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 
 public class CinemachineCameraChanger : MonoBehaviour
 {
-    CinemachineCamera[] _cameras;
-	CinemachineCamera[] _camerasOrdered;
+	[SerializeField] CinemachineBrain cinemachineBrain;
 
-	CinemachineCamera _activeCamera;
-	private void Start()
+    [SerializeField] CinemachineCamera playerCamera;
+	CinemachineCamera _activeChangedCamera;
+
+    public async UniTask TransitionToCam(CinemachineCamera cam)
+    {
+        var activeCamera = cinemachineBrain.ActiveVirtualCamera as CinemachineCamera;
+        if (activeCamera == null || cam == null || activeCamera == cam)
+            return;
+
+        // Disable current
+        activeCamera.gameObject.SetActive(false);
+
+        // Queue new active
+        _activeChangedCamera = cam;
+        cam.gameObject.SetActive(true);
+
+        await UniTask.WaitUntil(() => cinemachineBrain.IsBlending);
+        await UniTask.WaitWhile(() => cinemachineBrain.IsBlending);
+    }
+
+
+    public void TransitionBackToPlayerCamera()
 	{
-		_cameras = FindObjectsByType<CinemachineCamera>(FindObjectsInactive.Include, FindObjectsSortMode.None);
-		_camerasOrdered = _cameras;
+		if (_activeChangedCamera == null || _activeChangedCamera == playerCamera) return;
 
-		foreach (var cam in _cameras)
-		{
-			if (cam.Priority >= 0) {
-                _camerasOrdered[cam.Priority] = cam;
-            }
-        }
-
-		_activeCamera = _camerasOrdered[0];
-	}
-
-	public void TransitionToCam(CinemachineCamera cam)
-	{
-		_activeCamera.gameObject.SetActive(false);
-		_activeCamera = cam;
-		_activeCamera.gameObject.SetActive(true);
+		playerCamera.gameObject.SetActive(true);
+		_activeChangedCamera.gameObject.SetActive(false);
+		_activeChangedCamera = playerCamera;
 	}
 }

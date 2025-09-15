@@ -10,9 +10,6 @@ public class DialogueArea : MonoBehaviour
 	[SerializeField] private DialogueEventPlanner_Base eventPlanner;
     [SerializeField] private bool startOnTriggerEnter;
 
-
-
-
     private void Awake()
     {
         _rightSideButtonsHandler = FindAnyObjectByType<RightSideButtonsHandler>();
@@ -44,12 +41,15 @@ public class DialogueArea : MonoBehaviour
 
     void PlayerInsideArea()
     {
-        _rightSideButtonsHandler?.ToggleDialogueButton(true);
         _dialogueManager.DialogueToStart = dialog;
 
         if (startOnTriggerEnter) {            
             _dialogueManager.StartDialogue();
-            gameObject.SetActive(false);
+            Disable();
+        }
+        else
+        {
+            _rightSideButtonsHandler?.ToggleDialogueButton(true);
         }
     }
 
@@ -57,5 +57,11 @@ public class DialogueArea : MonoBehaviour
     {
         _rightSideButtonsHandler?.ToggleDialogueButton(false);
         _dialogueManager.DialogueToStart = null;
+    }
+
+    void Disable()
+    {
+        gameObject.GetComponent<SphereCollider>().enabled = false;  
+        gameObject.GetComponent<MeshRenderer>().enabled = false;
     }
 }

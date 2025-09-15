@@ -16,12 +16,14 @@ MonoBehaviour:
   - stepText: '*Wow! Time went so fast! It''s break time!*'
     speakerName: Peter
     clip: {fileID: 8300000, guid: cea6bf3fe32bc224897a997f36a3f76c, type: 3}
+    nextDelay: 0
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
   - stepText: I can't wait! I got my stuff ready and waited for our teacher to give
       us the signal to go outside for break.
     speakerName: Peter
     clip: {fileID: 8300000, guid: a1d52099dbe2f3e4ca3ce2d47753565b, type: 3}
+    nextDelay: 0
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
   options: []

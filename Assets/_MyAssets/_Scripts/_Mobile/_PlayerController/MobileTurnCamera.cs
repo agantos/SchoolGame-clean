@@ -8,7 +8,8 @@ public class MobileTurnCamera : MonoBehaviour
 	private InputSystem_Actions.PlayerActions _playerActions;
 
 	[SerializeField] private CinemachineCamera virtualCam;
-	[SerializeField] private Transform player;
+
+    [SerializeField] private Transform player;
 
 	public float sensitivity = 0.05f;
 
@@ -22,36 +23,55 @@ public class MobileTurnCamera : MonoBehaviour
 
 	private void Update()
 	{
-		Vector2 lookDelta = _playerActions.Look.ReadValue<Vector2>();
 
-		transform.position = player.position + new Vector3(0f, player.position.y/2, 0f);
-
-		if (lookDelta.sqrMagnitude < 0.001f)
-			return;
-
-		// Skip if finger is over UI
-		if (Touchscreen.current != null)
-		{
-			foreach (var touch in Touchscreen.current.touches)
-			{
-				if (touch.press.isPressed)
-				{
-					int fingerId = touch.touchId.ReadValue();
-					if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject(fingerId))
-						return;
-				}
-			}
-		}
-
-		panTilt.PanAxis.Value += lookDelta.x * sensitivity;
-
-		panTilt.TiltAxis.Value -= lookDelta.y * sensitivity;
-
-
-		player.rotation = Quaternion.Euler(0f, panTilt.PanAxis.Value, 0f);
 	}
 
-    public void SetRotation(Quaternion worldRotation)
+    public void Enable()
+    {
+        SetCameraAndPlayerRotation(transform.rotation);
+
+        if (panTilt != null)
+            panTilt.enabled = true;
+    }
+
+    public void Disable()
+    {
+        if (panTilt != null)
+            panTilt.enabled = false;
+    }
+
+    public void ProvideRotation()
+	{
+        Vector2 lookDelta = _playerActions.Look.ReadValue<Vector2>();
+
+        transform.position = player.position + new Vector3(0f, player.localScale.y / 1.5f, 0f);
+
+        if (lookDelta.sqrMagnitude < 0.001f)
+            return;
+
+        // Skip if finger is over UI
+        if (Touchscreen.current != null)
+        {
+            foreach (var touch in Touchscreen.current.touches)
+            {
+                if (touch.press.isPressed)
+                {
+                    int fingerId = touch.touchId.ReadValue();
+                    if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject(fingerId))
+                        return;
+                }
+            }
+        }
+
+        panTilt.PanAxis.Value += lookDelta.x * sensitivity;
+
+        panTilt.TiltAxis.Value -= lookDelta.y * sensitivity;
+
+
+        player.rotation = Quaternion.Euler(0f, panTilt.PanAxis.Value, 0f);
+    }
+
+    public void SetCameraAndPlayerRotation(Quaternion worldRotation)
     {
         if (panTilt == null) panTilt = virtualCam.GetComponent<CinemachinePanTilt>();
         if (panTilt == null) return;
@@ -76,5 +96,5 @@ public class MobileTurnCamera : MonoBehaviour
         player.rotation = Quaternion.Euler(0f, pan, 0f);
     }
 
-    public void SetRotation(Vector3 eulerAngles) => SetRotation(Quaternion.Euler(eulerAngles));
+    public void SetRotation(Vector3 eulerAngles) => SetCameraAndPlayerRotation(Quaternion.Euler(eulerAngles));
 }

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08b42a0dbf8327e48835bf7d615d551f, type: 3}
+  m_Name: 3_4_QueueEnded
+  m_EditorClassIdentifier: 
+  steps:
+  - stepText: (A few moments later it was finally my turn!)
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: 9da7d0652968b724aac6c138eb73e77c, type: 3}
+    nextDelay: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  options:
+  - optionText: Ask for your usual milk.
+    nextNode: {fileID: 11400000, guid: b132a155b6ed2204a8129c4de3d86571, type: 2}
+  tag: 
+  autoChangeSteps: 0

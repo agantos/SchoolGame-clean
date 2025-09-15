@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08b42a0dbf8327e48835bf7d615d551f, type: 3}
+  m_Name: 3_10_TryBiscuit_End
+  m_EditorClassIdentifier: 
+  steps:
+  - stepText: "Thanks, Margaret! That\u2019s so nice of you!"
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: f685ffaadf3ca0a42af062bbd5f20d96, type: 3}
+    nextDelay: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: '*Me and Margaret share our things. Yesterday I gave her my one piece
+      of spinach pie!*'
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: c1aea7afc9ee2e84999f1ed31e639ed1, type: 3}
+    nextDelay: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: '*Sharing is awesome! When we share, it makes everything more fun,
+      and we get to enjoy things together!*'
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: 777cc08d6beffd5409187838dc15727a, type: 3}
+    nextDelay: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: '*It feels nice to help each other out!*'
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: 4fe1067a09f20ce4aa9a27a2fd4f3630, type: 3}
+    nextDelay: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  options: []
+  tag: 
+  autoChangeSteps: 0

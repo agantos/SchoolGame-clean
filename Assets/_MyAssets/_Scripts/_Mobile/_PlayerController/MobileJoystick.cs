@@ -21,6 +21,21 @@ public class MobileJoystick : MonoBehaviour, IDragHandler, IPointerDownHandler, 
         Handle.anchoredPosition = Vector2.zero;
     }
 
+    public void Disable()
+    {
+        directionVector = Vector2.zero;
+        Handle.anchoredPosition = Vector2.zero;
+
+        ControllerArea.gameObject.SetActive(false);
+        Handle.gameObject.SetActive(false);
+    }
+
+    public void Enable()
+    {
+        ControllerArea.gameObject.SetActive(true);
+        Handle.gameObject.SetActive(true);
+    }
+
     void CalculateDirection(PointerEventData eventData)
     {
         Vector2 pos;

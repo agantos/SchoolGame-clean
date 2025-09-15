@@ -11,12 +11,16 @@ public class DialogueEventPlanner_1 : DialogueEventPlanner_Base
 
     [SerializeField] private DoorAnimationController doorController;
 
-    [SerializeField] private TabletAnimationController tabletController;
+    [SerializeField] private TabletAnimationController tabletAnimationController;
+    private TabletController _tabletController;
+
     [SerializeField] private VideoClip dinosaurVideo;
 
 
 	private void Start()
     {
+        _tabletController = FindAnyObjectByType<TabletController>();
+
         CreateEvent("ToClassroom", DialogueEvent.OnDialogueEvent.OPTION_A, EnterClassroom);
 		
         CreateEvent("SitInClass", DialogueEvent.OnDialogueEvent.OPTION_A, SitDown);
@@ -39,13 +43,9 @@ public class DialogueEventPlanner_1 : DialogueEventPlanner_Base
         toTablet.PerformTransitions();
         await UniTask.Delay(1000);
 
-        await tabletController.SlideTabletOut();
+        await tabletAnimationController.SlideTabletOut();
         await UniTask.Delay(500);
-
-
-        var tabletVideoPlayer = tabletController.gameObject.GetComponentInChildren<VideoPlayer>();
-        tabletVideoPlayer.clip = dinosaurVideo;
-        tabletVideoPlayer.Play();
+        
     }
 
     async UniTask EnterClassroom()

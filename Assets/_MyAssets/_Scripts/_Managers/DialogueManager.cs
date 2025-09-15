@@ -23,7 +23,8 @@ public class DialogueManager : MonoBehaviour
 
     public async void StartDialogue()
     {
-        if (DialogueToStart != null) { 
+        if (DialogueToStart != null) {
+            _playerMovementController.DisableMovement();
             await OpenNode(DialogueToStart);
         }
     }
@@ -43,7 +44,6 @@ public class DialogueManager : MonoBehaviour
         if (dialogueUI.gameObject.activeSelf == false)
         {
             dialogueUI.gameObject.SetActive(true);
-            _playerMovementController.DisableMovement();
         }
 
         Update_Dialog_AudioVisuals();
@@ -117,28 +117,38 @@ public class DialogueManager : MonoBehaviour
     public async void OnOptionAPicked()
     {
 		dialogueUI.gameObject.SetActive(false);
+        var nextNode = currentNode.options[0].nextNode;
+
+        _playerMovementController.AsyncMovementState_SetUP();
 
         if (EventPlanner != null) await EventPlanner.OnNodeOptionAPick(currentNode);
-
-		var nextNode = currentNode.options[0].nextNode;
 
         if (nextNode)
         {
             await OpenNode(nextNode);
+        }
+        else
+        {
+            _playerMovementController.EnableMovement_AsyncFearSafe();
         }
     }
 
     public async void OnOptionBPicked()
     {
 		dialogueUI.gameObject.SetActive(false);
+        var nextNode = currentNode.options[1].nextNode;
+        _playerMovementController.AsyncMovementState_SetUP();
+
 
         if (EventPlanner != null) await EventPlanner.OnNodeOptionBPick(currentNode);
-
-        var nextNode = currentNode.options[1].nextNode;
 
         if (nextNode)
         {
             await OpenNode(nextNode);
+        }
+        else
+        {
+            _playerMovementController.EnableMovement_AsyncFearSafe();
         }
     }
 

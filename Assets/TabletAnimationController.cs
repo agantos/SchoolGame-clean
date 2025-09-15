@@ -30,27 +30,6 @@ public class TabletAnimationController : MonoBehaviour
 		isAnimating = false;
 		onTabletOut?.Invoke();
 	}
-
-	//public async UniTask CloseDoor()
-	//{
-	//	if (!isOpen || isAnimating) return;
-
-	//	animator.SetTrigger("CloseDoor");
-	//	isAnimating = true;
-	//	isOpen = false;
-
-	//	await WaitForState("CloseDoor");
-
-	//	isAnimating = false;
-	//	OnDoorClosed?.Invoke();
-	//}
-
-	//public async UniTask ToggleDoor()
-	//{
-	//	if (isOpen) await CloseDoor();
-	//	else await OpenDoor();
-	//}
-
 	private async UniTask WaitForState(string stateName)
 	{
 		while (!animator.GetCurrentAnimatorStateInfo(0).IsName(stateName))

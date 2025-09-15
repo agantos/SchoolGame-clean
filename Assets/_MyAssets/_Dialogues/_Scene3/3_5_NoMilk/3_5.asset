@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08b42a0dbf8327e48835bf7d615d551f, type: 3}
+  m_Name: 3_5
+  m_EditorClassIdentifier: 
+  steps:
+  - stepText: "Ugh, they don\u2019t have the milk that I want!\n"
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: f7e751803863fe14296a2cf057510156, type: 3}
+    nextDelay: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: Is it better to ask if they have it, even though i can't see it? Or
+      just walk away since I'm shy?
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: f4b9d7cbafcf1e3449b67150d7699143, type: 3}
+    nextDelay: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  options:
+  - optionText: Ask if they have it
+    nextNode: {fileID: 11400000, guid: 29a6975c1969d514bb62c3b21304e0b0, type: 2}
+  - optionText: Walk away
+    nextNode: {fileID: 11400000, guid: aace7e33fdb0d8044b22145c2837443a, type: 2}
+  tag: 3_5
+  autoChangeSteps: 1
