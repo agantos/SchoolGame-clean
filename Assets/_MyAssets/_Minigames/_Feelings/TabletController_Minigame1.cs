@@ -22,7 +22,6 @@ public class TabletController_Minigame1 : MonoBehaviour
     private void Start()
     {
         _backgroundGroup = backgroundImage.gameObject.GetComponent<CanvasGroup>();
-        StartGame();
     }
 
     public async void StartGame()
