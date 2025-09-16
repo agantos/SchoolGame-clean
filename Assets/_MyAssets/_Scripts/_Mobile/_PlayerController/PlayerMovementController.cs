@@ -5,10 +5,6 @@ public class PlayerMovementController : MonoBehaviour
 
     #region VARIABLES
     [SerializeField] float maxSpeed = 5.0f;
-    [SerializeField] Transform player;
-    [SerializeField] Transform cameraPivot;
-
-
     Rigidbody _rb;
 
     MobileJoystick _joystick;

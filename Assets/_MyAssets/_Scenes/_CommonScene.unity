@@ -223,7 +223,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.01
+  near clip plane: 0.05
   far clip plane: 1000
   field of view: 60.000004
   orthographic: 0
@@ -251,8 +251,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 93413774}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.20512176, y: 0.6732054, z: -0.20281205, w: 0.68087214}
-  m_LocalPosition: {x: -0.494, y: 1.884, z: -1.447}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 6.554, y: 1.809, z: -30.905}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -304,7 +304,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_EventMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 32
   m_MaxRayIntersections: 0
 --- !u!1 &100426437
 GameObject:
@@ -788,8 +788,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b749e33a2e63f914f8b5935ee7433219, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cinemachineBrain: {fileID: 0}
-  playerCamera: {fileID: 0}
+  cinemachineBrain: {fileID: 93413780}
+  playerCamera: {fileID: 596136138}
 --- !u!1 &750020967
 GameObject:
   m_ObjectHideFlags: 0
@@ -1208,8 +1208,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 2
-  player: {fileID: 1553104282}
-  cameraPivot: {fileID: 0}
 --- !u!1 &1649216509
 GameObject:
   m_ObjectHideFlags: 0
@@ -1280,7 +1278,7 @@ Transform:
   m_GameObject: {fileID: 1714848167}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.875, y: 1.544, z: -31.211}
+  m_LocalPosition: {x: 3.53, y: 1.544, z: -9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1299,7 +1297,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e0b62bf36504c047bf0046f8020d334, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraBrain: {fileID: 0}
+  cameraBrain: {fileID: 93413780}
   playerBodyTransform: {fileID: 1553104282}
 --- !u!1 &2008581750
 GameObject:

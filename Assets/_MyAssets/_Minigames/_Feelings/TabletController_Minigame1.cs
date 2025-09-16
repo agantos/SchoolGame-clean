@@ -6,14 +6,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
 
-public class TabletController : MonoBehaviour
+public class TabletController_Minigame1 : MonoBehaviour
 {
     
     [Header("Levels")]
     [SerializeField] Level[] levels;
     [SerializeField] AudioSource audioSource;
-
-
 
     void Awake()
     {
@@ -24,11 +22,14 @@ public class TabletController : MonoBehaviour
     private void Start()
     {
         _backgroundGroup = backgroundImage.gameObject.GetComponent<CanvasGroup>();
-
-        PlayIntroductionVideo();
+        StartGame();
     }
 
-
+    public async void StartGame()
+    {
+        await UniTask.Delay(500);
+        PlayIntroductionVideo();
+    }
 
     #region VIDEO VIEW
 
@@ -88,15 +89,13 @@ public class TabletController : MonoBehaviour
 
     #endregion
 
-
-
-    public void EnableVideoView()
+    void EnableVideoView()
     {
         ImageView.SetActive(false);
         VideoView.SetActive(true);
     }
 
-    public void EnableImageView()
+    void EnableImageView()
     {
         ImageView.SetActive(true);
         VideoView.SetActive(false);
@@ -120,7 +119,7 @@ public class TabletController : MonoBehaviour
 
     int _currentLevelIndex = 0;
 
-    public void NextLevel()
+    void NextLevel()
     {
         _currentLevelIndex++;
 
@@ -133,7 +132,7 @@ public class TabletController : MonoBehaviour
         }
     }
 
-    public void TransitionToFinalImage()
+    void TransitionToFinalImage()
     {
         var button = FinalView.GetComponent<Button>();
         button.enabled = false;
@@ -146,17 +145,17 @@ public class TabletController : MonoBehaviour
         // Build DOTween sequence
         Sequence seq = DOTween.Sequence();
 
-        seq.Append(_backgroundGroup.DOFade(0f, 0.5f)) 
+		seq.Append(_backgroundGroup.DOFade(0f, 0.5f)) 
            .Append(finalGroup.DOFade(1f, 0.5f))      
            .OnComplete(() =>
            {
-               ImageView.gameObject.SetActive(false);
+			   ImageView.gameObject.SetActive(false);
                button.enabled = true;
            });
 
     }
 
-    public void SetLevel(Level level, bool playTransition = true)
+    void SetLevel(Level level, bool playTransition = true)
     {
         EnableImageView();
 
@@ -177,15 +176,23 @@ public class TabletController : MonoBehaviour
 
         // Kill any ongoing tweens on this group to avoid overlap
         _backgroundGroup.DOKill();
-        if (playTransition) {
-            DOTween.Sequence()
+
+		if (playTransition) {
+			middleVideoPlayer.transform.parent.gameObject.SetActive(false);
+
+			DOTween.Sequence()
                 .Append(_backgroundGroup.DOFade(0f, 0.5f))
                 .AppendCallback(() =>
                 {
                     backgroundImage.texture = level.image;
                 })
                 .Append(_backgroundGroup.DOFade(1f, 1f))
-                .Play();
+                .Play().OnComplete(async () =>
+				{
+					middleVideoPlayer.transform.parent.gameObject.SetActive(true);
+                    await UniTask.WaitForEndOfFrame();
+					await UniTask.Delay(300);
+				});
         }
 
 
@@ -196,7 +203,7 @@ public class TabletController : MonoBehaviour
         middleVideoPlayer.Play();
     }
 
-    public async void OnRightChoice()
+    async void OnRightChoice()
     {
         try
         {
@@ -212,7 +219,7 @@ public class TabletController : MonoBehaviour
         }
     }
 
-    public async void OnWrongChoice()
+    async void OnWrongChoice()
     {
         try
         {
