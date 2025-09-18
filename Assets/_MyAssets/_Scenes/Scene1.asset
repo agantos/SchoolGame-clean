@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneAsset: {fileID: 102900000, guid: fe38454246353214ebd9b8be074846a8, type: 3}
   scenePath: Assets/_MyAssets/_Scenes/_Scene1.unity
+  narrativeController: {fileID: 0}

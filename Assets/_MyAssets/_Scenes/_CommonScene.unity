@@ -1610,8 +1610,24 @@ PrefabInstance:
       value: I love biscuits. Do i say thank you and take one or just grab a biscuit?
       objectReference: {fileID: 0}
     - target: {fileID: 849479268104451271, guid: b6ce3d97c0874a3459db32ede7ff858c, type: 3}
+      propertyPath: m_fontSize
+      value: 47
+      objectReference: {fileID: 0}
+    - target: {fileID: 849479268104451271, guid: b6ce3d97c0874a3459db32ede7ff858c, type: 3}
+      propertyPath: m_margin.w
+      value: 18.453556
+      objectReference: {fileID: 0}
+    - target: {fileID: 849479268104451271, guid: b6ce3d97c0874a3459db32ede7ff858c, type: 3}
       propertyPath: m_margin.x
       value: 194.46344
+      objectReference: {fileID: 0}
+    - target: {fileID: 849479268104451271, guid: b6ce3d97c0874a3459db32ede7ff858c, type: 3}
+      propertyPath: m_margin.y
+      value: 21.048477
+      objectReference: {fileID: 0}
+    - target: {fileID: 849479268104451271, guid: b6ce3d97c0874a3459db32ede7ff858c, type: 3}
+      propertyPath: m_margin.z
+      value: 202.84515
       objectReference: {fileID: 0}
     - target: {fileID: 849479268104451271, guid: b6ce3d97c0874a3459db32ede7ff858c, type: 3}
       propertyPath: m_fontAsset
@@ -1622,9 +1638,21 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 849479268104451271, guid: b6ce3d97c0874a3459db32ede7ff858c, type: 3}
+      propertyPath: m_fontSizeMax
+      value: 47
+      objectReference: {fileID: 0}
+    - target: {fileID: 849479268104451271, guid: b6ce3d97c0874a3459db32ede7ff858c, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 47
+      objectReference: {fileID: 0}
+    - target: {fileID: 849479268104451271, guid: b6ce3d97c0874a3459db32ede7ff858c, type: 3}
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: -5965372886161266713, guid: 4fd6fb8b387a34e43af09264592b8661, type: 2}
+    - target: {fileID: 849479268104451271, guid: b6ce3d97c0874a3459db32ede7ff858c, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 849479268104451271, guid: b6ce3d97c0874a3459db32ede7ff858c, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 0
