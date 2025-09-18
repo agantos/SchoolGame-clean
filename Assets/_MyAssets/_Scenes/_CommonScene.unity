@@ -1278,7 +1278,7 @@ Transform:
   m_GameObject: {fileID: 1714848167}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.53, y: 1.544, z: -9}
+  m_LocalPosition: {x: 3.09, y: 1.544, z: -4.44}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1610,6 +1610,10 @@ PrefabInstance:
       value: I love biscuits. Do i say thank you and take one or just grab a biscuit?
       objectReference: {fileID: 0}
     - target: {fileID: 849479268104451271, guid: b6ce3d97c0874a3459db32ede7ff858c, type: 3}
+      propertyPath: m_margin.x
+      value: 194.46344
+      objectReference: {fileID: 0}
+    - target: {fileID: 849479268104451271, guid: b6ce3d97c0874a3459db32ede7ff858c, type: 3}
       propertyPath: m_fontAsset
       value: 
       objectReference: {fileID: 11400000, guid: 4fd6fb8b387a34e43af09264592b8661, type: 2}
@@ -1641,14 +1645,34 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3717455608517713431, guid: b6ce3d97c0874a3459db32ede7ff858c, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 444
+      objectReference: {fileID: 0}
+    - target: {fileID: 3717455608517713431, guid: b6ce3d97c0874a3459db32ede7ff858c, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 98
+      objectReference: {fileID: 0}
+    - target: {fileID: 3717455608517713431, guid: b6ce3d97c0874a3459db32ede7ff858c, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -594.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3717455608517713431, guid: b6ce3d97c0874a3459db32ede7ff858c, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -285
+      objectReference: {fileID: 0}
     - target: {fileID: 4314473163823735920, guid: b6ce3d97c0874a3459db32ede7ff858c, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6116452902835317423, guid: b6ce3d97c0874a3459db32ede7ff858c, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6116452902835317423, guid: b6ce3d97c0874a3459db32ede7ff858c, type: 3}
       propertyPath: m_Texture
       value: 
-      objectReference: {fileID: 2800000, guid: 70dc3f1432229aa41871b489d4214434, type: 3}
+      objectReference: {fileID: 2800000, guid: f747dfd7bd61339488a57558523edd99, type: 3}
     - target: {fileID: 6199732143562714534, guid: b6ce3d97c0874a3459db32ede7ff858c, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1758,12 +1782,32 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6958458022361667927, guid: b6ce3d97c0874a3459db32ede7ff858c, type: 3}
+      propertyPath: m_Color.a
+      value: 0.98039216
+      objectReference: {fileID: 0}
+    - target: {fileID: 6958458022361667927, guid: b6ce3d97c0874a3459db32ede7ff858c, type: 3}
       propertyPath: m_Texture
       value: 
-      objectReference: {fileID: 2800000, guid: ce3046aac31d1344db99f6bcab6e322f, type: 3}
+      objectReference: {fileID: 2800000, guid: dab0f42d03b227f44b76db221f1e6c11, type: 3}
     - target: {fileID: 7068994007797327366, guid: b6ce3d97c0874a3459db32ede7ff858c, type: 3}
       propertyPath: m_fontSize
       value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 7068994007797327366, guid: b6ce3d97c0874a3459db32ede7ff858c, type: 3}
+      propertyPath: m_margin.w
+      value: 20.227526
+      objectReference: {fileID: 0}
+    - target: {fileID: 7068994007797327366, guid: b6ce3d97c0874a3459db32ede7ff858c, type: 3}
+      propertyPath: m_margin.x
+      value: 24.688278
+      objectReference: {fileID: 0}
+    - target: {fileID: 7068994007797327366, guid: b6ce3d97c0874a3459db32ede7ff858c, type: 3}
+      propertyPath: m_margin.y
+      value: 15.040142
+      objectReference: {fileID: 0}
+    - target: {fileID: 7068994007797327366, guid: b6ce3d97c0874a3459db32ede7ff858c, type: 3}
+      propertyPath: m_margin.z
+      value: 42.60884
       objectReference: {fileID: 0}
     - target: {fileID: 7068994007797327366, guid: b6ce3d97c0874a3459db32ede7ff858c, type: 3}
       propertyPath: m_fontAsset

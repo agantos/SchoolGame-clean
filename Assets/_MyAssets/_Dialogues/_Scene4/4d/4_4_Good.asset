@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08b42a0dbf8327e48835bf7d615d551f, type: 3}
+  m_Name: 4_4_Good
+  m_EditorClassIdentifier: 
+  steps:
+  - stepText: "I\u2019m really happy that you raised your hand, waited, and shared
+      your need. That\u2019s very polite and respectful!"
+    speakerName: Mrs Anne
+    clip: {fileID: 8300000, guid: ce6eadc9a5c46d24d973e6f663604047, type: 3}
+    nextDelay: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: I felt happy and proud of myself!
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: 689ae273ace3e744299af2ec64dc22ab, type: 3}
+    nextDelay: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  options: []
+  tag: 
+  autoChangeSteps: 0
