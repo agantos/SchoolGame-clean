@@ -14,8 +14,6 @@ public class DialogueArea : MonoBehaviour
     {
         _rightSideButtonsHandler = FindAnyObjectByType<RightSideButtonsHandler>();
         _dialogueManager = FindAnyObjectByType<DialogueManager>();
-        
-        if(eventPlanner != null) _dialogueManager.EventPlanner = eventPlanner;
 	}
     
     private void OnTriggerEnter(Collider other)
@@ -41,7 +39,8 @@ public class DialogueArea : MonoBehaviour
 
     void PlayerInsideArea()
     {
-        _dialogueManager.DialogueToStart = dialog;
+        _dialogueManager.EventPlanner = eventPlanner;
+		_dialogueManager.DialogueToStart = dialog;
 
         if (startOnTriggerEnter) {            
             _dialogueManager.StartDialogue();
