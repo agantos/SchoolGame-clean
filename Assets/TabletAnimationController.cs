@@ -30,6 +30,21 @@ public class TabletAnimationController : MonoBehaviour
 		isAnimating = false;
 		onTabletOut?.Invoke();
 	}
+
+	public async UniTask SlideTabletIn()
+	{
+		if (!isOpen || isAnimating) return;
+
+		animator.SetTrigger("SlideIn");
+	
+		isAnimating = true;
+		isOpen = false;
+
+		await WaitForState("Idle");
+
+		isAnimating = false;
+	}
+
 	private async UniTask WaitForState(string stateName)
 	{
 		while (!animator.GetCurrentAnimatorStateInfo(0).IsName(stateName))

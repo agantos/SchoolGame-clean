@@ -7,17 +7,25 @@ public class SceneController : MonoBehaviour
     public SCR_Scene[] scenes;
     private int currentLoadedScene = 0;
 
+    public SCR_Scene sceneToStart;
+
     private AsyncOperation _preloadedSceneOp;
 
-    public async UniTask LoadSceneAsFirst(int index = 0)
+	private async void Start()
+	{
+        await LoadSceneAsFirst(0);
+	}
+
+	public async UniTask LoadSceneAsFirst(int index = 0)
     {
+        currentLoadedScene = index;
         var sceneToLoad = scenes[currentLoadedScene];
 
         await SceneManager.LoadSceneAsync(sceneToLoad.ScenePath, LoadSceneMode.Additive);
 
         // Call onLoad tasks
         if (sceneToLoad?.narrativeController?.onLoadScene != null)
-        {
+        {          
             await sceneToLoad.narrativeController.onLoadScene.Invoke();
         }
 
@@ -49,14 +57,19 @@ public class SceneController : MonoBehaviour
             await currentScene.narrativeController.onUnloadScene.Invoke();
         }
 
-        // Activate the preloaded scene
-        if (_preloadedSceneOp != null && _preloadedSceneOp.isDone)
-        {
-            _preloadedSceneOp.allowSceneActivation = true;
-            await UniTask.WaitUntil(() => SceneManager.GetSceneByPath(sceneToLoad.ScenePath).isLoaded);
-            currentLoadedScene = toLoadIndex;
-        }
-        else
+		// Activate the preloaded scene
+		if (_preloadedSceneOp != null)
+		{
+			_preloadedSceneOp.allowSceneActivation = true;
+
+			await UniTask.WaitUntil(() =>
+				SceneManager.GetSceneByPath(sceneToLoad.ScenePath).isLoaded
+			);
+
+			currentLoadedScene = toLoadIndex;
+            _preloadedSceneOp = null;
+		}
+		else
         {
             Debug.LogError("Should not be here");
             return;

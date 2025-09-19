@@ -5,24 +5,44 @@ using UnityEngine.Video;
 public class DialogueEventPlanner_1 : DialogueEventPlanner_Base
 {
 
-    [SerializeField] private CinemachineCameraTransition toClassroom;
+	#region Private Variables
+	private TabletController_Minigame1 _minigame_1_Controller;
+	private CinemachineCameraChanger _cameraChanger;
+	private PlayerMovementController _playerMovementController;
+	private PlayerManager _playerManager;
+	private ScreenFader _screenFader;
+	private SceneController _sceneController;
+    #endregion
+
+    #region Serializable Fields
+    [Header("Camera Transitions")]
+	[SerializeField] private CinemachineCameraTransition toClassroom;
 	[SerializeField] private CinemachineCameraTransition toSeat;
 	[SerializeField] private CinemachineCameraTransition toTablet;
 
-    [SerializeField] private DoorAnimationController doorController;
+	[Header("Animation Controllers")]
+	[SerializeField] private DoorAnimationController doorController;
+	[SerializeField] private TabletAnimationController tabletAnimationController;
+	[SerializeField] private VideoClip dinosaurVideo;
 
-    [SerializeField] private TabletAnimationController tabletAnimationController;
-    private TabletController_Minigame1 _tabletController;
+	[Header("End Positions")]
+	[SerializeField] private Transform endPosition;
+	[SerializeField] private Transform endLookAt;
+	#endregion
 
-    [SerializeField] private VideoClip dinosaurVideo;
+	#region
 
-    private PlayerMovementController _playerMovementController;
+	#endregion
 
 
 	private void Start()
     {
-        _tabletController = FindAnyObjectByType<TabletController_Minigame1>();
+        _minigame_1_Controller = FindAnyObjectByType<TabletController_Minigame1>();
         _playerMovementController = FindAnyObjectByType<PlayerMovementController>();
+        _cameraChanger = FindAnyObjectByType<CinemachineCameraChanger>();
+        _screenFader = FindAnyObjectByType<ScreenFader>();
+        _sceneController = FindAnyObjectByType<SceneController>();
+        _playerManager = FindAnyObjectByType<PlayerManager>();
 
         CreateEvent("ToClassroom", DialogueEvent.OnDialogueEvent.OPTION_A, EnterClassroom);
 		
@@ -47,10 +67,34 @@ public class DialogueEventPlanner_1 : DialogueEventPlanner_Base
         await UniTask.Delay(300);
 
         await tabletAnimationController.SlideTabletOut();
-        _tabletController.StartGame();
+        _minigame_1_Controller.StartGame();
 		await UniTask.Delay(300);
         _playerMovementController.DisableMovement();
+
+        _minigame_1_Controller.onGameCompleted += OnCompleteMinigame;
 	}
+
+    async UniTask OnCompleteMinigame()
+    {
+        await UniTask.Delay(300);
+        tabletAnimationController.SlideTabletIn();
+        await UniTask.Delay(1200);
+		await toSeat.PerformTransitions();
+        await UniTask.Delay(2000);
+
+        // TransitionScene
+        await _screenFader.FadeTransition(1.5f, 2f, 1.5f, "After a while...",
+            callBack: async () => {
+                _cameraChanger.TransitionBackToPlayerCamera();
+				await UniTask.Delay(400);
+
+				_playerManager.MoveToPosition(endPosition.position);
+				await UniTask.Yield();
+				_playerManager.LookImmediately(endLookAt);
+
+				await _sceneController.LoadNextScene(); 
+        });
+    }
 
 	async UniTask EnterClassroom()
     {

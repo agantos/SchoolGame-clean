@@ -40,38 +40,39 @@ public class MobileTurnCamera : MonoBehaviour
             panTilt.enabled = false;
     }
 
-    public void ProvideRotation()
+	public void ProvideRotation()
 	{
-        Vector2 lookDelta = _playerActions.Look.ReadValue<Vector2>();
+		Vector2 lookDelta = _playerActions.Look.ReadValue<Vector2>();
 
-        transform.position = player.position + new Vector3(0f, player.localScale.y / 1.5f, 0f);
+		transform.position = player.position + new Vector3(0f, player.localScale.y / 1.5f, 0f);
 
-        if (lookDelta.sqrMagnitude < 0.001f)
-            return;
+		if (lookDelta.sqrMagnitude > 0.001f && !IsPointerOverUI())
+		{
+			panTilt.PanAxis.Value += lookDelta.x * sensitivity;
+			panTilt.TiltAxis.Value -= lookDelta.y * sensitivity;
+		}
 
-        // Skip if finger is over UI
-        if (Touchscreen.current != null)
-        {
-            foreach (var touch in Touchscreen.current.touches)
-            {
-                if (touch.press.isPressed)
-                {
-                    int fingerId = touch.touchId.ReadValue();
-                    if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject(fingerId))
-                        return;
-                }
-            }
-        }
+		player.rotation = Quaternion.Euler(0f, panTilt.PanAxis.Value, 0f);
+	}
 
-        panTilt.PanAxis.Value += lookDelta.x * sensitivity;
+	private bool IsPointerOverUI()
+	{
+		if (Touchscreen.current == null || EventSystem.current == null)
+			return false;
 
-        panTilt.TiltAxis.Value -= lookDelta.y * sensitivity;
+		foreach (var touch in Touchscreen.current.touches)
+		{
+			if (touch.press.isPressed)
+			{
+				int fingerId = touch.touchId.ReadValue();
+				if (EventSystem.current.IsPointerOverGameObject(fingerId))
+					return true;
+			}
+		}
+		return false;
+	}
 
-
-        player.rotation = Quaternion.Euler(0f, panTilt.PanAxis.Value, 0f);
-    }
-
-    public void SetCameraAndPlayerRotation(Quaternion worldRotation)
+	public void SetCameraAndPlayerRotation(Quaternion worldRotation)
     {
         if (panTilt == null) panTilt = virtualCam.GetComponent<CinemachinePanTilt>();
         if (panTilt == null) return;

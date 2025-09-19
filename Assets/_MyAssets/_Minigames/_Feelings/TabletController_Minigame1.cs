@@ -13,6 +13,8 @@ public class TabletController_Minigame1 : MonoBehaviour
     [SerializeField] Level[] levels;
     [SerializeField] AudioSource audioSource;
 
+    public Func<UniTask> onGameCompleted;
+
     void Awake()
     {
         var canvas = GetComponentInChildren<Canvas>();
@@ -22,12 +24,24 @@ public class TabletController_Minigame1 : MonoBehaviour
     private void Start()
     {
         _backgroundGroup = backgroundImage.gameObject.GetComponent<CanvasGroup>();
-    }
+		
+        var finalButton = FinalView.GetComponent<Button>();
+        finalButton.onClick.AddListener(async () => { await EndGame(); });
+	}
 
-    public async void StartGame()
+	public async void StartGame()
     {
         await UniTask.Delay(500);
         PlayIntroductionVideo();
+    }
+
+    public async UniTask EndGame()
+    {
+		ImageView.SetActive(false);
+		VideoView.SetActive(false);
+
+		if (onGameCompleted != null) await onGameCompleted.Invoke();
+
     }
 
     #region VIDEO VIEW
