@@ -7,13 +7,13 @@ public class SceneController : MonoBehaviour
     public SCR_Scene[] scenes;
     private int currentLoadedScene = 0;
 
-    public SCR_Scene sceneToStart;
+    public int sceneToStart = 0;
 
     private AsyncOperation _preloadedSceneOp;
 
 	private async void Start()
 	{
-        await LoadSceneAsFirst(0);
+        await LoadSceneAsFirst(sceneToStart);
 	}
 
 	public async UniTask LoadSceneAsFirst(int index = 0)

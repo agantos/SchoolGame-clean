@@ -9,8 +9,11 @@ using UnityEngine.UI;
 
 public class DialogueUI : MonoBehaviour
 {
-    #region Variables
-    [Header("Dialogue Text")]
+	#region Variables
+	[Header("Dialogue View")]
+    DialogueView dialogueView;
+
+	[Header("Dialogue Text")]
 
     [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] private float typingDuration = 1f;
