@@ -49,6 +49,14 @@ public class DialogueUI : MonoBehaviour
     }
     #endregion
 
+    public void SetView(int index)
+    {
+        if(dialogueView != null)
+        {
+            dialogueView.ToView(index);
+        }
+    }
+
     #region Audio/Visual__Changes
     public void UpdateTextView(string textToType, string speakerName, string optionAText = null, string optionBText = null, AudioClip clip = null)
     {

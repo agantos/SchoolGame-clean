@@ -22,7 +22,19 @@ public class DialogueView : MonoBehaviour
 	int currentAlternateView = -1; // -1 is for normalView
 
 
-	public void ToNormalView()
+	public void ToView(int index)
+	{
+		if(index == -1)
+		{
+			ToNormalView();
+		}
+		else
+		{
+			ToAlternateView(index);
+		}
+	}
+
+	void ToNormalView()
 	{
 		if (currentAlternateView == -1) return;
 
@@ -34,7 +46,7 @@ public class DialogueView : MonoBehaviour
 		currentAlternateView = -1;
 	}
 
-	public void ToAlternateView(int index = 0) {
+	void ToAlternateView(int index = 0) {
 		if (currentAlternateView == index || index >= alternateBackgroundTextures.Length) return;
 
 		textBackground.texture = alternateBackgroundTextures[index];

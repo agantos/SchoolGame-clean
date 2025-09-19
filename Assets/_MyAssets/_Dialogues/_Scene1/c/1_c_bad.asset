@@ -17,38 +17,52 @@ MonoBehaviour:
       morning,' it's nice to greet them back.
     speakerName: Mrs Anne
     clip: {fileID: 8300000, guid: 0e545517dd315344396d91818b4b7e65, type: 3}
+    nextDelay: 0
+    dialogueView: -1
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
   - stepText: If you don't, they might think that you don't want to talk to them.
       Always be kind and acknowledge others.
     speakerName: Mrs Anne
     clip: {fileID: 8300000, guid: 31c3b9796a6b91646b18b8dc7ee4d52c, type: 3}
+    nextDelay: 0
+    dialogueView: -1
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
   - stepText: '*Mrs. Anne is right, I haven''t woken up yet and I forgot to say good
       morning to everyone!*'
     speakerName: Peter
     clip: {fileID: 8300000, guid: 78ef58be35df7c2449b21b21c42d5bfa, type: 3}
+    nextDelay: 0
+    dialogueView: 0
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
   - stepText: Good morning everyone!
     speakerName: Peter
     clip: {fileID: 8300000, guid: 4e940ec23e39ce04985d434ca52d3264, type: 3}
+    nextDelay: 0
+    dialogueView: -1
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
   - stepText: Hi
     speakerName: Kids
     clip: {fileID: 8300000, guid: 0ccead09ebed631448c8fba7c73e2896, type: 3}
+    nextDelay: 0
+    dialogueView: -1
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
   - stepText: Hello!
     speakerName: Kids
     clip: {fileID: 8300000, guid: 46afa7dc8b2b22c41b4b1a3f0f2cac57, type: 3}
+    nextDelay: 0
+    dialogueView: -1
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
   - stepText: Good Morning Peter!
     speakerName: Kids
     clip: {fileID: 8300000, guid: 640c9ff719878c24c9dec26cca86e50c, type: 3}
+    nextDelay: 0
+    dialogueView: -1
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
   options:

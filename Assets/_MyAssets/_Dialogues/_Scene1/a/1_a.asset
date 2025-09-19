@@ -14,24 +14,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   steps:
   - stepText: "It\u2019s morning and we\u2019re at my school yard right now."
-    speakerName: Petros
+    speakerName: Peter
     clip: {fileID: 8300000, guid: cf4ca17ef0a4f9e4cbad013f8ae1dff8, type: 3}
+    nextDelay: 0
+    dialogueView: 0
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
   - stepText: 'Most of the kids went to the museum, so there won''t be a lot of kids
       in school today. '
-    speakerName: Petros
+    speakerName: Peter
     clip: {fileID: 8300000, guid: 265a8bb23cf82e74d9b62649e016b280, type: 3}
+    nextDelay: 0
+    dialogueView: 0
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
   - stepText: "It's a little late, the bell rang and everyone\u2019s in the classroom."
-    speakerName: Petros
+    speakerName: Peter
     clip: {fileID: 8300000, guid: 0e0a9a6edfde0ef4c907c7ff555b1b69, type: 3}
+    nextDelay: 0
+    dialogueView: 0
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
   - stepText: "My classroom is number 2. Let\u2019s find it!"
-    speakerName: Petros
+    speakerName: Peter
     clip: {fileID: 8300000, guid: 6e4ae92938fd4244a89f5407c2e9a4de, type: 3}
+    nextDelay: 0
+    dialogueView: 0
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
   options: []

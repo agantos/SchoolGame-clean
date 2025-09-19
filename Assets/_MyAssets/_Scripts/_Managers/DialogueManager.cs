@@ -160,12 +160,19 @@ public class DialogueManager : MonoBehaviour
         if (_currentStep == currentNode.steps.Count - 1)
         {
             if (currentNode.options.Length == 2)
-                dialogueUI.UpdateTextView(step.stepText, step.speakerName,  currentNode.options[0].optionText, currentNode.options[1].optionText, step.clip);
+            {
+				dialogueUI.UpdateTextView(step.stepText, step.speakerName, currentNode.options[0].optionText, currentNode.options[1].optionText, step.clip);
+                dialogueUI.SetView(step.dialogueView);
+			}
 			else if(currentNode.options.Length == 1)
+            {
 				dialogueUI.UpdateTextView(step.stepText, step.speakerName, currentNode.options[0].optionText, null, step.clip);
-            else
+				dialogueUI.SetView(step.dialogueView);
+			}
+			else
             {
 				dialogueUI.UpdateTextView(step.stepText, step.speakerName, null, null, step.clip);
+				dialogueUI.SetView(step.dialogueView);
 			}
 
 			dialogueUI.PlayAudio(step.clip);
@@ -173,7 +180,8 @@ public class DialogueManager : MonoBehaviour
         else
         {
             dialogueUI.UpdateTextView(step.stepText, step.speakerName, null, null, step.clip);
-            dialogueUI.PlayAudio(step.clip);
+			dialogueUI.SetView(step.dialogueView);
+			dialogueUI.PlayAudio(step.clip);
         }
     }
 }

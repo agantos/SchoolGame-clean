@@ -477,7 +477,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c2071d5f05998b945a6fc47fa1691b37, type: 2}
   - {fileID: 11400000, guid: e26f1cb9b7ca357429d3b455c310472a, type: 2}
   - {fileID: 11400000, guid: e4511abef7c11244ab563633f9d0b849, type: 2}
-  sceneToStart: 1
+  sceneToStart: 0
 --- !u!114 &411088141 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 849479268104451271, guid: b6ce3d97c0874a3459db32ede7ff858c, type: 3}
