@@ -17,18 +17,21 @@ MonoBehaviour:
     speakerName: Margaret
     clip: {fileID: 8300000, guid: 7482e2563bd379a4aa5688e8e8f9a1ad, type: 3}
     nextDelay: 1
+    dialogueView: -1
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
-  - stepText: "I felt my face turn red. I realized it wasn't the best choice\r"
+  - stepText: "*I felt my face turn red. I realized it wasn't the best choice*\r"
     speakerName: Peter
     clip: {fileID: 8300000, guid: 6bcffbfbafb42d243bec8e821269c8da, type: 3}
     nextDelay: 0
+    dialogueView: 0
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
-  - stepText: "I will wait. Count with me!\r"
+  - stepText: "*I will wait. Count with me!*\r"
     speakerName: Peter
     clip: {fileID: 8300000, guid: 1bce461979beed541851f7b596474808, type: 3}
     nextDelay: 0
+    dialogueView: 0
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
   options: []

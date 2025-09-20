@@ -17,18 +17,21 @@ MonoBehaviour:
     speakerName: Margaret
     clip: {fileID: 8300000, guid: 8b725604508b90c4691f55adc4bf19ab, type: 3}
     nextDelay: 0.3
+    dialogueView: -1
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
   - stepText: "*That\u2019s Margaret, my best friend!*"
     speakerName: Peter
     clip: {fileID: 8300000, guid: 02f7daa9a2a8ce441b066b0c23a3eae4, type: 3}
     nextDelay: 0
+    dialogueView: 0
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
   - stepText: "*Margaret is 9 years old too, but she\u2019s in a different classroom.*"
     speakerName: Peter
     clip: {fileID: 8300000, guid: df5f1b3c9d3538142839450be4fd2cee, type: 3}
     nextDelay: 0.4
+    dialogueView: 0
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
   options:

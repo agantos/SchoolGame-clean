@@ -17,12 +17,14 @@ MonoBehaviour:
     speakerName: Margaret
     clip: {fileID: 8300000, guid: ad7441ffaeee2ed4b9264a5e5d8578ab, type: 3}
     nextDelay: 0
+    dialogueView: -1
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
-  - stepText: " It\u2019s true! We had SO much time to talk about our AMAZING weekend!"
+  - stepText: "*It\u2019s true! We had SO much time to talk about our AMAZING weekend!*"
     speakerName: Peter
     clip: {fileID: 8300000, guid: 5fad3528984e84d458d39dcdff03f425, type: 3}
     nextDelay: 0
+    dialogueView: 0
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
   options: []

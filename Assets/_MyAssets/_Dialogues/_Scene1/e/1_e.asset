@@ -17,6 +17,7 @@ MonoBehaviour:
     speakerName: Peter
     clip: {fileID: 8300000, guid: 2e7cbdb84c44dfe45ac57f92de655ed2, type: 3}
     nextDelay: 0.5
+    dialogueView: -1
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
   - stepText: "Peter, the rest of your classmates are waiting for their turn. Do
@@ -24,30 +25,35 @@ MonoBehaviour:
     speakerName: Mrs Anne
     clip: {fileID: 8300000, guid: ff3655f061c4ba940b1f027667bdbaff, type: 3}
     nextDelay: 1
+    dialogueView: -1
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
   - stepText: "*I felt like it wasn\u2019t fair to my classmates.*\r"
     speakerName: Peter
     clip: {fileID: 8300000, guid: 82198609d4efc7745b79ee4c77372ca5, type: 3}
     nextDelay: 0.5
+    dialogueView: 0
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
   - stepText: "Oh, I understand, Mrs. Anne. It wasn\u2019t fair to my classmates.\r"
     speakerName: Peter
     clip: {fileID: 8300000, guid: dc0cec8b5826dc74086057ae0d6cbfd6, type: 3}
     nextDelay: 0
+    dialogueView: -1
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
   - stepText: "I\u2019ll make sure to wait my turn next time.\r"
     speakerName: Peter
     clip: {fileID: 8300000, guid: f8ad1f538e29b984b9cfb9a980c549fc, type: 3}
     nextDelay: 0
+    dialogueView: -1
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
   - stepText: Please open your tablets so we can get started with the lesson.
     speakerName: Mrs. Anne
     clip: {fileID: 8300000, guid: a1ad00b58f00c734c9869b701035b26d, type: 3}
     nextDelay: 0
+    dialogueView: -1
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
   options:

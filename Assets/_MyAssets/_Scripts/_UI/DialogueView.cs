@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,8 +17,8 @@ public class DialogueView : MonoBehaviour
 	[SerializeField] Texture2D normalBackgroundTexture;
 	[SerializeField] Texture2D normalSpeakerAreaTexture;
 
-	[SerializeField] Texture2D[] alternateBackgroundTextures;
-	[SerializeField] Texture2D[] alternateSpeakerAreaTextures;
+	[SerializeField] DialogueAlternateView[] alternateViews;
+
 
 	int currentAlternateView = -1; // -1 is for normalView
 
@@ -44,22 +45,46 @@ public class DialogueView : MonoBehaviour
 		speakerArea.texture = normalSpeakerAreaTexture;
 
 		currentAlternateView = -1;
-	}
+		
+		dialogueText.fontStyle &= ~TMPro.FontStyles.Italic;
 
-	void ToAlternateView(int index = 0) {
-		if (currentAlternateView == index || index >= alternateBackgroundTextures.Length) return;
+    }
 
-		textBackground.texture = alternateBackgroundTextures[index];
+    void ToAlternateView(int index = 0) {
+		if (currentAlternateView == index || index >= alternateViews.Length) return;
 
-		if(speakerArea.texture != null)
+		var alternateView = alternateViews[index];
+
+		textBackground.texture = alternateView.textBackgroundTexture;
+
+		// Speaker Area
+		if (alternateView.speakerAreaTexture)
 		{
-			speakerArea.texture = alternateBackgroundTextures[index];
+			speakerArea.texture = alternateView.speakerAreaTexture;
 		}
 		else
 		{
 			speakerArea.gameObject.SetActive(false);
 		}
 
+		// Italic Text
+		if (alternateView.italicDialogueText)
+		{
+		          dialogueText.fontStyle |= TMPro.FontStyles.Italic;
+		      }
+		else
+		{
+			dialogueText.fontStyle &= TMPro.FontStyles.Italic;
+		}
+		
 		currentAlternateView = index;
 	}
+
+	[Serializable]
+	public struct DialogueAlternateView
+	{
+		public bool italicDialogueText;
+        public Texture2D speakerAreaTexture;
+        public Texture2D textBackgroundTexture;
+    }
 }

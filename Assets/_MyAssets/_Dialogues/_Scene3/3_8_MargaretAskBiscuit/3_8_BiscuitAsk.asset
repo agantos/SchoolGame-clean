@@ -17,24 +17,28 @@ MonoBehaviour:
     speakerName: Peter
     clip: {fileID: 8300000, guid: 5a767dd7ad35d104d86c13540e00e0e1, type: 3}
     nextDelay: 0
+    dialogueView: -1
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
   - stepText: I'm SO SO happy! I'm glad I asked, even though i was kinda scared
     speakerName: Peter
     clip: {fileID: 8300000, guid: c5c67464bc9808243b8a4639dcc782b6, type: 3}
     nextDelay: 0
+    dialogueView: -1
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
   - stepText: I think i should always be brave, and ask for what i need!
     speakerName: Peter
     clip: {fileID: 8300000, guid: 789934c62558a3641904b2dd38ff6dc2, type: 3}
     nextDelay: 0
+    dialogueView: -1
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
   - stepText: Nice! I got some biscuits. Want to try some?
     speakerName: Margaret
     clip: {fileID: 8300000, guid: 60fd3000a5896c943b8b5badf110031c, type: 3}
     nextDelay: 0
+    dialogueView: -1
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
   - stepText: '*I love biscuits! Do i say thank you and take one, or just grab a
@@ -42,6 +46,7 @@ MonoBehaviour:
     speakerName: Peter
     clip: {fileID: 8300000, guid: b47bd445e0a3fbf42839ee0464304c3a, type: 3}
     nextDelay: 0
+    dialogueView: 0
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
   options:

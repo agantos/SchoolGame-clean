@@ -16,17 +16,23 @@ MonoBehaviour:
   - stepText: "How was your weekend?\u201D  \u201CLet me see some hands!"
     speakerName: Mrs Anne
     clip: {fileID: 8300000, guid: 68a0f2f81aafb9d4ebb04d32b79ef1ba, type: 3}
+    nextDelay: 0
+    dialogueView: -1
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
   - stepText: '*Ohhh, I wanna say sooo bad how I spent my weekend! I wanna be FIRST!*'
     speakerName: Peter
     clip: {fileID: 8300000, guid: 1f09548fa57f0524ea4d0344992cfadc, type: 3}
+    nextDelay: 0
+    dialogueView: 0
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
   - stepText: "*May I say how I spent the weekend without waiting for my turn, or
       should I raise my hand and wait?*\r"
     speakerName: Peter
     clip: {fileID: 8300000, guid: 448bf655b9598c844bb9c3969e1f856c, type: 3}
+    nextDelay: 0
+    dialogueView: 0
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
   options:

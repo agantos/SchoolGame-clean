@@ -13,17 +13,19 @@ MonoBehaviour:
   m_Name: 2e
   m_EditorClassIdentifier: 
   steps:
-  - stepText: "Wait... I didn\u2019t say hi to Margaret!"
+  - stepText: "*Wait... I didn\u2019t say hi to Margaret!*"
     speakerName: Peter
     clip: {fileID: 8300000, guid: b58e6ff12f228434eb52d74d5ec41267, type: 3}
     nextDelay: 0
+    dialogueView: 0
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
-  - stepText: "Uh-oh... she looks sad. Maybe she thinks I\u2019m mad or don\u2019t
-      wanna be her friend."
+  - stepText: "*Uh-oh... she looks sad. Maybe she thinks I\u2019m mad or don\u2019t
+      wanna be her friend.*"
     speakerName: Peter
     clip: {fileID: 8300000, guid: 0a83131489df8ea4896462aa4ea162c2, type: 3}
     nextDelay: 0
+    dialogueView: 0
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
   options: []

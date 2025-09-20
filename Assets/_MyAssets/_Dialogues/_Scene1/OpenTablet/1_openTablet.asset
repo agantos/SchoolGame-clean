@@ -16,18 +16,24 @@ MonoBehaviour:
   - stepText: Please open your tablets so we can get started with the lesson.
     speakerName: Mrs Anne
     clip: {fileID: 8300000, guid: a1ad00b58f00c734c9869b701035b26d, type: 3}
+    nextDelay: 0
+    dialogueView: -1
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
   - stepText: "*It wasn\u2019t easy, but I started counting to 10 in my head, and
       I knew what to do.*"
     speakerName: Peter
     clip: {fileID: 8300000, guid: ff3655f061c4ba940b1f027667bdbaff, type: 3}
+    nextDelay: 0
+    dialogueView: 0
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
   - stepText: "*I felt way better when I waited my turn, and Miss Anna smiled at
       me.*\r"
     speakerName: Peter
     clip: {fileID: 8300000, guid: 07dcaf33237bbaa4a9b824f7392b6093, type: 3}
+    nextDelay: 0
+    dialogueView: 0
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
   options: []

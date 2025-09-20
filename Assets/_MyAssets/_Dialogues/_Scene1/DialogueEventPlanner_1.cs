@@ -45,6 +45,8 @@ public class DialogueEventPlanner_1 : DialogueEventPlanner_Base
         CreateEvent("SitInClass", DialogueEvent.OnDialogueEvent.OPTION_A, SitDown);
         CreateEvent("RaisedHand", DialogueEvent.OnDialogueEvent.OPTION_A, OpenTablet);
         CreateEvent("NotRaisedHand", DialogueEvent.OnDialogueEvent.OPTION_A, OpenTablet);
+
+		CreateEvent("QuestionRaiseHand", DialogueEvent.OnDialogueEvent.OPTION_B, PlayNumbers);
     }
 
 	#region Event Functions
@@ -79,11 +81,20 @@ public class DialogueEventPlanner_1 : DialogueEventPlanner_Base
 		toClassroom.PerformTransitions();
 		await UniTask.Delay(2000);
 	}
-	#endregion
+
+	async UniTask PlayNumbers()
+	{
+		var playNumbers = FindAnyObjectByType<NumberAnimationController>();
+		await playNumbers.StartAnimation(10);
+		await UniTask.Delay(500);
+
+    }
+
+    #endregion
 
 
-	// Slide Tablet In, Fade, Transition scene
-	async UniTask OnCompleteMinigame()
+    // Slide Tablet In, Fade, Transition scene
+    async UniTask OnCompleteMinigame()
 	{
 		// Slide tablet animation with camera
 		await UniTask.Delay(300);
@@ -96,13 +107,14 @@ public class DialogueEventPlanner_1 : DialogueEventPlanner_Base
 		await _screenFader.FadeTransition(1.5f, 2f, 1.5f, "After a while...",
 			callBack: async () => {
 				_cameraChanger.TransitionBackToPlayerCamera();
-				await UniTask.Delay(400);
+				await UniTask.Delay(1000);
 
 				_playerManager.MoveToPosition(endPosition.position);
 				await UniTask.Yield();
 				_playerManager.LookImmediately(endLookAt);
+                await UniTask.Yield();
 
-				await _sceneController.LoadNextScene();
+                await _sceneController.LoadNextScene();
 			});
 	}
 

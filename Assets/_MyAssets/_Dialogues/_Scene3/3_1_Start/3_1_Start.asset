@@ -13,22 +13,25 @@ MonoBehaviour:
   m_Name: 3_1_Start
   m_EditorClassIdentifier: 
   steps:
-  - stepText: Oh no! There's a big line!
+  - stepText: '*Oh no! There''s a big line!*'
     speakerName: Peter
     clip: {fileID: 8300000, guid: 3381ad5dbbc330f4bb7d47fb10fe324e, type: 3}
     nextDelay: 0
+    dialogueView: 0
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
-  - stepText: "If I wait, I might not make it in time! What should i do?\r"
+  - stepText: "*If I wait, I might not make it in time! What should i do?*\r"
     speakerName: Peter
     clip: {fileID: 8300000, guid: d243830e5e953db44918368919d1d893, type: 3}
     nextDelay: 0
+    dialogueView: 0
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
-  - stepText: "Wait for my turn like all the other kids, or push to get in first?\r"
+  - stepText: "*Wait for my turn like all the other kids, or push to get in first?*\r"
     speakerName: Peter
     clip: {fileID: 8300000, guid: f8ac34e09568b1140be279abd5f93654, type: 3}
     nextDelay: 0
+    dialogueView: 0
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
   options:

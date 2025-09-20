@@ -17,6 +17,7 @@ MonoBehaviour:
     speakerName: Peter
     clip: {fileID: 8300000, guid: f685ffaadf3ca0a42af062bbd5f20d96, type: 3}
     nextDelay: 0
+    dialogueView: -1
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
   - stepText: '*Me and Margaret share our things. Yesterday I gave her my one piece
@@ -24,6 +25,7 @@ MonoBehaviour:
     speakerName: Peter
     clip: {fileID: 8300000, guid: c1aea7afc9ee2e84999f1ed31e639ed1, type: 3}
     nextDelay: 0
+    dialogueView: 0
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
   - stepText: '*Sharing is awesome! When we share, it makes everything more fun,
@@ -31,12 +33,14 @@ MonoBehaviour:
     speakerName: Peter
     clip: {fileID: 8300000, guid: 777cc08d6beffd5409187838dc15727a, type: 3}
     nextDelay: 0
+    dialogueView: 0
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
   - stepText: '*It feels nice to help each other out!*'
     speakerName: Peter
     clip: {fileID: 8300000, guid: 4fe1067a09f20ce4aa9a27a2fd4f3630, type: 3}
     nextDelay: 0
+    dialogueView: 0
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
   options: []

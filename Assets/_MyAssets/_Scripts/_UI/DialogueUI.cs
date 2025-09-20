@@ -11,7 +11,7 @@ public class DialogueUI : MonoBehaviour
 {
 	#region Variables
 	[Header("Dialogue View")]
-    DialogueView dialogueView;
+    [SerializeField] DialogueView dialogueView;
 
 	[Header("Dialogue Text")]
 

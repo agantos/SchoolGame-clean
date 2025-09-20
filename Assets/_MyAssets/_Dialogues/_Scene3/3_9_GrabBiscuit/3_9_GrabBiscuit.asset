@@ -17,6 +17,7 @@ MonoBehaviour:
     speakerName: Peter
     clip: {fileID: 8300000, guid: 5bedebbcfc162fb4a8d9316e11b50ca6, type: 3}
     nextDelay: 0
+    dialogueView: 0
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
   options:

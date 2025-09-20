@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: 3_4_QueueEnded
   m_EditorClassIdentifier: 
   steps:
-  - stepText: (A few moments later it was finally my turn!)
+  - stepText: '*A few moments later it was finally my turn!*'
     speakerName: Peter
     clip: {fileID: 8300000, guid: 9da7d0652968b724aac6c138eb73e77c, type: 3}
     nextDelay: 0
+    dialogueView: 0
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
   options:
