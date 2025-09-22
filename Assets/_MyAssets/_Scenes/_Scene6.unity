@@ -14019,6 +14019,7 @@ GameObject:
   - component: {fileID: 1889400700}
   - component: {fileID: 1889400698}
   - component: {fileID: 1889400699}
+  - component: {fileID: 1889400702}
   m_Layer: 5
   m_Name: VideoView
   m_TagString: Untagged
@@ -14160,6 +14161,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1889400696}
   m_CullTransparentMesh: 1
+--- !u!225 &1889400702
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1889400696}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1912846442
 GameObject:
   m_ObjectHideFlags: 0
@@ -14305,6 +14318,8 @@ MonoBehaviour:
   introductionVideo: {fileID: 32900000, guid: 5002953e496433a4183147f18a4071f0, type: 3}
   ImageView: {fileID: 530421492}
   background: {fileID: 283183731}
+  startRound1: {fileID: 2800000, guid: 1a4371ac0a6f57447a0cc098efb49de9, type: 3}
+  startRound2: {fileID: 2800000, guid: 630cd48209f73b7429b5bd4200667bf2, type: 3}
   circleParent: {fileID: 52789282}
   triangleParent: {fileID: 748417859}
   squareParent: {fileID: 164587678}

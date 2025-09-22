@@ -28,7 +28,7 @@ public class TabletController_ShapesMinigame : MonoBehaviour
     private void Start()
     {
         completeTraceEffect.gameObject.SetActive(false);
-        LoadTraceMinigame(0);
+        StartGame();
     }
     bool _isTracing;
     void Update()
@@ -77,16 +77,29 @@ public class TabletController_ShapesMinigame : MonoBehaviour
         mainVideoPlayer.loopPointReached += OnIntroVideoEnd;
     }
 
-    void OnIntroVideoEnd(VideoPlayer vp)
+    async void OnIntroVideoEnd(VideoPlayer vp)
     {
-        // Remove old listeners and add the new one
-        var button = VideoView.GetComponent<Button>();
-        button.enabled = true;
+        CanvasGroup videoCanvasGroup = vp.GetComponent<CanvasGroup>();
+        CanvasGroup backgroundCanvasGroup = background.GetComponent<CanvasGroup>();
 
-        button.onClick.RemoveAllListeners();
+        backgroundCanvasGroup.alpha = 0;
+        background.texture = startRound1;
 
-        //unsubscribe so it doesn’t trigger multiple times
-        vp.loopPointReached -= OnIntroVideoEnd;
+        await videoCanvasGroup.DOFade(0f, 1f).AsyncWaitForCompletion();
+        EnableImageView();
+        await backgroundCanvasGroup.DOFade(1f, 1f).AsyncWaitForCompletion();
+
+        var imageButton = background.GetComponent<Button>();
+        imageButton.enabled = true;
+
+        imageButton.onClick.AddListener(() =>
+        {
+            imageButton.enabled = false;
+            imageButton.onClick.RemoveAllListeners();
+            LoadTraceMinigame(0);
+        });
+
+        
     }
 
     #endregion
@@ -103,11 +116,10 @@ public class TabletController_ShapesMinigame : MonoBehaviour
     [Header("Image View")]
     [SerializeField] GameObject ImageView;
     [SerializeField] RawImage background;
+    [SerializeField] Texture2D startRound1;
+    [SerializeField] Texture2D startRound2;
 
     #endregion
-
-
-
 
     #region Trace Shape Part
     [Header("Trace Shape Objects")]
@@ -132,27 +144,38 @@ public class TabletController_ShapesMinigame : MonoBehaviour
     int _currentTraceLevel;
 
 
-    void LoadTraceMinigame(int levelIndex)
+    async void LoadTraceMinigame(int levelIndex)
     {
         var level = traceLevels[levelIndex];
         _currentTraceLevel = levelIndex;
-        
+        var canvasGroup = background.GetComponent<CanvasGroup>();
+
+
         DeactivateTraceableShapes();
         InitTraceableShape(level.type);
 
+        await canvasGroup.DOFade(0, 0.5f).AsyncWaitForCompletion();
         background.texture = level.imageTrace;
+        await canvasGroup.DOFade(1, 0.5f).AsyncWaitForCompletion();
 
         audioSource.Stop();
         audioSource.clip = level.clip;
         audioSource.Play();
     }   
 
-    void NextTraceMinigame()
+    async void NextTraceMinigame()
     {
         _currentTraceLevel++;
         if(_currentTraceLevel < traceLevels.Length)
         {
             LoadTraceMinigame(_currentTraceLevel);
+        }
+        else
+        {
+            var canvasGroup = background.GetComponent<CanvasGroup>();
+            await canvasGroup.DOFade(0, 0.7f).AsyncWaitForCompletion();
+            background.texture = startRound2;
+            await canvasGroup.DOFade(1, 0.7f).AsyncWaitForCompletion();
         }
     }
 
