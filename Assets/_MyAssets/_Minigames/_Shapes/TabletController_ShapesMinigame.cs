@@ -208,17 +208,17 @@ public class TabletController_ShapesMinigame : MonoBehaviour
 
         // Fade in
         part.currentTween = canvasGroup
-            .DOFade(1f, 1f)
+            .DOFade(1f, 0.4f)
             .SetEase(Ease.InOutSine);
 
         await part.currentTween.AsyncWaitForCompletion();
 
         // Delay
-        await UniTask.Delay(400);
+        await UniTask.Delay(1500);
 
         // Fade out
         part.currentTween = canvasGroup
-            .DOFade(0f, 1f)
+            .DOFade(0f, 0.2f)
             .SetEase(Ease.InOutSine);
 
         await part.currentTween.AsyncWaitForCompletion();
