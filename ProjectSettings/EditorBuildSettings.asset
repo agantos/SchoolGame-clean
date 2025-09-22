@@ -6,9 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/School.unity
-    guid: f488ff14a8b442e4bb897809524ec667
-  - enabled: 1
     path: Assets/_MyAssets/_Scenes/_CommonScene.unity
     guid: 44433db520f9a2a4d9a3c6046cf98ed3
   - enabled: 1
@@ -23,6 +20,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_MyAssets/_Scenes/_Scene3.unity
     guid: c81660695771a09409d6e05a80c6bad9
+  - enabled: 1
+    path: Assets/_MyAssets/_Scenes/_Scene4.unity
+    guid: af93ddfd28e0a93429a38d119ffbf8cc
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 290a6e6411d135049940bec2237b8938, type: 2}
     com.unity.input.settings: {fileID: 11400000, guid: 9e7be553448fa2546aea5752021cbcf7, type: 2}

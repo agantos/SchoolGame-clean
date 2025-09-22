@@ -10,7 +10,7 @@ public class TabletController_Minigame1 : MonoBehaviour
 {
     
     [Header("Levels")]
-    [SerializeField] Level[] levels;
+    [SerializeField] Minigame1_Level[] levels;
     [SerializeField] AudioSource audioSource;
 
     public Func<UniTask> onGameCompleted;
@@ -168,7 +168,7 @@ public class TabletController_Minigame1 : MonoBehaviour
 
     }
 
-    void SetLevel(Level level, bool playTransition = true)
+    void SetLevel(Minigame1_Level level, bool playTransition = true)
     {
         EnableImageView();
 
@@ -272,7 +272,7 @@ public class TabletController_Minigame1 : MonoBehaviour
     #endregion
 
     [Serializable]
-    public struct Level
+    public struct Minigame1_Level
     {
         public Texture2D image;
         public VideoClip clip;

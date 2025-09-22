@@ -58,7 +58,7 @@ public class DialogueEventPlanner_3 : DialogueEventPlanner_Base
 
     async UniTask QueueTransition()
     {
-        await _screenFader.FadeTransition(2, 2, 3, "A moment later...", callBack: PositionAndRotatePeter);
+        await _screenFader.PerformFadeTransition(2, 2, 3, "A moment later...", callBack: PositionAndRotatePeter);
         _dialogueManager.DialogueToStart = afterQueueDialogue;
         _dialogueManager.StartDialogue();
     }

@@ -18,14 +18,16 @@ MonoBehaviour:
     speakerName: Mrs Anne
     clip: {fileID: 8300000, guid: ce6eadc9a5c46d24d973e6f663604047, type: 3}
     nextDelay: 0
+    dialogueView: -1
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
   - stepText: I felt happy and proud of myself!
     speakerName: Peter
     clip: {fileID: 8300000, guid: 689ae273ace3e744299af2ec64dc22ab, type: 3}
     nextDelay: 0
+    dialogueView: -1
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
   options: []
-  tag: 
-  autoChangeSteps: 0
+  tag: 4_4_good
+  autoChangeSteps: 1

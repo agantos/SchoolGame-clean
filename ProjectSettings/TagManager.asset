@@ -45,6 +45,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Tablet
+    uniqueID: 2837918675
+    locked: 0
   m_RenderingLayers:
   - Default
   - Screen

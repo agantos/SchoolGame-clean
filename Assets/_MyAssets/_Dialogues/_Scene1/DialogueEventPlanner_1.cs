@@ -104,7 +104,7 @@ public class DialogueEventPlanner_1 : DialogueEventPlanner_Base
 		await UniTask.Delay(2000);
 
 		// TransitionScene
-		await _screenFader.FadeTransition(1.5f, 2f, 1.5f, "After a while...",
+		await _screenFader.PerformFadeTransition(1.5f, 2f, 1.5f, "After a while...",
 			callBack: async () => {
 				_cameraChanger.TransitionBackToPlayerCamera();
 				await UniTask.Delay(1000);

@@ -21,11 +21,6 @@ public class MobileTurnCamera : MonoBehaviour
 		panTilt = virtualCam.GetComponent<CinemachinePanTilt>();
 	}
 
-	private void Update()
-	{
-
-	}
-
     public void Enable()
     {
         SetCameraAndPlayerRotation(transform.rotation);

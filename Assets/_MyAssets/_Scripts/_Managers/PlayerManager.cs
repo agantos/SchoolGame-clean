@@ -27,6 +27,11 @@ public class PlayerManager : MonoBehaviour
         PlayerMovementController.MoveImmediately(position);
     }
 
+    public void SetRotation(Vector3 rotation)
+    {
+        PlayerMovementController.SetRotation(rotation);
+    }
+
     public void LookImmediately(Transform lookAt)
     {
         Vector3 direction = lookAt.position - playerBodyTransform.position;

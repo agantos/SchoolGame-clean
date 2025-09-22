@@ -13,29 +13,32 @@ MonoBehaviour:
   m_Name: 4_2_AskOrNo
   m_EditorClassIdentifier: 
   steps:
-  - stepText: "I didn\u2019t have time to go to the bathroom during break."
+  - stepText: "*I didn\u2019t have time to go to the bathroom during break.*"
     speakerName: Peter
     clip: {fileID: 8300000, guid: 7439c134c553c0445a28102571debf41, type: 3}
     nextDelay: 0
+    dialogueView: 0
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
-  - stepText: I feel a little confused about what to do...
+  - stepText: '*I feel a little confused about what to do...*'
     speakerName: Peter
     clip: {fileID: 8300000, guid: 834907b4519a4f94ba83c084582c0138, type: 3}
     nextDelay: 0
+    dialogueView: 0
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
-  - stepText: Can I go straight to the bathroom without asking or raise my hand and
-      ask ms Anna that I really need to go?
+  - stepText: '*Can I go straight to the bathroom without asking or raise my hand
+      and ask ms Anna that I really need to go?*'
     speakerName: Peter
     clip: {fileID: 8300000, guid: 62a16e4602f45434aa470e9eea391004, type: 3}
     nextDelay: 0
+    dialogueView: 0
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
   options:
   - optionText: Go straight to the bathroom without asking.
-    nextNode: {fileID: 0}
+    nextNode: {fileID: 11400000, guid: 9f44d730d2a1b5944923434a2c454867, type: 2}
   - optionText: Raise my hand and ask Mrs. Anna.
-    nextNode: {fileID: 0}
-  tag: 
-  autoChangeSteps: 0
+    nextNode: {fileID: 11400000, guid: 141c1ededbcd61945900820ccb8c36c3, type: 2}
+  tag: AskOrNo
+  autoChangeSteps: 1

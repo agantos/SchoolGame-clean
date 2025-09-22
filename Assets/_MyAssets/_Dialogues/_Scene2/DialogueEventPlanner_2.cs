@@ -44,7 +44,7 @@ public class DialogueEventPlanner_2 : DialogueEventPlanner_Base
     {
         await _playerManager.ReturnToOriginalPlayerView();
 
-        await UniTask.Delay(9000);
+        await UniTask.Delay(6000);
         _dialogueManager.DialogueToStart = returnToMargaretDialogue;
         _dialogueManager.StartDialogue();
         returnToMargaretDialogueArea.gameObject.SetActive(true);

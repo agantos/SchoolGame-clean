@@ -45,7 +45,7 @@ public class ScreenFader : MonoBehaviour
         fadeGroup.blocksRaycasts = false;
     }
 
-    public async UniTask FadeTransition(float fadeInTime, float waitTime, float fadeOutTime, string message = "", CancellationToken token = default, Action callBack = null)
+    public async UniTask PerformFadeTransition(float fadeInTime, float waitTime, float fadeOutTime, string message = "", CancellationToken token = default, Action callBack = null)
     {
         await FadeIn(fadeInTime, token);
 
