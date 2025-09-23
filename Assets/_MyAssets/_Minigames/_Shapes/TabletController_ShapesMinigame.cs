@@ -27,7 +27,6 @@ public class TabletController_ShapesMinigame : MonoBehaviour
 
     private void Start()
     {
-        completeTraceEffect.gameObject.SetActive(false);
         StartGame();
     }
     bool _isTracing;
@@ -44,7 +43,7 @@ public class TabletController_ShapesMinigame : MonoBehaviour
 
     public async UniTask EndGame()
     {
-        ImageView.SetActive(false);
+        ImageView_Round1.SetActive(false);
         VideoView.SetActive(false);
 
         if (onGameCompleted != null) await onGameCompleted.Invoke();
@@ -60,36 +59,55 @@ public class TabletController_ShapesMinigame : MonoBehaviour
 
     void EnableVideoView()
     {
-        ImageView.SetActive(false);
-        VideoView.SetActive(true);
+        ImageView_Round1.SetActive(false);
+		ImageView_Round2.SetActive(false);
+
+		VideoView.SetActive(true);
     }
 
-    void PlayIntroductionVideo()
+    async void PlayIntroductionVideo()
     {
         var button = VideoView.GetComponent<Button>();
         button.enabled = false;
 
-        EnableVideoView();
-        mainVideoPlayer.clip = introductionVideo;
-        mainVideoPlayer.Play();
+        var canvasGroup = mainVideoPlayer.GetComponent<CanvasGroup>();
 
-        // Subscribe to event when video finishes
-        mainVideoPlayer.loopPointReached += OnIntroVideoEnd;
+
+		EnableVideoView();
+        mainVideoPlayer.clip = introductionVideo;
+        canvasGroup.alpha = 0;
+		mainVideoPlayer.Play();
+        mainVideoPlayer.Pause();
+        mainVideoPlayer.prepareCompleted += async (mainVideoPlayer) =>
+        {
+            await UniTask.WaitForEndOfFrame();
+
+            await canvasGroup.DOFade(1, 2).AsyncWaitForCompletion();
+            mainVideoPlayer.Play();
+
+            // Subscribe to event when video finishes
+            mainVideoPlayer.loopPointReached += OnIntroVideoEnd;
+        };
+
     }
 
     async void OnIntroVideoEnd(VideoPlayer vp)
     {
         CanvasGroup videoCanvasGroup = vp.GetComponent<CanvasGroup>();
-        CanvasGroup backgroundCanvasGroup = background.GetComponent<CanvasGroup>();
+        CanvasGroup backgroundCanvasGroup = background_Round1.GetComponent<CanvasGroup>();
 
         backgroundCanvasGroup.alpha = 0;
-        background.texture = startRound1;
+        background_Round1.texture = startImage_Round1;
 
         await videoCanvasGroup.DOFade(0f, 1f).AsyncWaitForCompletion();
-        EnableImageView();
+        EnableImageView_Round1();
+        
+        audioSource.clip = startAudio_Round1;
+        audioSource.Play();
+
         await backgroundCanvasGroup.DOFade(1f, 1f).AsyncWaitForCompletion();
 
-        var imageButton = background.GetComponent<Button>();
+        var imageButton = background_Round1.GetComponent<Button>();
         imageButton.enabled = true;
 
         imageButton.onClick.AddListener(() =>
@@ -101,34 +119,36 @@ public class TabletController_ShapesMinigame : MonoBehaviour
 
         
     }
-
-    #endregion
-
-
-    void EnableImageView()
-    {
-        ImageView.SetActive(true);
-        VideoView.SetActive(false);
-    }
+	#endregion
 
 
-    #region IMAGE VIEW
-    [Header("Image View")]
-    [SerializeField] GameObject ImageView;
-    [SerializeField] RawImage background;
-    [SerializeField] Texture2D startRound1;
-    [SerializeField] Texture2D startRound2;
 
-    #endregion
 
-    #region Trace Shape Part
-    [Header("Trace Shape Objects")]
+	#region IMAGE VIEW ROUND 1
+	[Space]
+	[Space]
+	[Header("Round 1 - Image View")]
+    [SerializeField] GameObject ImageView_Round1;
+    [SerializeField] RawImage background_Round1;
+    [SerializeField] Texture2D startImage_Round1;
+	[SerializeField] AudioClip startAudio_Round1;
+
+	void EnableImageView_Round1()
+	{
+		ImageView_Round1.SetActive(true);
+		ImageView_Round2.SetActive(false);
+
+		VideoView.SetActive(false);
+	}
+
+	#region ROUND 1: Trace Shape
+	[Header("Trace Shape Objects")]
 
     [SerializeField] GameObject circleParent;
     [SerializeField] GameObject triangleParent;
     [SerializeField] GameObject squareParent;
 
-    [SerializeField] MinigameShapes_Trace_Level[] traceLevels;
+    [SerializeField] MinigameShapes_Round1_Level[] traceLevels;
 
 
     List<TraceableShapePart> squarePartsTotal;
@@ -139,23 +159,24 @@ public class TabletController_ShapesMinigame : MonoBehaviour
     List<GameObject> circlePartsFilled;
     List<GameObject> trianglePartsFilled;
 
-    [SerializeField] ParticleSystem completeTraceEffect;
+    [SerializeField] ParticleEffect completeTraceEffect;
+	[SerializeField] ParticleEffect confettiEffect;
 
-    int _currentTraceLevel;
+	int _currentTraceLevel;
 
 
     async void LoadTraceMinigame(int levelIndex)
     {
         var level = traceLevels[levelIndex];
         _currentTraceLevel = levelIndex;
-        var canvasGroup = background.GetComponent<CanvasGroup>();
+        var canvasGroup = background_Round1.GetComponent<CanvasGroup>();
 
 
         DeactivateTraceableShapes();
         InitTraceableShape(level.type);
 
         await canvasGroup.DOFade(0, 0.5f).AsyncWaitForCompletion();
-        background.texture = level.imageTrace;
+        background_Round1.texture = level.imageTrace;
         await canvasGroup.DOFade(1, 0.5f).AsyncWaitForCompletion();
 
         audioSource.Stop();
@@ -172,12 +193,23 @@ public class TabletController_ShapesMinigame : MonoBehaviour
         }
         else
         {
-            var canvasGroup = background.GetComponent<CanvasGroup>();
-            await canvasGroup.DOFade(0, 0.7f).AsyncWaitForCompletion();
-            background.texture = startRound2;
-            await canvasGroup.DOFade(1, 0.7f).AsyncWaitForCompletion();
-        }
-    }
+
+			var canvasGroup_1 = background_Round1.GetComponent<CanvasGroup>();
+			var canvasGroup_2 = background_Round2.GetComponent<CanvasGroup>();
+            canvasGroup_2.alpha = 0;
+
+			await canvasGroup_1.DOFade(0, 0.6f).AsyncWaitForCompletion();
+            
+            EnableImageView_Round2();
+
+			background_Round2.texture = startImage_Round2;
+			canvasGroup_2.DOFade(1, 0.6f);
+			
+            await UniTask.Delay(200);
+			confettiEffect.Play();
+
+		}
+	}
 
     void DeactivateTraceableShapes()
     {
@@ -191,15 +223,14 @@ public class TabletController_ShapesMinigame : MonoBehaviour
         var level = traceLevels[_currentTraceLevel];
         DeactivateTraceableShapes();
 
-        completeTraceEffect.gameObject.SetActive(true);
         completeTraceEffect.Play();
         await UniTask.Delay(500);
 
-        background.texture = level.imageDone;
+        background_Round1.texture = level.imageDone;
 
-        await UniTask.Delay(2000);
+        await UniTask.Delay(1000);
 
-        NextTraceMinigame();
+		NextTraceMinigame();
 
     }
 
@@ -253,11 +284,11 @@ public class TabletController_ShapesMinigame : MonoBehaviour
         listToFill.Remove(part.gameObject);
     }
 
-    void InitTraceableShape(MinigameShapes_Trace_Level_Type type)
+    void InitTraceableShape(MinigameShapes_Shape_Type type)
     {
         switch (type)
         {
-            case MinigameShapes_Trace_Level_Type.triangle:
+            case MinigameShapes_Shape_Type.triangle:
                 triangleParent.SetActive(true);
                 trianglePartsFilled = new List<GameObject>();
 
@@ -268,7 +299,7 @@ public class TabletController_ShapesMinigame : MonoBehaviour
                 }
                 break;
 
-            case MinigameShapes_Trace_Level_Type.square:
+            case MinigameShapes_Shape_Type.square:
                 squareParent.SetActive(true);
                 squarePartsFilled = new List<GameObject>();
                 squarePartsTotal = squareParent.GetComponentsInChildren<TraceableShapePart>(includeInactive: true).ToList();
@@ -279,7 +310,7 @@ public class TabletController_ShapesMinigame : MonoBehaviour
                 }
                 break;
 
-            case MinigameShapes_Trace_Level_Type.circle:
+            case MinigameShapes_Shape_Type.circle:
                 circleParent.SetActive(true);
                 circlePartsFilled = new List<GameObject>();
 
@@ -329,18 +360,57 @@ public class TabletController_ShapesMinigame : MonoBehaviour
             }
         }
     }
-    #endregion
+
+	[Serializable]
+	public class MinigameShapes_Round1_Level
+	{
+		public Texture2D imageTrace;
+		public Texture2D imageDone;
+		public MinigameShapes_Shape_Type type;
+		public AudioClip clip;
+	}
+	#endregion
+
+	#endregion
+
+
+	#region IMAGE VIEW ROUND 2
+	[Space]
+	[Space]
+	[Header("Round 2 - Image View")]
+	[SerializeField] GameObject ImageView_Round2;
+    [SerializeField] RawImage background_Round2;
+	[SerializeField] Texture2D startImage_Round2;
+	[SerializeField] AudioClip startAudio_Round2;
+
+	[Space]
+	[SerializeField] Button circleButton;
+	[SerializeField] Button squareButton;
+	[SerializeField] Button triangleButton;
+	
+    [Space]
+	[SerializeField] MinigameShapes_Round2_Level[] levels;
+
+
+	void EnableImageView_Round2()
+	{
+		ImageView_Round1.SetActive(false);
+		ImageView_Round2.SetActive(true);
+
+		VideoView.SetActive(false);
+	}
+
 
     [Serializable]
-    public class MinigameShapes_Trace_Level
+    public class MinigameShapes_Round2_Level
     {
-        public Texture2D imageTrace;
-        public Texture2D imageDone;
-        public MinigameShapes_Trace_Level_Type type;
-        public AudioClip clip;
+        public MinigameShapes_Shape_Type correctAnswer;
+        public Texture2D bakcgroundImage;
     }
 
-    public enum MinigameShapes_Trace_Level_Type { 
+	#endregion
+
+	public enum MinigameShapes_Shape_Type { 
         triangle,square,circle
     }
 
