@@ -10,20 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 08b42a0dbf8327e48835bf7d615d551f, type: 3}
-  m_Name: 4_EnterClassroom
+  m_Name: 6_0_sitDown
   m_EditorClassIdentifier: 
   steps:
-  - stepText: "We\u2019re outside my classroom now."
+  - stepText: I should sit down again.
     speakerName: Peter
-    clip: {fileID: 8300000, guid: db0c2fd1b8930144b8ff7c5d4c83622a, type: 3}
+    clip: {fileID: 0}
     nextDelay: 0
     dialogueView: 0
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
   options:
-  - optionText: Take a seat.
+  - optionText: Take your seat.
     nextNode: {fileID: 0}
-  - optionText: Don't sit yet.
-    nextNode: {fileID: 0}
-  tag: EnterClassroom
+  tag: sitDown
   autoChangeSteps: 1

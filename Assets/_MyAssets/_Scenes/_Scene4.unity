@@ -10496,6 +10496,56 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!1 &725215014
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 725215016}
+  - component: {fileID: 725215015}
+  m_Layer: 0
+  m_Name: DialogueEventPlanner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &725215015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 725215014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c850d4a406c9c940902ca2f28d066aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  classRoomView: {fileID: 456775736}
+  attemptLeaveClassroomView: {fileID: 396469030}
+  lookTeacherView: {fileID: 325210264}
+  leaveClassroomView: {fileID: 865921937}
+  exitCameraTransform: {fileID: 865921936}
+  wantToGoToToilet: {fileID: 11400000, guid: 160cbcdc0dc994e49840cfd8fc2b47cf, type: 2}
+--- !u!4 &725215016
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 725215014}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.8366058, y: 0.4219676, z: -3.0439968}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &735749052
 GameObject:
   m_ObjectHideFlags: 0
@@ -11500,7 +11550,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 16384
   dialog: {fileID: 11400000, guid: 45125783df1e6a8459589993a1ebfc19, type: 2}
-  eventPlanner: {fileID: 0}
+  eventPlanner: {fileID: 725215015}
   startOnTriggerEnter: 0
 --- !u!135 &1928583277
 SphereCollider:
@@ -11942,3 +11992,4 @@ SceneRoots:
   - {fileID: 1928583275}
   - {fileID: 798689656}
   - {fileID: 1435634162}
+  - {fileID: 725215016}

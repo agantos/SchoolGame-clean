@@ -223,7 +223,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.01
+  near clip plane: 0.05
   far clip plane: 1000
   field of view: 60.000004
   orthographic: 0
@@ -251,8 +251,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 93413774}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.20512176, y: 0.6732054, z: -0.20281205, w: 0.68087214}
-  m_LocalPosition: {x: -0.494, y: 1.884, z: -1.447}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.01, y: 1.809, z: -7.17}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -509,7 +509,7 @@ Transform:
   m_GameObject: {fileID: 596136136}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.554, y: 1.809, z: -30.905}
+  m_LocalPosition: {x: 3.01, y: 1.809, z: -7.17}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1514,7 +1514,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 849479268104451271, guid: b6ce3d97c0874a3459db32ede7ff858c, type: 3}
       propertyPath: m_text
-      value: I love biscuits. Do i say thank you and take one or just grab a biscuit?
+      value: Is it a good idea to go play without saying anything or raise my hand
+        and tell ms Anne how I feel.
       objectReference: {fileID: 0}
     - target: {fileID: 849479268104451271, guid: b6ce3d97c0874a3459db32ede7ff858c, type: 3}
       propertyPath: m_fontSize

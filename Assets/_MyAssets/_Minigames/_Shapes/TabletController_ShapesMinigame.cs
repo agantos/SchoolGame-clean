@@ -27,7 +27,6 @@ public class TabletController_ShapesMinigame : MonoBehaviour
 
     private void Start()
     {
-        StartGame();
     }
     bool _isTracing;
     void Update()
@@ -43,11 +42,12 @@ public class TabletController_ShapesMinigame : MonoBehaviour
 
     public async UniTask EndGame()
     {
-        ImageView_Round1.SetActive(false);
-        VideoView.SetActive(false);
 
         if (onGameCompleted != null) await onGameCompleted.Invoke();
-
+     
+        ImageView_Round1.SetActive(false);
+        ImageView_Round2.SetActive(false);
+        VideoView.SetActive(false);
     }
 
     #region VIDEO VIEW
@@ -184,30 +184,47 @@ public class TabletController_ShapesMinigame : MonoBehaviour
         audioSource.Play();
     }   
 
-    async void NextTraceMinigame()
+    async void OnCompletedLevel_Round1()
     {
         _currentTraceLevel++;
+        // next level
         if(_currentTraceLevel < traceLevels.Length)
         {
             LoadTraceMinigame(_currentTraceLevel);
         }
+        // go to Round 2
         else
         {
-
+            // Fade from round_1 visual
 			var canvasGroup_1 = background_Round1.GetComponent<CanvasGroup>();
 			var canvasGroup_2 = background_Round2.GetComponent<CanvasGroup>();
             canvasGroup_2.alpha = 0;
 
 			await canvasGroup_1.DOFade(0, 0.6f).AsyncWaitForCompletion();
             
+            // Fade to round 2 visual
             EnableImageView_Round2();
 
 			background_Round2.texture = startImage_Round2;
 			canvasGroup_2.DOFade(1, 0.6f);
-			
+            
+            // Play round 2 intro
+            audioSource.clip = startAudio_Round2;
+            audioSource.Play();
+
+            // Play visual effect
             await UniTask.Delay(200);
 			confettiEffect.Play();
 
+            // Set up button that starts the first level
+            var round2Button = background_Round2.GetComponent<Button>();
+            round2Button.enabled = true;
+
+            background_Round2.GetComponent<Button>().onClick.AddListener(() =>
+            {
+                LoadLevel_Round2(0);
+                round2Button.enabled = false;
+            });
 		}
 	}
 
@@ -218,7 +235,7 @@ public class TabletController_ShapesMinigame : MonoBehaviour
         squareParent.SetActive(false);
     }
 
-    async void OnTracedWholeShape(List<TraceableShapePart> partList)
+    async void TransitionToNext_Round1(List<TraceableShapePart> partList)
     {
         var level = traceLevels[_currentTraceLevel];
         DeactivateTraceableShapes();
@@ -230,7 +247,7 @@ public class TabletController_ShapesMinigame : MonoBehaviour
 
         await UniTask.Delay(1000);
 
-		NextTraceMinigame();
+		OnCompletedLevel_Round1();
 
     }
 
@@ -253,7 +270,7 @@ public class TabletController_ShapesMinigame : MonoBehaviour
         // Check if shape is completed
         if(part.fullList.Count == part.traceableList.Count)
         {
-            OnTracedWholeShape(part.fullList);
+            TransitionToNext_Round1(part.fullList);
             return;
         }
 
@@ -382,6 +399,7 @@ public class TabletController_ShapesMinigame : MonoBehaviour
     [SerializeField] RawImage background_Round2;
 	[SerializeField] Texture2D startImage_Round2;
 	[SerializeField] AudioClip startAudio_Round2;
+    [SerializeField] Texture2D finalImage;
 
 	[Space]
 	[SerializeField] Button circleButton;
@@ -389,10 +407,23 @@ public class TabletController_ShapesMinigame : MonoBehaviour
 	[SerializeField] Button triangleButton;
 	
     [Space]
-	[SerializeField] MinigameShapes_Round2_Level[] levels;
+	[SerializeField] MinigameShapes_Round2_Level[] levels_round2;
+    [SerializeField] AudioClip[] correctSounds;
+    [SerializeField] AudioClip[] wrongSounds;
 
 
-	void EnableImageView_Round2()
+    int _currentLevel_round2;
+
+    void PlayRandomSound(AudioClip[] sounds)
+    {
+        var index = UnityEngine.Random.Range(0, correctSounds.Length);
+
+        audioSource.Stop();
+        audioSource.clip = sounds[index];
+        audioSource.Play();
+    }
+
+    void EnableImageView_Round2()
 	{
 		ImageView_Round1.SetActive(false);
 		ImageView_Round2.SetActive(true);
@@ -400,6 +431,84 @@ public class TabletController_ShapesMinigame : MonoBehaviour
 		VideoView.SetActive(false);
 	}
 
+    async void LoadLevel_Round2(int index)
+    {
+        if (index > levels_round2.Length - 1) return;
+
+        var canvasGroup = background_Round2.GetComponent<CanvasGroup>();
+
+        _currentLevel_round2 = index;
+
+        MinigameShapes_Round2_Level level = levels_round2[index];
+
+        await canvasGroup.DOFade(0, 0.5f).AsyncWaitForCompletion();
+        background_Round2.texture = level.bakcgroundImage;
+        await canvasGroup.DOFade(1, 0.5f).AsyncWaitForCompletion();
+
+        squareButton.onClick.RemoveAllListeners();
+        circleButton.onClick.RemoveAllListeners();
+        triangleButton.onClick.RemoveAllListeners();
+
+
+        switch (level.correctAnswer)
+        {
+            case MinigameShapes_Shape_Type.triangle:
+                triangleButton.onClick.AddListener(OnCorrectChoice);
+                
+                circleButton.onClick.AddListener(OnWrongChoice);
+                squareButton.onClick.AddListener(OnWrongChoice);
+                break;
+            case MinigameShapes_Shape_Type.circle:
+                circleButton.onClick.AddListener(OnCorrectChoice);
+                
+                triangleButton.onClick.AddListener(OnWrongChoice);
+                squareButton.onClick.AddListener(OnWrongChoice);
+                break;
+            case MinigameShapes_Shape_Type.square:
+                squareButton.onClick.AddListener(OnCorrectChoice);
+
+                triangleButton.onClick.AddListener(OnWrongChoice);
+                circleButton.onClick.AddListener(OnWrongChoice);
+                break;
+        }
+    }
+
+    async void OnCorrectChoice()
+    {
+        var canvasGroup = background_Round2.GetComponent<CanvasGroup>();
+
+        _currentLevel_round2 += 1;
+        PlayRandomSound(correctSounds);
+
+        // Load Next Level
+        if (_currentLevel_round2 < levels_round2.Length)
+        {
+            LoadLevel_Round2(_currentLevel_round2);
+        }
+        // Go to end image
+        else
+        {
+            squareButton.onClick.RemoveAllListeners();
+            circleButton.onClick.RemoveAllListeners();
+            triangleButton.onClick.RemoveAllListeners();
+
+            await canvasGroup.DOFade(0, 1).AsyncWaitForCompletion();
+            confettiEffect.Play();
+            background_Round2.texture = finalImage;
+            await canvasGroup.DOFade(1, 1).AsyncWaitForCompletion();
+            await UniTask.Delay(500);
+            confettiEffect.Play();
+
+            var button = background_Round2.GetComponent<Button>();
+            button.enabled = true;
+            button.onClick.AddListener(async () => { await EndGame(); });
+        }
+    }
+
+    void OnWrongChoice()
+    {
+        PlayRandomSound(wrongSounds);
+    }
 
     [Serializable]
     public class MinigameShapes_Round2_Level

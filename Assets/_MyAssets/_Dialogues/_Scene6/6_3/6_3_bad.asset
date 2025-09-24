@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08b42a0dbf8327e48835bf7d615d551f, type: 3}
+  m_Name: 6_3_bad
+  m_EditorClassIdentifier: 
+  steps:
+  - stepText: Mrs Anne i just wanted to go out, I feel a bit bored and tired.
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: c207a21c915f53f4294fd04819caf993, type: 3}
+    nextDelay: 0
+    dialogueView: -1
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: I understand you might be bored or maybe even tired, Peter.
+    speakerName: Ms Anne
+    clip: {fileID: 8300000, guid: 06a56f764f860a44a8cfc601a76f9ef6, type: 3}
+    nextDelay: 0
+    dialogueView: -1
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: When we finish with the exercise, we can all play a game together.
+    speakerName: Ms Anne
+    clip: {fileID: 8300000, guid: 35118469541bbe3448ffd6ea928701db, type: 3}
+    nextDelay: 0
+    dialogueView: -1
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: When Mrs. Anna said we could play a game after the exercise, I felt
+      so much better!
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: f95d0d4beeed761489bdd3834471bc5e, type: 3}
+    nextDelay: 0
+    dialogueView: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: "I was happy because now I had something fun to look forward to. I
+      wasn\u2019t bored anymore."
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: 6f9665b37e173f14293978450af6b9bd, type: 3}
+    nextDelay: 0
+    dialogueView: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: "I smiled and nodded, thinking, \u201COkay, I\u2019ll finish this so
+      I can play!\u201D"
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: c6cb9ae5f3f915f4dacdbdfa71984406, type: 3}
+    nextDelay: 0
+    dialogueView: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: I sat down and got back to work, feeling more focused and ready to
+      finish the exercise.
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: 2378a043dd6df0e44a76b73305ad9351, type: 3}
+    nextDelay: 0
+    dialogueView: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  options: []
+  tag: bad_2
+  autoChangeSteps: 1
