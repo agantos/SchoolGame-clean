@@ -108,9 +108,6 @@ public class TabletController_Colorsinigame : MonoBehaviour
 			await backgroundCanvasGroup.DOFade(0f, 1f).AsyncWaitForCompletion();
 			LoadFindColorLevel(0);
 		});
-
-
-
 	}
 	#endregion
 

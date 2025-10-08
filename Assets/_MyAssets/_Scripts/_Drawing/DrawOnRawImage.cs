@@ -25,6 +25,7 @@ public class TransparentOverlayDraw : MonoBehaviour
 
 	public bool isEnabled = true;
 
+	#region Mono
 	void Start()
 	{
 		_camera = Camera.main;
@@ -37,6 +38,28 @@ public class TransparentOverlayDraw : MonoBehaviour
 
 		InitializeOverlay();
 	}
+
+	void Update()
+	{
+		if (!_initialized) return;
+
+		GatherDrawPosition();
+
+		if (isEnabled)
+		{
+			if (_positionToDraw.HasValue)
+			{
+				DrawOnOverlay(_positionToDraw.Value);
+			}
+			else
+			{
+				_lastPositionToDraw = null; // reset when no touch
+			}
+		}
+
+	}
+	#endregion
+
 
 	void InitializeOverlay()
 	{
@@ -64,57 +87,14 @@ public class TransparentOverlayDraw : MonoBehaviour
 		_initialized = true;
 	}
 
-	void Update()
-	{
-		if (!_initialized) return;
-
-		GatherDrawPosition();
-
-		if (isEnabled)
-		{
-			if (_positionToDraw.HasValue)
-			{
-				DrawOnOverlay(_positionToDraw.Value);
-			}
-			else
-			{
-				_lastPositionToDraw = null; // reset when no touch
-			}
-		}
-
-	}
-
+	
 	public void SetBrushColor(Color newColor)
 	{
 		drawColor = newColor;
 	}
 
-	private void GatherDrawPosition()
-	{
-		_positionToDraw = null;
+	#region Draw Methods
 
-		if (Touchscreen.current == null || EventSystem.current == null)
-			return;
-
-		foreach (var touch in Touchscreen.current.touches)
-		{
-			if (!touch.press.isPressed) continue;
-
-			Vector2 pos = touch.position.ReadValue();
-			var pointerData = new PointerEventData(EventSystem.current) { position = pos };
-			var results = new List<RaycastResult>();
-			EventSystem.current.RaycastAll(pointerData, results);
-
-			foreach (var result in results)
-			{
-				if (result.gameObject == overlayImage.gameObject)
-				{
-					_positionToDraw = pos;
-					return;
-				}
-			}
-		}
-	}
 
 	private void DrawOnOverlay(Vector2 screenPosition)
 	{
@@ -186,19 +166,32 @@ public class TransparentOverlayDraw : MonoBehaviour
 			}
 		}
 	}
+	#endregion
 
-	private void GenerateBrushCache()
+	#region Draw Position Methods
+	private void GatherDrawPosition()
 	{
-		int diameter = brushSize * 2 + 1;
-		_brushCache = new Color[diameter * diameter];
+		_positionToDraw = null;
 
-		for (int i = 0; i < diameter; i++)
+		if (Touchscreen.current == null || EventSystem.current == null)
+			return;
+
+		foreach (var touch in Touchscreen.current.touches)
 		{
-			for (int j = 0; j < diameter; j++)
+			if (!touch.press.isPressed) continue;
+
+			Vector2 pos = touch.position.ReadValue();
+			var pointerData = new PointerEventData(EventSystem.current) { position = pos };
+			var results = new List<RaycastResult>();
+			EventSystem.current.RaycastAll(pointerData, results);
+
+			foreach (var result in results)
 			{
-				int dx = i - brushSize;
-				int dy = j - brushSize;
-				_brushCache[j * diameter + i] = (dx * dx + dy * dy <= brushSize * brushSize) ? Color.white : Color.clear;
+				if (result.gameObject == overlayImage.gameObject)
+				{
+					_positionToDraw = pos;
+					return;
+				}
 			}
 		}
 	}
@@ -218,6 +211,25 @@ public class TransparentOverlayDraw : MonoBehaviour
 
 		return new Vector2(normX * overlayTexture.width, normY * overlayTexture.height);
 	}
+	#endregion
+
+	private void GenerateBrushCache()
+	{
+		int diameter = brushSize * 2 + 1;
+		_brushCache = new Color[diameter * diameter];
+
+		for (int i = 0; i < diameter; i++)
+		{
+			for (int j = 0; j < diameter; j++)
+			{
+				int dx = i - brushSize;
+				int dy = j - brushSize;
+				_brushCache[j * diameter + i] = (dx * dx + dy * dy <= brushSize * brushSize) ? Color.white : Color.clear;
+			}
+		}
+	}
+
+
 
 	public void ClearDrawing()
 	{
@@ -233,12 +245,14 @@ public class TransparentOverlayDraw : MonoBehaviour
 		_lastPositionToDraw = null; // Reset last draw position
 	}
 
-	// Optional: erase at a specific position immediately
-	public void EraseAt(Vector2 screenPosition)
+	public Texture2D GetOverlayTextureCopy()
 	{
-		currentMode = DrawMode.Erase;
-		_positionToDraw = screenPosition;
-		DrawOnOverlay(screenPosition);
-		currentMode = DrawMode.Draw;
+		if (!_initialized || overlayTexture == null)
+			return null;
+
+		Texture2D copy = new Texture2D(overlayTexture.width, overlayTexture.height, TextureFormat.RGBA32, false);
+		copy.SetPixels(overlayTexture.GetPixels());
+		copy.Apply(false);
+		return copy;
 	}
 }
