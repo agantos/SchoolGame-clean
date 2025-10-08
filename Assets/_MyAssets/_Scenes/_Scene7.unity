@@ -449,7 +449,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8354975602694937206}
         m_TargetAssemblyTypeName: TabletMinigameController_Story, Assembly-CSharp
-        m_MethodName: EnableDrawCanvas
+        m_MethodName: StartDrawing_Round1
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2013,7 +2013,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8354975602694937206}
         m_TargetAssemblyTypeName: TabletMinigameController_Story, Assembly-CSharp
-        m_MethodName: EnableDrawCanvas
+        m_MethodName: StartDrawing_Round1
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4626,7 +4626,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8354975602694937206}
         m_TargetAssemblyTypeName: TabletMinigameController_Story, Assembly-CSharp
-        m_MethodName: EnableDrawCanvas
+        m_MethodName: StartDrawing_Round1
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -46571,6 +46571,10 @@ MonoBehaviour:
     - {fileID: 1081510631}
     - {fileID: 1475780690}
     - {fileID: 807572813}
+    canvasText:
+    - Who is in your story?
+    - When does the story happen?
+    - Where does the story happen?
     audioHintButton: {fileID: 491575698}
     hintClip: {fileID: 8300000, guid: 741a3dc3ee4a72645a4a13add1ef544e, type: 3}
     _completedFields: 000000
@@ -46582,6 +46586,9 @@ MonoBehaviour:
     DrawHere:
     - {fileID: 1695425056}
     - {fileID: 601809893}
+    canvasText:
+    - How does your story start?
+    - What is the big event or problem?
     audioHintButton: {fileID: 1105025157}
     hintClip: {fileID: 8300000, guid: 9d47a19340600e34ebe975b4ed2146f8, type: 3}
     _completedFields: 0000
@@ -46591,6 +46598,8 @@ MonoBehaviour:
     - {fileID: 1182745022}
     DrawHere:
     - {fileID: 895114820}
+    canvasText:
+    - How does the story end?
     audioHintButton: {fileID: 1663802737}
     hintClip: {fileID: 8300000, guid: 9d47a19340600e34ebe975b4ed2146f8, type: 3}
     _completedFields: 00

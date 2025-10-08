@@ -32,11 +32,11 @@ public class TabletMinigameController_Story : MonoBehaviour
 		drawCanvas.Initialize();
 		drawCanvas.gameObject.SetActive(false);
 
-		//PlayIntroductionVideo();
+		PlayIntroductionVideo();
 
 		//Test
-		EnableImageView_Round1();
-		LoadLevel_RememberStory(0);
+		//EnableImageView_Round1();
+		//LoadLevel_RememberStory(0);
 
 	}
 
@@ -71,14 +71,18 @@ public class TabletMinigameController_Story : MonoBehaviour
 		}
 	}
 
-	public void EnableDrawCanvas()
+	public void StartDrawing_Round1() {
+		EnableDrawCanvas(levels_round1[_currentLevel_round1].title);
+	}
+
+	void EnableDrawCanvas(string canvasText = "")
 	{
 		ImageView_Round1.SetActive(false);
 		VideoView.SetActive(false);
 		ImageView_Round2.SetActive(false);
 
 		drawCanvas.gameObject.SetActive(true);
-		drawCanvas.StartSession(levels_round1[_currentLevel_round1].title);
+		drawCanvas.StartSession(canvasText);		
 	}
 
 	#endregion
@@ -132,11 +136,14 @@ public class TabletMinigameController_Story : MonoBehaviour
 		await videoCanvasGroup.DOFade(0f, 1f).AsyncWaitForCompletion();
 		EnableImageView_Round1();
 		LoadLevel_RememberStory(0);
+		await backgroundCanvasGroup.DOFade(1f, 1f).AsyncWaitForCompletion();
+			
 		StartHighlight();
 
 		PlayVideoButton.onClick.AddListener(PlayAssistVideo);
 		PlayAudioButton.onClick.AddListener(PlayAssistAudio);
 		vp.loopPointReached -= OnIntroVideoEnd;
+
 	}
 	#endregion
 
@@ -226,6 +233,8 @@ public class TabletMinigameController_Story : MonoBehaviour
 		LoadLevel_RememberStory(_currentLevel_round1);
 		StartHighlight();
 
+		await backgroundCanvasGroup.DOFade(1f, 1f).AsyncWaitForCompletion();
+
 		PlayVideoButton.enabled = true;
 		PlayAudioButton.enabled = true;
 
@@ -243,19 +252,15 @@ public class TabletMinigameController_Story : MonoBehaviour
 	#endregion
 
 	#region Levels Navigation
-	void LoadNextLevel_Round1()
+	async void LoadNextLevel_Round1()
 	{
-		StopHighlight();
-
 		var backgroundCanvas = backgroundImage_round1.GetComponent<CanvasGroup>();
 		levels_round1[_currentLevel_round1].openCanvasButton.gameObject.SetActive(false);
 
 		if (_currentLevel_round1 < levels_round1.Length - 1)
 		{
 			_currentLevel_round1++;
-			//await backgroundCanvas.DOFade(0, 0.7f).AsyncWaitForCompletion();
 			LoadLevel_RememberStory(_currentLevel_round1);
-			StartHighlight();
 		}
 		else
 		{
@@ -429,8 +434,11 @@ public class TabletMinigameController_Story : MonoBehaviour
 	{
 		public GameObject Level;
 		public Texture2D backgroundImage;
+
 		public RawImage[] drawings;
 		public Button[] DrawHere;
+		public string[] canvasText;
+		
 		public Button audioHintButton;
 		public AudioClip hintClip;
 
@@ -489,7 +497,6 @@ public class TabletMinigameController_Story : MonoBehaviour
 			await _tablet.backgroundImage_round2.DOFade(1f, time).AsyncWaitForCompletion();
 		}
 
-
 		public void CompleteStage(int index)
 		{	
 			DrawHere[index].gameObject.SetActive(false);
@@ -531,7 +538,7 @@ public class TabletMinigameController_Story : MonoBehaviour
 
 		public void OnClickDrawHere()
 		{
-			_tablet.EnableDrawCanvas();
+			_tablet.EnableDrawCanvas(canvasText[GetCurrentStageIndex()]);
 		}
 	}
 
