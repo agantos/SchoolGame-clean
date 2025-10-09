@@ -9,6 +9,7 @@ public class TransparentOverlayDraw : MonoBehaviour
 	[Header("UI References")]
 	public RawImage overlayImage; // The transparent overlay you paint on
 
+
 	[Header("Brush Settings")]
 	public Color drawColor = Color.black;
 	public int brushSize = 10;
@@ -36,7 +37,7 @@ public class TransparentOverlayDraw : MonoBehaviour
 			return;
 		}
 
-		InitializeOverlay();
+
 	}
 
 	void Update()
@@ -61,10 +62,11 @@ public class TransparentOverlayDraw : MonoBehaviour
 	#endregion
 
 
-	void InitializeOverlay()
+	public void InitializeOverlay(Texture2D textureToLoad = null)
 	{
-		// Try to use existing texture if it exists
-		Texture2D existing = overlayImage.texture as Texture2D;
+		Texture2D existing;
+		if (textureToLoad == null) existing = overlayImage.texture as Texture2D;
+		else existing = textureToLoad;
 
 		if (existing != null)
 		{

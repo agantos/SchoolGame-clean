@@ -32,47 +32,23 @@ public class TabletMinigameController_Story : MonoBehaviour
 		drawCanvas.Initialize();
 		drawCanvas.gameObject.SetActive(false);
 
-		PlayIntroductionVideo();
+		InitalizeDrawAreas_Round1();
+
+		//PlayIntroductionVideo();
 
 		//Test
-		//EnableImageView_Round1();
-		//LoadLevel_RememberStory(0);
+		EnableImageView_Round1();
+		LoadLevel_RememberStory(0);
+
 
 	}
 
 	#region Draw Canvas Methods
-	public void OnFinishDrawingClicked_Round1()
+
+	public void OnFinishRound_1()
 	{
-		Texture2D textureDrawn = drawCanvas.canvas.GetOverlayTextureCopy();
-
-		if (_isOnRound1)
-		{
-			CanvasGroup transparency = drawings_round1[_currentLevel_round1].GetComponent<CanvasGroup>();
-
-			EnableImageView_Round1();
-			drawings_round1[_currentLevel_round1].texture = textureDrawn;
-			transparency.alpha = 1f;
-
-			LoadNextLevel_Round1();
-		}
-		else
-		{
-			var currentLevel = levels_round2[_currentLevel_round2];
-			var currentDrawing = currentLevel.GetCurrentDrawing();
-			var drawingTransparency = currentDrawing.GetComponent<CanvasGroup>();
-
-			EnableImageView_Round2();
-			LoadNext_Round2();
-
-			currentDrawing.texture = textureDrawn;
-			drawingTransparency.alpha = 1f;
-
-			_imagesDrawn_round2.Add(textureDrawn);
-		}
-	}
-
-	public void StartDrawing_Round1() {
-		EnableDrawCanvas(levels_round1[_currentLevel_round1].title);
+		EnableImageView_Round1();
+		LoadNextLevel_Round1();
 	}
 
 	void EnableDrawCanvas(string canvasText = "")
@@ -85,7 +61,26 @@ public class TabletMinigameController_Story : MonoBehaviour
 		drawCanvas.StartSession(canvasText);		
 	}
 
+	public void OnFinishRound_2()
+	{
+		Texture2D textureDrawn = drawCanvas.canvas.GetOverlayTextureCopy();
+
+		EnableImageView_Round2();
+		LoadNext_Round2();
+	}
 	#endregion
+
+	int GetCompletedNumber(DrawClickableArea[] areas)
+	{
+		int i = 0;
+		foreach (DrawClickableArea area in areas)
+		{
+			if (area.IsDrawn)
+				i++;
+		}
+
+		return i;
+	}
 
 	#region Video View
 	[Header("Video View")]
@@ -138,8 +133,6 @@ public class TabletMinigameController_Story : MonoBehaviour
 		LoadLevel_RememberStory(0);
 		await backgroundCanvasGroup.DOFade(1f, 1f).AsyncWaitForCompletion();
 			
-		StartHighlight();
-
 		PlayVideoButton.onClick.AddListener(PlayAssistVideo);
 		PlayAudioButton.onClick.AddListener(PlayAssistAudio);
 		vp.loopPointReached -= OnIntroVideoEnd;
@@ -154,7 +147,6 @@ public class TabletMinigameController_Story : MonoBehaviour
 	[Space]
 	[SerializeField] GameObject ImageView_Round1;
 	[SerializeField] RawImage backgroundImage_round1;
-	[SerializeField] RawImage highlightImage_round1;
 	[SerializeField] Level_RememberStory[] levels_round1;
 
 	[Header("Round 1 - Buttons")]
@@ -162,18 +154,24 @@ public class TabletMinigameController_Story : MonoBehaviour
 	public Button PlayAudioButton;
 	public AudioClip assistAudioClip;
 
-	[Header("Round 1 - Drawings")]
-	public RawImage[] drawings_round1;
-
 	[Header("Round 1 - Final View Assets")]
 	[SerializeField] Texture2D finalImage_round1;
 	public Button nextRoundButton;
 
-
 	int _currentLevel_round1;
+	List<DrawClickableArea> drawAreas_round1;
 
-	bool _highlightLoop = true;
+	void InitalizeDrawAreas_Round1()
+	{
+		drawAreas_round1 = new List<DrawClickableArea>();
 
+		foreach(var level in levels_round1)
+		{
+			drawAreas_round1.Add(level.drawArea);
+			level.drawArea.Disable();
+			level.drawArea.onFinish = OnFinishRound_1;
+		}
+	}
 
 	void EnableImageView_Round1()
 	{
@@ -231,7 +229,6 @@ public class TabletMinigameController_Story : MonoBehaviour
 		await videoCanvasGroup.DOFade(0f, 1f).AsyncWaitForCompletion();
 		EnableImageView_Round1();
 		LoadLevel_RememberStory(_currentLevel_round1);
-		StartHighlight();
 
 		await backgroundCanvasGroup.DOFade(1f, 1f).AsyncWaitForCompletion();
 
@@ -254,17 +251,14 @@ public class TabletMinigameController_Story : MonoBehaviour
 	#region Levels Navigation
 	async void LoadNextLevel_Round1()
 	{
-		var backgroundCanvas = backgroundImage_round1.GetComponent<CanvasGroup>();
-		levels_round1[_currentLevel_round1].openCanvasButton.gameObject.SetActive(false);
+		_currentLevel_round1 = GetCompletedNumber(drawAreas_round1.ToArray());
 
-		if (_currentLevel_round1 < levels_round1.Length - 1)
+		if (_currentLevel_round1 < levels_round1.Length)
 		{
-			_currentLevel_round1++;
 			LoadLevel_RememberStory(_currentLevel_round1);
 		}
 		else
 		{
-			highlightImage_round1.enabled = false;
 			backgroundImage_round1.texture = finalImage_round1;
 			nextRoundButton.gameObject.SetActive(true);
 			nextRoundButton.onClick.AddListener(ToRound2);
@@ -279,9 +273,7 @@ public class TabletMinigameController_Story : MonoBehaviour
 		var level = levels_round1[index];
 
 		backgroundImage_round1.texture = level.backgroundImage;
-		highlightImage_round1.texture = level.highlightImage;
-
-		level.openCanvasButton.gameObject.SetActive(true);
+		level.drawArea.Enable();
 	}
 
 	async void ToRound2()
@@ -291,13 +283,7 @@ public class TabletMinigameController_Story : MonoBehaviour
 		backgroundCanvas_2.alpha = 0f;
 
 		// Fade round_1
-		foreach (var drawing in drawings_round1)
-		{
-			CanvasGroup drAlpha = drawing.GetComponent<CanvasGroup>();
-			drAlpha.DOFade(0, 1f);
-		}
 		await backgroundCanvas_1.DOFade(0f, 1f).AsyncWaitForCompletion();
-
 
 		// Start round_2
 		EnableImageView_Round2();
@@ -307,52 +293,13 @@ public class TabletMinigameController_Story : MonoBehaviour
 
 	}
 	#endregion
-
-	#region Highlights Flashing
-	public void StartHighlight()
-	{
-		HighlightLoop().Forget();
-	}
-
-	private async UniTaskVoid HighlightLoop()
-	{
-		var highlight = highlightImage_round1.GetComponent<CanvasGroup>();
-		if (highlight == null)
-			highlight = highlightImage_round1.gameObject.AddComponent<CanvasGroup>();
-
-		highlight.alpha = 0.5f;
-
-		while (_highlightLoop && this != null && highlight != null)
-		{
-			await highlight
-				.DOFade(1f, 1f)
-				.AsyncWaitForCompletion();
-
-			await highlight
-				.DOFade(0.5f, 1f)
-				.AsyncWaitForCompletion();
-		}
-
-		// Reset alpha if loop ends
-		highlight.alpha = 1f;
-	}
-
-	public void StopHighlight()
-	{
-		_highlightLoop = false;
-		DOTween.Kill(highlightImage_round1); // stop any active tween safely
-	}
-	#endregion
-
 	
 
 	[Serializable]
 	public class Level_RememberStory
 	{
 		public Texture2D backgroundImage;
-		public Texture2D highlightImage;
-		public Button openCanvasButton;
-		public string title;
+		public DrawClickableArea drawArea;
 	}
 
 	#endregion
@@ -386,32 +333,29 @@ public class TabletMinigameController_Story : MonoBehaviour
 	async void LoadNext_Round2()
 	{
 		var currentLevel = levels_round2[_currentLevel_round2];
-
-		// don't change level
-		if (!currentLevel.IsCompleted())
-		{
-			currentLevel.CompleteCurrentStage();
-		}
 		
 		// change level
 		if (currentLevel.IsCompleted())
 		{
-			if(_currentLevel_round2 < levels_round2.Length - 1)
+			if (_currentLevel_round2 < levels_round2.Length - 1)
 			{
-				await UniTask.Delay(2000);
-				_currentLevel_round2++;
-				await currentLevel.FadeOutLevelVisuals();
-				LoadLevel_Round2(_currentLevel_round2);
-				levels_round2[_currentLevel_round2].FadeInLevelVisuals();
+				currentLevel.nextButton.gameObject.SetActive(true);
 			}
-			// spawn final image
 			else
 			{
 				currentLevel.Level.SetActive(false);
 				backgroundImage_round2.texture = finalImage_round2;
 			}
 		}
+	}
 
+	async void OnNextClicked_round2()
+	{
+		var currentLevel = levels_round2[_currentLevel_round2];
+		_currentLevel_round2++;
+		await currentLevel.FadeOutLevelVisuals();
+		LoadLevel_Round2(_currentLevel_round2);
+		levels_round2[_currentLevel_round2].FadeInLevelVisuals();
 	}
 
 	void EnableImageView_Round2()
@@ -435,24 +379,25 @@ public class TabletMinigameController_Story : MonoBehaviour
 		public GameObject Level;
 		public Texture2D backgroundImage;
 
-		public RawImage[] drawings;
-		public Button[] DrawHere;
-		public string[] canvasText;
-		
-		public Button audioHintButton;
-		public AudioClip hintClip;
+		public DrawClickableArea[] DrawAreas;
 
-		public bool[] _completedFields;
+		public Button audioHintButton;
+		public Button nextButton;
+
+		public AudioClip hintClip;
 
 		TabletMinigameController_Story _tablet;
 
 		public void InitializeLevel()
 		{
 			_tablet = FindAnyObjectByType<TabletMinigameController_Story>();
+			nextButton.gameObject.SetActive(false);
+			nextButton.onClick.AddListener(_tablet.OnNextClicked_round2);
 
-			foreach (var drawHere in DrawHere)
+			foreach (var drawArea in DrawAreas)
 			{
-				drawHere.onClick.AddListener(OnClickDrawHere);
+				drawArea.Enable();
+				drawArea.onFinish = _tablet.OnFinishRound_2;
 			}
 
 			audioHintButton.onClick.AddListener(() =>
@@ -465,80 +410,46 @@ public class TabletMinigameController_Story : MonoBehaviour
 
 		public async UniTask FadeOutLevelVisuals(float time = 0.4f)
 		{
-			foreach (var drawing in drawings)
+			foreach (var drawing in DrawAreas)
 			{
-				drawing.DOFade(0f, time);
+				drawing.DrawingDisplay.DOFade(0f, time);
 			}
-			foreach (var drawHere in DrawHere)
-			{
-				drawHere.gameObject.SetActive(false);
-			}
+
 			audioHintButton.gameObject.SetActive(false);
+			nextButton.gameObject.SetActive(false);
 
 			await _tablet.backgroundImage_round2.DOFade(0f,time).AsyncWaitForCompletion();
+			Level.SetActive(false);
 		}
 
 		public async void FadeInLevelVisuals(float time = 0.4f)
 		{
-			foreach (var drawing in drawings)
+			foreach (var drawing in DrawAreas)
 			{
-				await drawing.DOFade(0f, 0.1f).AsyncWaitForCompletion();
+				await drawing.DrawingDisplay.DOFade(0f, 0.1f).AsyncWaitForCompletion();
 			}
 
-			foreach (var drawing in drawings)
+			foreach (var drawing in DrawAreas)
 			{
-				drawing.DOFade(1f, time);
-			}
-			foreach (var drawHere in DrawHere)
-			{
-				drawHere.gameObject.SetActive(true);
+				drawing.DrawingDisplay.DOFade(1f, time);
 			}
 
 			await _tablet.backgroundImage_round2.DOFade(1f, time).AsyncWaitForCompletion();
 		}
 
-		public void CompleteStage(int index)
-		{	
-			DrawHere[index].gameObject.SetActive(false);
-			_completedFields[index] = true;
-		}
-
-		public void CompleteCurrentStage()
-		{
-			CompleteStage(GetCurrentStageIndex());
-		}
-
-		public RawImage GetCurrentDrawing()
-		{
-			return drawings[GetCurrentStageIndex()];
-		}
-
 		public bool IsCompleted()
 		{
-			foreach(var b in _completedFields)
+			foreach(var d in DrawAreas)
 			{
-				if(!b) return false;
+				if(!d.IsDrawn) return false;
 			}
 
 			return true;
 		}
 
-		int GetCurrentStageIndex()
-		{
-			int index = 0;
-
-			foreach (var b in _completedFields)
-			{
-				if (!b) return index;
-				++index;
-			}
-
-			return index;
-		}
-
 		public void OnClickDrawHere()
 		{
-			_tablet.EnableDrawCanvas(canvasText[GetCurrentStageIndex()]);
+			_tablet.EnableDrawCanvas();
 		}
 	}
 
