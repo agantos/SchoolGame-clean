@@ -9,9 +9,9 @@ public class RightSideButtonsHandler : MonoBehaviour
     private Transform[] _availableButtonSlots;
 
     [Header("Buttons")]
-    [SerializeField] Button GrabButton;
-    [SerializeField] Button DialogueButton;
-    [SerializeField] Button ReleaseButton;
+    public Button GrabButton;
+    public Button DialogueButton;
+    public Button ReleaseButton;
 
     private void Awake()
     {

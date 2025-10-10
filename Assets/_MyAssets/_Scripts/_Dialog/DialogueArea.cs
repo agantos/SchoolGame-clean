@@ -1,11 +1,10 @@
 using UnityEngine;
 
-public class DialogueArea : MonoBehaviour
+public class DialogueArea : TriggerArea
 {
     private RightSideButtonsHandler _rightSideButtonsHandler;
     private DialogueManager _dialogueManager;
 
-    [SerializeField] private LayerMask playerLayer;
     [SerializeField] private SCR_DialogueNode dialog;
 	[SerializeField] private DialogueEventPlanner_Base eventPlanner;
     [SerializeField] private bool startOnTriggerEnter;
@@ -15,29 +14,8 @@ public class DialogueArea : MonoBehaviour
         _rightSideButtonsHandler = FindAnyObjectByType<RightSideButtonsHandler>();
         _dialogueManager = FindAnyObjectByType<DialogueManager>();
 	}
-    
-    private void OnTriggerEnter(Collider other)
-    {
-        if (IsPlayer(other.gameObject))
-        {
-            PlayerInsideArea();
-        }
-    }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (IsPlayer(other.gameObject))
-        {
-            OutsidePlayerArea();
-        }
-    }
-
-    private bool IsPlayer(GameObject obj)
-    {
-        return ((1 << obj.layer) & playerLayer) != 0;
-    }
-
-    void PlayerInsideArea()
+    protected override void OnPlayerEnter()
     {
         _dialogueManager.EventPlanner = eventPlanner;
 		_dialogueManager.DialogueToStart = dialog;
@@ -52,15 +30,9 @@ public class DialogueArea : MonoBehaviour
         }
     }
 
-    void OutsidePlayerArea()
+    protected override void OnPlayerExit()
     {
         _rightSideButtonsHandler?.ToggleDialogueButton(false);
         _dialogueManager.DialogueToStart = null;
-    }
-
-    void Disable()
-    {
-        gameObject.GetComponent<SphereCollider>().enabled = false;  
-        gameObject.GetComponent<MeshRenderer>().enabled = false;
     }
 }

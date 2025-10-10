@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using Unity.Cinemachine;
 using UnityEngine;
 
@@ -7,7 +8,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] CinemachineBrain cameraBrain;
     [SerializeField] Transform playerBodyTransform;
 
-    public PlayerMovementController PlayerMovementController { private set; get; }
+	public PlayerMovementController PlayerMovementController { private set; get; }
 
     private CinemachineCamera activeCamera;
     private Quaternion _originalPlayerRotation;
@@ -22,17 +23,23 @@ public class PlayerManager : MonoBehaviour
     {
     }
 
-    public void MoveToPosition(Vector3 position)
-    {
-        PlayerMovementController.MoveImmediately(position);
-    }
+	#region Transform Methods
+	public void MoveToPosition(Vector3 position)
+	{
+		PlayerMovementController.MoveImmediately(position);
+	}
 
-    public void SetRotation(Vector3 rotation)
-    {
-        PlayerMovementController.SetRotation(rotation);
-    }
+	public void SetRotation(Vector3 rotation)
+	{
+		PlayerMovementController.SetRotation(rotation);
+	}
 
-    public void LookImmediately(Transform lookAt)
+	#endregion
+
+
+	#region Camera Methods
+
+	public void LookImmediately(Transform lookAt)
     {
         Vector3 direction = lookAt.position - playerBodyTransform.position;
         Quaternion targetRotation = Quaternion.LookRotation(direction);
@@ -156,5 +163,53 @@ public class PlayerManager : MonoBehaviour
         if (returnMovement)
             PlayerMovementController.EnableMovement();
     }
+
+	#endregion
+
+	#region
+	[SerializeField] Transform heldItemPosition;
+	[SerializeField] float grabDuration = 0.4f;
+	[SerializeField] Ease grabEase = Ease.OutCubic;
+
+	public void GrabItem(GameObject obj)
+	{
+		// Stop any running tweens on this object (safety)
+		obj.transform.DOKill();
+
+		// Disable physics for smoother control
+		var rb = obj.GetComponent<Rigidbody>();
+		if (rb != null)
+		{
+			rb.isKinematic = true;
+			rb.angularVelocity = Vector3.zero;
+		}
+
+		// Parent it to nothing during flight, to keep world motion smooth
+		obj.transform.SetParent(null);
+
+		// --- Animate position + rotation + scale ---
+		Sequence grabSeq = DOTween.Sequence();
+
+		grabSeq.Append(
+			obj.transform.DOMove(heldItemPosition.position, grabDuration)
+				.SetEase(grabEase)
+		)
+		.Join(
+			obj.transform.DORotate(heldItemPosition.rotation.eulerAngles, grabDuration)
+				.SetEase(grabEase)
+		)
+		.Join(
+			obj.transform.DOScale(1f, grabDuration * 0.8f).SetEase(Ease.OutBack)
+		)
+		.OnComplete(() =>
+		{
+			// Snap parent to hand position when done
+			obj.transform.SetParent(heldItemPosition);
+			obj.transform.localPosition = Vector3.zero;
+			obj.transform.localRotation = Quaternion.identity;
+		});
+	}
+
+	#endregion
 
 }

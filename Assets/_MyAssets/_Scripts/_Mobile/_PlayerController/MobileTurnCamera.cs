@@ -10,6 +10,7 @@ public class MobileTurnCamera : MonoBehaviour
 	[SerializeField] private CinemachineCamera virtualCam;
 
     [SerializeField] private Transform player;
+    [SerializeField] private Transform playerModel;
 
 	public float sensitivity = 0.05f;
 
@@ -39,7 +40,7 @@ public class MobileTurnCamera : MonoBehaviour
 	{
 		Vector2 lookDelta = _playerActions.Look.ReadValue<Vector2>();
 
-		transform.position = player.position + new Vector3(0f, player.localScale.y / 1.5f, 0f);
+		transform.position = player.position + new Vector3(0f, playerModel.localScale.y / 1.5f, 0f);
 
 		if (lookDelta.sqrMagnitude > 0.001f && !IsPointerOverUI())
 		{
