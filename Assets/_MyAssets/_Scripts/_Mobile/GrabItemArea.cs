@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public class _GrabItemArea : TriggerArea
+public class GrabItemArea : TriggerArea
 {
 	private RightSideButtonsHandler _rightSideButtonsHandler;
 	private PlayerManager _playerManager;
-	private GameObject grabbableObject;
+	public GameObject grabbableObject;
 
 	private void Awake()
 	{
@@ -15,6 +15,8 @@ public class _GrabItemArea : TriggerArea
 	{
 		_rightSideButtonsHandler?.ToggleGrabButton(true);
 		_rightSideButtonsHandler.GrabButton.onClick.RemoveAllListeners();
+
+		_rightSideButtonsHandler.GrabButton.onClick.AddListener(OnGrabClick);
 	}
 
 	void OnGrabClick()
@@ -24,14 +26,6 @@ public class _GrabItemArea : TriggerArea
 		_playerManager.GrabItem(grabbableObject);
 		_rightSideButtonsHandler.ToggleGrabButton(false);
 		_rightSideButtonsHandler.ToggleReleaseButton(true);
-
-		// Set Up releaseButton
-		_rightSideButtonsHandler.ReleaseButton.onClick.RemoveAllListeners();
-		
-		_rightSideButtonsHandler.ReleaseButton.onClick.AddListener(() =>
-		{
-
-		});
 	}
 
 	protected override void OnPlayerExit()
