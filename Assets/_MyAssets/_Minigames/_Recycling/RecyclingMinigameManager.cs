@@ -16,5 +16,30 @@ public class RecyclingMinigameManager : MonoBehaviour
 		
 	}
 
-	
+	public bool GetIsWaste(GameObject obj)
+	{
+		foreach (GameObject w in waste)
+		{
+			if (w == obj) return true;
+		}
+
+		return false;
+	}
+
+	public bool IsTrash(GameObject obj)
+	{
+		foreach (GameObject w in waste)
+		{
+			if (w == obj) return true;
+		}
+
+		foreach (GameObject w in recycleTrash)
+		{
+			if (w == obj) return true;
+		}
+
+		return false;
+
+
+	}
 }

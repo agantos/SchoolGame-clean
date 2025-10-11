@@ -12,6 +12,8 @@ public class RightSideButtonsHandler : MonoBehaviour
     public Button GrabButton;
     public Button DialogueButton;
     public Button ReleaseButton;
+    public Button RecycleBinButton;
+    public Button WasteBinButton;
 
     private void Awake()
     {
@@ -20,6 +22,8 @@ public class RightSideButtonsHandler : MonoBehaviour
         GrabButton.gameObject.SetActive(false);
         DialogueButton.gameObject.SetActive(false);
         ReleaseButton.gameObject.SetActive(false);
+        RecycleBinButton.gameObject.SetActive(false);
+        WasteBinButton.gameObject.SetActive(false);
 
         DialogueButton.onClick.AddListener(() => { ToggleDialogueButton(false); }); 
     }
@@ -43,11 +47,23 @@ public class RightSideButtonsHandler : MonoBehaviour
         else DisableButton(ReleaseButton);
     }
 
-    #endregion
+	public void ToggleRecycleButton(bool enable)
+	{
+		if (enable) EnableButton(RecycleBinButton);
+		else DisableButton(RecycleBinButton);
+	}
 
-    #region Button Enabling / Disabling Helper Methods
+	public void ToggleWasteButton(bool enable)
+	{
+		if (enable) EnableButton(WasteBinButton);
+		else DisableButton(WasteBinButton);
+	}
 
-    void EnableButton(Button button)
+	#endregion
+
+	#region Button Enabling / Disabling Helper Methods
+
+	void EnableButton(Button button)
     {
         if (button.IsActive()) return;
 

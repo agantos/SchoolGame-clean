@@ -34,4 +34,10 @@ public abstract class TriggerArea : MonoBehaviour
 		gameObject.GetComponent<SphereCollider>().enabled = false;
 		gameObject.GetComponent<MeshRenderer>().enabled = false;
 	}
+
+	protected void Enable()
+	{
+		gameObject.GetComponent<SphereCollider>().enabled = true;
+		gameObject.GetComponent<MeshRenderer>().enabled = true;
+	}
 }

@@ -40,9 +40,29 @@ public class BinAnimation : MonoBehaviour
 
 
 	}
+
 	public bool returnTrash;
 	public bool throwTrash;
 
+	public async UniTask PlayCorrectAnimation(GameObject trash)
+	{
+		this.trash = trash.transform;
+		await ThrowTrash();
+		await UniTask.Delay(1000);
+		await PlayCorrect();
+		trash.SetActive(false);
+	}
+
+	public async UniTask PlayWrongAnimation(GameObject trash)
+	{
+		Debug.Log(trash);
+		this.trash = trash.transform;
+		await ThrowTrash();
+		await UniTask.Delay(1000);
+		await PlayWrong();
+		await UniTask.Delay(500);
+		await TrashFliesBack();
+	}
 
 	#region Object Animations
 
@@ -151,19 +171,19 @@ public class BinAnimation : MonoBehaviour
 	public bool playWrong;
 	public bool playCorrect;
 
-	public async void PlayWrong()
+	public async UniTask PlayWrong()
 	{
 		await ShakeBin();
-		await UniTask.Delay(100);
+		await UniTask.Delay(1000);
 		await WaitSparks();
 		await UniTask.Delay(300);
 		wrong.Play();
 	}
 
-	public async void PlayCorrect()
+	public async UniTask PlayCorrect()
 	{
 		await ShakeBin();
-		await UniTask.Delay(100);
+		await UniTask.Delay(1000);
 		await WaitSparks();
 		await UniTask.Delay(300);
 		correct.Play();

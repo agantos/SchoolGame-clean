@@ -166,10 +166,12 @@ public class PlayerManager : MonoBehaviour
 
 	#endregion
 
-	#region
+	#region Grab Release Item
 	[SerializeField] Transform heldItemPosition;
 	[SerializeField] float grabDuration = 0.4f;
 	[SerializeField] Ease grabEase = Ease.OutCubic;
+
+    public GameObject grabbedObject;
 
 	public void GrabItem(GameObject obj)
 	{
@@ -178,6 +180,7 @@ public class PlayerManager : MonoBehaviour
 
 		// Disable physics for smoother control
 		var rb = obj.GetComponent<Rigidbody>();
+        if (rb == null) rb = obj.GetComponentInChildren<Rigidbody>();
 		if (rb != null)
 		{
 			rb.isKinematic = true;
@@ -207,7 +210,25 @@ public class PlayerManager : MonoBehaviour
 			obj.transform.SetParent(heldItemPosition);
 			obj.transform.localPosition = Vector3.zero;
 			obj.transform.localRotation = Quaternion.identity;
-		});
+
+			grabbedObject = obj;
+		});	
+	}
+
+	public void ReleaseItem(GameObject obj) {
+		var rb = obj.GetComponent<Rigidbody>();
+		if (rb == null) rb = obj.GetComponentInChildren<Rigidbody>();
+		
+        obj.transform.SetParent(null);
+
+
+		if (rb != null)
+		{
+			rb.isKinematic = false;
+			rb.angularVelocity = Vector3.zero;
+		}
+
+        grabbedObject = null;
 	}
 
 	#endregion
