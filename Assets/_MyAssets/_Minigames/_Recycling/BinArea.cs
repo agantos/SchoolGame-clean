@@ -16,89 +16,116 @@ public class BinArea : TriggerArea
 		_recyclingMinigameManager = FindAnyObjectByType<RecyclingMinigameManager>();
 	}
 
-	private void Start()
+	async void CorrectObjectThrown(BinAnimation bin)
 	{
+		GameObject heldObject = _playerManager.grabbedObject;
+
+		heldObject.transform.SetParent(null, true);
+		_playerManager.grabbedObject = null;
+		_rightSideButtonsHandler.ToggleReleaseButton(false);
+
+		await bin.PlayCorrectAnimation(heldObject);
+		_recyclingMinigameManager.CompleteTrash();
+
+		//Reset grabbed Item
+		GrabItemArea grabArea = _playerManager.grabbedObjectArea;
+		grabArea.Disable();
 	}
 
-	async void OnRecycleButtonClick() {
+	async void WrongObjectThrown(BinAnimation bin)
+	{
+		GameObject heldObject = _playerManager.grabbedObject;
+
+		heldObject.transform.SetParent(null, true);
+		_rightSideButtonsHandler.ToggleReleaseButton(false);
+
+		await bin.PlayWrongAnimation(heldObject);
+
+		//Reset grabbed Item
+		GrabItemArea area = _playerManager.grabbedObjectArea;
+		area.OnReleaseClick();
+	}
+
+	async void OnRecycleButtonClick()
+	{
+		ResetBinButtons();
+
 		GameObject heldObject = _playerManager.grabbedObject;
 
 		if (_recyclingMinigameManager.GetIsWaste(heldObject))
 		{
-			heldObject.transform.SetParent(null, true);
-			_playerManager.grabbedObject = null;	
-			recycleBin.PlayWrongAnimation(heldObject);
+			WrongObjectThrown(recycleBin);
 		}
 		else
 		{
-			heldObject.transform.SetParent(null, true);
-			_playerManager.grabbedObject = null;
-			recycleBin.PlayCorrectAnimation(heldObject);
+			CorrectObjectThrown(recycleBin);
 		}
 
-		ResetButtons();
+		Disable();
 	}
 
-	async void ResetButtons()
+	async void OnWasteButtonClick()
+	{
+		ResetBinButtons();
+
+		GameObject heldObject = _playerManager.grabbedObject;
+
+		if (_recyclingMinigameManager.GetIsWaste(heldObject))
+		{
+			CorrectObjectThrown(wasteBin);
+		}
+		else
+		{
+			WrongObjectThrown(wasteBin);
+		}
+
+		Disable();
+	}
+
+	async void ResetBinButtons()
 	{
 		_rightSideButtonsHandler.RecycleBinButton.onClick.RemoveAllListeners();
 		_rightSideButtonsHandler.WasteBinButton.onClick.RemoveAllListeners();
 
 		_rightSideButtonsHandler.ToggleWasteButton(false);
 		_rightSideButtonsHandler.ToggleRecycleButton(false);
-
 	}
 
-	async void OnWasteButtonClick()
+
+	public void Disable()
 	{
-		GameObject heldObject = _playerManager.grabbedObject;
-
-		if (_recyclingMinigameManager.GetIsWaste(heldObject))
-		{
-			heldObject.transform.SetParent(null, true);
-			_rightSideButtonsHandler.ReleaseButton.enabled = false;
-
-			await wasteBin.PlayCorrectAnimation(heldObject);		
-
-		}
-		else
-		{
-			heldObject.transform.SetParent(null, true);
-			_rightSideButtonsHandler.ReleaseButton.enabled = false;
-
-			await wasteBin.PlayWrongAnimation(heldObject);
-
-		}
-		ResetButtons();
+		OnPlayerExit();
+		base.Disable();
 	}
-
 
 	protected override void OnPlayerEnter()
 	{
-		if (_recyclingMinigameManager.IsTrash(_playerManager.grabbedObject) )
-		{
-			_rightSideButtonsHandler.ToggleRecycleButton(true);
-			_rightSideButtonsHandler.ToggleWasteButton(true);
-
-			_rightSideButtonsHandler.RecycleBinButton.onClick.AddListener(() =>
+		if (_playerManager.grabbedObject != null) {
+			if (_recyclingMinigameManager.IsTrash(_playerManager.grabbedObject))
 			{
-				OnRecycleButtonClick();
-				_rightSideButtonsHandler.RecycleBinButton.onClick.RemoveAllListeners();
-			});
+				_rightSideButtonsHandler.ToggleRecycleButton(true);
+				_rightSideButtonsHandler.ToggleWasteButton(true);
 
-			_rightSideButtonsHandler.WasteBinButton.onClick.AddListener(() =>
-			{
-				OnWasteButtonClick();
-				_rightSideButtonsHandler.WasteBinButton.onClick.RemoveAllListeners();
-			});
+				_rightSideButtonsHandler.RecycleBinButton.onClick.AddListener(() =>
+				{
+					OnRecycleButtonClick();
+					_rightSideButtonsHandler.RecycleBinButton.onClick.RemoveAllListeners();
+				});
 
+				_rightSideButtonsHandler.WasteBinButton.onClick.AddListener(() =>
+				{
+					OnWasteButtonClick();
+					_rightSideButtonsHandler.WasteBinButton.onClick.RemoveAllListeners();
+				});
+
+			}
 		}
+
 	}
 
-	protected override void OnPlayerExit() { 
-	
-		_rightSideButtonsHandler?.ToggleRecycleButton(false);
-		_rightSideButtonsHandler.ToggleGrabButton(false);
+	protected override void OnPlayerExit() {
+
+		ResetBinButtons();
 	}
 
 }

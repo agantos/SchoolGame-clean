@@ -29,13 +29,13 @@ public abstract class TriggerArea : MonoBehaviour
 
 	protected abstract void OnPlayerExit();
 
-	protected void Disable()
+	public void Disable()
 	{
 		gameObject.GetComponent<SphereCollider>().enabled = false;
 		gameObject.GetComponent<MeshRenderer>().enabled = false;
 	}
 
-	protected void Enable()
+	public void Enable()
 	{
 		gameObject.GetComponent<SphereCollider>().enabled = true;
 		gameObject.GetComponent<MeshRenderer>().enabled = true;

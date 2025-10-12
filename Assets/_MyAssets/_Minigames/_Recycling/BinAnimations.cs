@@ -2,6 +2,7 @@ using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using System;
 using System.Linq;
+using Unity.Cinemachine;
 using UnityEngine;
 
 public class BinAnimation : MonoBehaviour
@@ -11,6 +12,14 @@ public class BinAnimation : MonoBehaviour
 	public Transform bin;
 	public Transform trash;
 	public Transform returnTrashPosition;
+
+	public CinemachineCamera cameraToTransition;
+	CinemachineCameraChanger _cameraChanger;
+
+	private void Awake()
+	{
+		_cameraChanger = FindAnyObjectByType<CinemachineCameraChanger>();
+	}
 
 	private void Update()
 	{
@@ -37,8 +46,6 @@ public class BinAnimation : MonoBehaviour
 			TrashFliesBack();
 			returnTrash = false;
 		}
-
-
 	}
 
 	public bool returnTrash;
@@ -47,20 +54,24 @@ public class BinAnimation : MonoBehaviour
 	public async UniTask PlayCorrectAnimation(GameObject trash)
 	{
 		this.trash = trash.transform;
+		_cameraChanger.TransitionToCam(cameraToTransition);
 		await ThrowTrash();
 		await UniTask.Delay(1000);
 		await PlayCorrect();
+		await UniTask.Delay(1000);
+		_cameraChanger.TransitionBackToPlayerCamera();
 		trash.SetActive(false);
 	}
 
 	public async UniTask PlayWrongAnimation(GameObject trash)
 	{
-		Debug.Log(trash);
 		this.trash = trash.transform;
+		_cameraChanger.TransitionToCam(cameraToTransition);
 		await ThrowTrash();
 		await UniTask.Delay(1000);
 		await PlayWrong();
 		await UniTask.Delay(500);
+		_cameraChanger.TransitionBackToPlayerCamera();
 		await TrashFliesBack();
 	}
 

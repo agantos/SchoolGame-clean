@@ -172,8 +172,9 @@ public class PlayerManager : MonoBehaviour
 	[SerializeField] Ease grabEase = Ease.OutCubic;
 
     public GameObject grabbedObject;
+    public GrabItemArea grabbedObjectArea;
 
-	public void GrabItem(GameObject obj)
+	public void GrabItem(GameObject obj, GrabItemArea area)
 	{
 		// Stop any running tweens on this object (safety)
 		obj.transform.DOKill();
@@ -212,6 +213,7 @@ public class PlayerManager : MonoBehaviour
 			obj.transform.localRotation = Quaternion.identity;
 
 			grabbedObject = obj;
+            grabbedObjectArea = area;
 		});	
 	}
 
@@ -229,6 +231,7 @@ public class PlayerManager : MonoBehaviour
 		}
 
         grabbedObject = null;
+		grabbedObjectArea = null;
 	}
 
 	#endregion

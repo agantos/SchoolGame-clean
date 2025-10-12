@@ -5,8 +5,7 @@ public class RightSideButtonsHandler : MonoBehaviour
 {
     [Header("Positions")]
     [SerializeField] Transform[] buttonSlots;
-
-    private Transform[] _availableButtonSlots;
+	[SerializeField] Transform buttonDefaultParent;
 
     [Header("Buttons")]
     public Button GrabButton;
@@ -17,8 +16,6 @@ public class RightSideButtonsHandler : MonoBehaviour
 
     private void Awake()
     {
-        _availableButtonSlots = (Transform[])buttonSlots.Clone();
-
         GrabButton.gameObject.SetActive(false);
         DialogueButton.gameObject.SetActive(false);
         ReleaseButton.gameObject.SetActive(false);
@@ -73,6 +70,7 @@ public class RightSideButtonsHandler : MonoBehaviour
         if (targetSlot != null)
         {
             button.transform.SetParent(targetSlot, false);
+            button.transform.localPosition = Vector3.zero;
         }
         else
         {
@@ -82,39 +80,26 @@ public class RightSideButtonsHandler : MonoBehaviour
 
     void DisableButton(Button button)
     {
-        if (!button.IsActive()) return;
-
-        FreePosition(button);
+        FreePositionOfButton(button);
         button.gameObject.SetActive(false);
     }
 
     #endregion
 
     #region Button Slots
-    void FreePosition(Button button)
+    void FreePositionOfButton(Button button)
     {
-        Transform parentSlot = button.transform.parent;
-
-        for (int i = 0; i < buttonSlots.Length; i++)
-        {
-            if (buttonSlots[i] == parentSlot)
-            {
-                _availableButtonSlots[i] = buttonSlots[i];
-                break;
-            }
-        }
+        button.transform.SetParent(buttonDefaultParent);
     }
 
     Transform GetNextEmptyPosition()
     {
-        for (int i = 0; i < _availableButtonSlots.Length; i++)
-        {
-            if (_availableButtonSlots[i] != null)
+        for (int i = 0; i < buttonSlots.Length; i++)
+        {            
+            if(buttonSlots[i].childCount == 0)
             {
-                Transform slot = _availableButtonSlots[i];
-                _availableButtonSlots[i] = null;
-                return slot;
-            }
+                return buttonSlots[i];
+            }            
         }
         return null;
     }
