@@ -2,11 +2,13 @@ using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Video;
 
 public class RecyclingMinigameManager : MonoBehaviour
 {
 	public GameObject[] waste;
 	public GameObject[] recycleTrash;
+	public GameObject allTrashParent;
 
 	int _completedTrash = 0;
 	int _maxTrash = 0;
@@ -14,22 +16,61 @@ public class RecyclingMinigameManager : MonoBehaviour
 	public BinAnimation wasteBin;
 	public BinAnimation recycleBin;
 
-
+	private CinemachineCameraChanger _cameraChanger;
+	private PlayerManager _playerManager;
 
 	private void Awake()
 	{
 		_maxTrash = waste.Length + recycleTrash.Length;
+		_projectorController = FindAnyObjectByType<ProjectorController>(findObjectsInactive: FindObjectsInactive.Include);
+		_cameraChanger = FindAnyObjectByType<CinemachineCameraChanger>();
+		_playerManager = FindAnyObjectByType<PlayerManager>();
+
+		//Disable components
+		UI_Canvas.gameObject.SetActive(false);
+		allTrashParent.SetActive(false);
 	}
 
-	void Start()
+	private async void Start()
 	{
+		await UniTask.Delay(3000);
+		PlayRecycleVideo();
+	}
+
+
+	#region Projector
+
+	[Header("Projector")]
+	ProjectorController _projectorController;
+	public VideoClip recycleVideo;
+
+	public void PlayRecycleVideo()
+	{
+		_projectorController.OpenProjectorVideo(recycleVideo);
+		_projectorController.onProjectorClosed += StartRecyclingGame;
+	}
+
+	#endregion
+
+	#region Game Functionality
+
+	async UniTask StartRecyclingGame()
+	{
+		_cameraChanger.TransitionBackToPlayerCamera();
+		await UniTask.Delay(2000);
+
+		//Enable Components
+		_playerManager.PlayerMovementController.EnableMovement();
+		UI_Canvas.gameObject.SetActive(true);
+		allTrashParent.SetActive(true);
+
 		UpdateText();
 
 		_isRunning = true;
-		LoopBounceAsync().Forget(); // Fire and forget async loop
-	}
+		LoopBounceAsync().Forget();
 
-	#region Game Functionality
+		await UniTask.Delay(2000);
+	}
 
 	public void CompleteTrash()
 	{
@@ -66,6 +107,8 @@ public class RecyclingMinigameManager : MonoBehaviour
 
 	#region UI
 	public TextMeshProUGUI completedText;
+	public Canvas UI_Canvas;
+
 
 	private string coloredTitle =
 	"<color=#FF6B6B>S</color>" +  // red

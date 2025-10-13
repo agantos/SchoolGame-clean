@@ -13,8 +13,8 @@ public class DialogueUI : MonoBehaviour
 	[Header("Dialogue View")]
     [SerializeField] DialogueView dialogueView;
 
-	[Header("Dialogue Text")]
-
+    [Header("Dialogue Text")]
+    [SerializeField] private GameObject dialogueBox;
     [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] private float typingDuration = 1f;
 	private Tween _activeTextTween;
@@ -60,7 +60,9 @@ public class DialogueUI : MonoBehaviour
     #region Audio/Visual__Changes
     public void UpdateTextView(string textToType, string speakerName, string optionAText = null, string optionBText = null, AudioClip clip = null)
     {
-        EnableNext();
+		dialogueBox.SetActive(true);
+
+		EnableNext();
 
         dialogueText.text = "";
         float duration = typingDuration * textToType.Length / 50;
@@ -109,6 +111,7 @@ public class DialogueUI : MonoBehaviour
         {
             optionAGameObject.SetActive(true);
             OptionA.text = optionAText;
+            dialogueBox.SetActive(false);
         }
 
         if (!string.IsNullOrEmpty(optionBText))
