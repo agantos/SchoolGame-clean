@@ -33,8 +33,7 @@ public class RecyclingMinigameManager : MonoBehaviour
 
 	private async void Start()
 	{
-		await UniTask.Delay(3000);
-		PlayRecycleVideo();
+
 	}
 
 
