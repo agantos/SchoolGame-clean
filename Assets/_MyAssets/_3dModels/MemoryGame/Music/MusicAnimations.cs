@@ -18,15 +18,6 @@ public class MusicAnimations : CabinetContentsAnimations_Base
 
 	[SerializeField] GameObject recorder;
 
-	//public void Update()
-	//{
-	//	if (test)
-	//	{
-	//		PlayWrongAnimation();
-	//		test = false;
-	//	}
-	//}
-
 	public override async UniTask PlayCorrectAnimation()
 	{
 		await MoveToPositions();

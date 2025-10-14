@@ -13,16 +13,6 @@ public class GlobeAnimationController : CabinetContentsAnimations_Base
 	public float spinDuration = 0.4f;
 	public float spinAngle = 720f; // how far it spins (2 full turns)
 
-	public bool playAnimation;
-	private void Update()
-	{
-		if (playAnimation)
-		{
-			PlayWrongAnimation();
-			playAnimation = false;
-		}		
-	}
-
 	// Call this to start the full animation sequence
 	public override async UniTask PlayCorrectAnimation()
 	{
