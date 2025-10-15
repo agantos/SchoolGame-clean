@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class GlobeAnimationController : CabinetContentsAnimations_Base
 {
+
+	[Header("Particles")]
+	public ParticleEffect ambience;
+
 	[Header("Globe Parts")]
 	public GameObject globeSphere;   // The sphere part that spins
 	public GameObject globeWhole;    // The entire globe object for scaling
@@ -16,6 +20,8 @@ public class GlobeAnimationController : CabinetContentsAnimations_Base
 	// Call this to start the full animation sequence
 	public override async UniTask PlayCorrectAnimation()
 	{
+		await PlayCorrectEffect();
+		ambience.Play();
 		await GlobeIntroAnimation();
 		await UniTask.Delay(400);
 		await RotateSphere();
@@ -23,11 +29,13 @@ public class GlobeAnimationController : CabinetContentsAnimations_Base
 
 	public override async UniTask PlayIntroductionAnimation()
 	{
+		ambience.Play();
 		await GlobeIntroAnimation();
 	}
 
 	public override async UniTask PlayWrongAnimation()
 	{
+		ambience.Stop();
 		var t = globeWhole.transform;
 		if (t == null) return;
 

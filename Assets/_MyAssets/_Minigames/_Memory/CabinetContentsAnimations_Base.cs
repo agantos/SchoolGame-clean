@@ -1,9 +1,14 @@
 using Cysharp.Threading.Tasks;
+using Unity.Cinemachine;
 using UnityEngine;
 
 public abstract class CabinetContentsAnimations_Base : MonoBehaviour
 {
+	[Header("Base Class Variables")]
 	[SerializeField] ParticleEffect CorrectEffect;
+	public CinemachineCamera viewCamera;
+	public GameObject cabinetDoor;
+
 
 	public bool playIntroduction;
 	public bool playCorrect;
@@ -28,6 +33,21 @@ public abstract class CabinetContentsAnimations_Base : MonoBehaviour
 			PlayIntroductionAnimation();
 			playIntroduction = false;
 		}
+	}
+
+	public async UniTask PlayCorrectEffect() { 
+		CorrectEffect.Play();
+		await UniTask.Delay(1000);
+	}
+
+	public async UniTask OpenCabinetDoor()
+	{
+
+	}
+
+	public async UniTask CloseCabinetDoor()
+	{
+
 	}
 
 	public abstract UniTask PlayCorrectAnimation();

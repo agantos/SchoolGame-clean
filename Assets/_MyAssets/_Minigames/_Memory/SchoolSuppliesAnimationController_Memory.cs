@@ -6,11 +6,15 @@ using UnityEngine;
 
 public class SchoolSuppliesAnimationController_Memory : CabinetContentsAnimations_Base
 {
+
 	[Header("Non-Physics")]
 	public GameObject CabinetView_noPhysics;
 	public GameObject pencilHolder_noPhysics;
 	public GameObject triangle_noPhysics;
 	public GameObject sponge_noPhysics;
+
+	[Header("Inside-Particles")]
+	public ParticleEffect confetti;
 
 	private void Awake()
 	{
@@ -105,18 +109,29 @@ public class SchoolSuppliesAnimationController_Memory : CabinetContentsAnimation
 
 	public async override UniTask PlayCorrectAnimation()
 	{
+		await PlayCorrectEffect();
+
 		rigidBody_triangle.useGravity = true;
 
-		await UniTask.Delay(50);
+		await UniTask.Delay(150);
 
 		rigidBody_sponge.useGravity = true;
 
-		await UniTask.Delay(50);
+		await UniTask.Delay(150);
+
+		int i = 0;
 
 		foreach (var rb in rigidBodies_pencilHolder) {
-			await UniTask.Delay(40);
+			i += 10;
+			await UniTask.Delay(150 - i);
+
 			rb.useGravity = true;
 		}
+		await UniTask.Delay(500);
+		confetti.PlayDisplaced(0f, 0.05f, 0.1f);
+		await UniTask.Delay(1200);
+		confetti.PlayDisplaced(0f, 0.05f, 0.1f);
+
 
 	}
 

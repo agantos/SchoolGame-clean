@@ -6,6 +6,8 @@ using UnityEngine.Rendering;
 
 public class MusicAnimations : CabinetContentsAnimations_Base
 {
+
+
 	[Header("Game Objects")]
 
 	[SerializeField] GameObject noteSingle;
@@ -18,20 +20,29 @@ public class MusicAnimations : CabinetContentsAnimations_Base
 
 	[SerializeField] GameObject recorder;
 
+	[Header("Particles")]
+	public ParticleEffect ambience;
+
 	public override async UniTask PlayCorrectAnimation()
 	{
+		ambience.Play();
+		await PlayCorrectEffect();
 		await MoveToPositions();
 		StartPerforming();
+		await UniTask.Delay(3000);
+		StopPerforming();
 	}
 
 	public override async UniTask PlayWrongAnimation()
 	{
+		ambience.Stop();
 		await PlayJitterAnimation();
 	}
 
 
 	public override async UniTask PlayIntroductionAnimation()
 	{
+		ambience.Play();
 		await AwakeObjects();
 	}
 

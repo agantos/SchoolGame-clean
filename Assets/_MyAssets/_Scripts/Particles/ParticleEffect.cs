@@ -12,6 +12,8 @@ public class ParticleEffect : MonoBehaviour
 	{
 		_particleSystemsList = GetComponentsInChildren<ParticleSystem>().ToList<ParticleSystem>();
 
+		originalPosition = transform.localPosition;
+
 		foreach (ParticleSystem p in _particleSystemsList)
 		{
 			p.gameObject.SetActive(false);
@@ -24,7 +26,7 @@ public class ParticleEffect : MonoBehaviour
 		if (_particleSystemsList == null || _particleSystemsList.Count == 0)
 			return;
 
-		originalPosition = transform.localPosition;
+		transform.localPosition = originalPosition;
 
 		// Random offset
 		float x = Random.Range(-maxDisplacementX, maxDisplacementX);
@@ -49,17 +51,27 @@ public class ParticleEffect : MonoBehaviour
 		// Stop emission (let existing particles live)
 		foreach (var p in _particleSystemsList)
 			p.Stop(false, ParticleSystemStopBehavior.StopEmitting);
-
-		// Move back to original spot
-		transform.localPosition = originalPosition;
 	}
 
 	public void Play()
 	{
-		foreach(ParticleSystem p in _particleSystemsList)
+		transform.localPosition = originalPosition;
+
+		foreach (ParticleSystem p in _particleSystemsList)
 		{
 			p.gameObject.SetActive(true);
 			p.Play();
+		}
+	}
+
+	public void Stop()
+	{
+		transform.localPosition = originalPosition;
+
+		foreach (ParticleSystem p in _particleSystemsList)
+		{
+			p.Stop();
+			p.gameObject.SetActive(false);
 		}
 	}
 }
