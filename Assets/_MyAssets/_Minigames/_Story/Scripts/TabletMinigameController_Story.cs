@@ -14,7 +14,6 @@ public class TabletMinigameController_Story : MonoBehaviour
 
 	[Header("Particles")]
 	[SerializeField] ParticleEffect sparksEffect;
-	[SerializeField] ParticleEffect confettiEffect;
 
 	[Space]
 	[Header("Audio")]
@@ -38,9 +37,7 @@ public class TabletMinigameController_Story : MonoBehaviour
 
 		//Test
 		EnableImageView_Round1();
-		LoadLevel_RememberStory(0);
-
-
+		LoadLevel_Round1(0);
 	}
 
 	#region Draw Canvas Methods
@@ -51,22 +48,30 @@ public class TabletMinigameController_Story : MonoBehaviour
 		LoadNextLevel_Round1();
 	}
 
-	void EnableDrawCanvas(string canvasText = "")
-	{
-		ImageView_Round1.SetActive(false);
-		VideoView.SetActive(false);
-		ImageView_Round2.SetActive(false);
-
-		drawCanvas.gameObject.SetActive(true);
-		drawCanvas.StartSession(canvasText);		
-	}
-
 	public void OnFinishRound_2()
 	{
 		Texture2D textureDrawn = drawCanvas.canvas.GetOverlayTextureCopy();
+		_justDrawnArea = drawCanvas.ui_text.text;
+
+		if (_justDrawnArea.Contains("begin")){
+			drawing_StoryStart = textureDrawn;
+			Debug.Log("Start");
+		}
+		else if (_justDrawnArea.Contains("event"))
+		{
+			drawing_StoryMiddle = textureDrawn;
+			Debug.Log("Middle");
+
+		}
+		else if (_justDrawnArea.Contains("end"))
+		{
+			Debug.Log("End");
+
+			drawing_StoryEnd = textureDrawn;
+		}
 
 		EnableImageView_Round2();
-		LoadNext_Round2();
+		LoadNext_Round2();		
 	}
 	#endregion
 
@@ -130,7 +135,7 @@ public class TabletMinigameController_Story : MonoBehaviour
 
 		await videoCanvasGroup.DOFade(0f, 1f).AsyncWaitForCompletion();
 		EnableImageView_Round1();
-		LoadLevel_RememberStory(0);
+		LoadLevel_Round1(0);
 		await backgroundCanvasGroup.DOFade(1f, 1f).AsyncWaitForCompletion();
 			
 		PlayVideoButton.onClick.AddListener(PlayAssistVideo);
@@ -179,6 +184,7 @@ public class TabletMinigameController_Story : MonoBehaviour
 
 		drawCanvas.gameObject.SetActive(false);
 		ImageView_Round2.SetActive(false);
+		ImageView_Round3.SetActive(false);
 		VideoView.SetActive(false);
 	}
 
@@ -228,7 +234,7 @@ public class TabletMinigameController_Story : MonoBehaviour
 
 		await videoCanvasGroup.DOFade(0f, 1f).AsyncWaitForCompletion();
 		EnableImageView_Round1();
-		LoadLevel_RememberStory(_currentLevel_round1);
+		LoadLevel_Round1(_currentLevel_round1);
 
 		await backgroundCanvasGroup.DOFade(1f, 1f).AsyncWaitForCompletion();
 
@@ -251,11 +257,12 @@ public class TabletMinigameController_Story : MonoBehaviour
 	#region Levels Navigation
 	async void LoadNextLevel_Round1()
 	{
+		sparksEffect.PlayDisplaced(0.0005f, 0f, 0.0006f);
 		_currentLevel_round1 = GetCompletedNumber(drawAreas_round1.ToArray());
 
 		if (_currentLevel_round1 < levels_round1.Length)
 		{
-			LoadLevel_RememberStory(_currentLevel_round1);
+			LoadLevel_Round1(_currentLevel_round1);
 		}
 		else
 		{
@@ -265,7 +272,7 @@ public class TabletMinigameController_Story : MonoBehaviour
 		}
 	}
 
-	void LoadLevel_RememberStory(int index)
+	void LoadLevel_Round1(int index)
 	{
 		nextRoundButton.gameObject.SetActive(false);
 
@@ -283,17 +290,43 @@ public class TabletMinigameController_Story : MonoBehaviour
 		backgroundCanvas_2.alpha = 0f;
 
 		// Fade round_1
-		await backgroundCanvas_1.DOFade(0f, 1f).AsyncWaitForCompletion();
+		await backgroundCanvas_1.DOFade(0f, 0.4f).AsyncWaitForCompletion();
 
 		// Start round_2
 		EnableImageView_Round2();
-		LoadLevel_Round2(0);
-		await backgroundCanvas_2.DOFade(1f, 1f).AsyncWaitForCompletion();
+		//LoadLevel_Round2(0);
+		Round2_Begin();
+		await backgroundCanvas_2.DOFade(1f, 0.4f).AsyncWaitForCompletion();
 
 
 	}
+
+	void EnableImageView_Round3()
+	{
+		ImageView_Round3.SetActive(true);
+
+
+		drawCanvas.gameObject.SetActive(false);
+		ImageView_Round1.SetActive(false);
+		ImageView_Round2.SetActive(false);
+		VideoView.SetActive(false);
+	}
+
+	async void ToRound3()
+	{
+		var backgroundCanvas_2 = backgroundImage_round2.GetComponent<CanvasGroup>();
+		var backgroundCanvas_3 = backgroundImage_round3.GetComponent<CanvasGroup>();
+		backgroundCanvas_3.alpha = 0f;
+
+		// Fade round_1
+		await backgroundCanvas_2.DOFade(0f, 0.4f).AsyncWaitForCompletion();
+
+		// Start round_2
+		EnableImageView_Round3();
+		LoadLevel_Round3(0);
+	}
 	#endregion
-	
+
 
 	[Serializable]
 	public class Level_RememberStory
@@ -319,7 +352,29 @@ public class TabletMinigameController_Story : MonoBehaviour
 	[SerializeField] Level_Round2[] levels_round2;
 
 	int _currentLevel_round2 = 0;
-	List<Texture2D> _imagesDrawn_round2 = new List<Texture2D>();
+	Texture2D drawing_StoryStart;
+	Texture2D drawing_StoryMiddle;
+	Texture2D drawing_StoryEnd;
+	string _justDrawnArea;
+
+
+	void Round2_Begin()
+	{
+		backgroundImage_round2.texture = initialImage_round2;
+		var button = backgroundImage_round2.GetComponent<Button>();
+
+		button.enabled = true;
+		button.onClick.AddListener(async () =>
+		{
+			var backgroundCanvas_2 = backgroundImage_round2.GetComponent<CanvasGroup>();
+			button.enabled = false;
+
+			await backgroundCanvas_2.DOFade(0f, 0.4f).AsyncWaitForCompletion();
+			LoadLevel_Round2(0);
+			await backgroundCanvas_2.DOFade(1f, 0.4f).AsyncWaitForCompletion();
+			
+		});
+	}
 
 	void LoadLevel_Round2(int index)
 	{
@@ -332,8 +387,11 @@ public class TabletMinigameController_Story : MonoBehaviour
 
 	async void LoadNext_Round2()
 	{
-		var currentLevel = levels_round2[_currentLevel_round2];
-		
+		sparksEffect.PlayDisplaced(0.00062f, 0f, 0.00034f);
+		_currentLevel_round1 = GetCompletedNumber(drawAreas_round1.ToArray());
+
+		var currentLevel = levels_round2[_currentLevel_round2];		
+
 		// change level
 		if (currentLevel.IsCompleted())
 		{
@@ -345,6 +403,9 @@ public class TabletMinigameController_Story : MonoBehaviour
 			{
 				currentLevel.Level.SetActive(false);
 				backgroundImage_round2.texture = finalImage_round2;
+				var button = backgroundImage_round2.GetComponent<Button>();
+				button.enabled = true;
+				button.onClick.AddListener(ToRound3);
 			}
 		}
 	}
@@ -365,6 +426,7 @@ public class TabletMinigameController_Story : MonoBehaviour
 		ImageView_Round2.SetActive(true);
 
 		ImageView_Round1.SetActive(false);
+		ImageView_Round3.SetActive(false);
 		drawCanvas.gameObject.SetActive(false);
 		VideoView.SetActive(false);
 	}
@@ -387,6 +449,7 @@ public class TabletMinigameController_Story : MonoBehaviour
 		public AudioClip hintClip;
 
 		TabletMinigameController_Story _tablet;
+
 
 		public void InitializeLevel()
 		{
@@ -446,10 +509,149 @@ public class TabletMinigameController_Story : MonoBehaviour
 
 			return true;
 		}
+	}
 
-		public void OnClickDrawHere()
+	#endregion
+
+	#region ROUND 3
+	[Space]
+	[Space]
+	[Header("Round 3")]
+	[SerializeField] GameObject ImageView_Round3;
+	[SerializeField] RawImage backgroundImage_round3;
+	[SerializeField] Level_Round3[] levels_round3;
+
+	int _currentLevel_round3 = 0;
+
+
+	async void LoadLevel_Round3(int index)
+	{
+		var level = levels_round3[index];
+
+		backgroundImage_round3.texture = level.backgroundImage;
+
+		Texture2D[] textures = { 
+			drawing_StoryStart,
+			drawing_StoryMiddle,
+			drawing_StoryEnd
+		};
+
+		level.levelRoot.SetActive(true);
+		level.Initialize(textures, index);
+
+
+		backgroundImage_round3.GetComponent<CanvasGroup>().DOFade(1f, 0.4f);
+		await level.SpawnImages();			
+		level.NextButton.onClick.AddListener(LoadNextLevel_Round3);
+	}
+
+	async void LoadNextLevel_Round3()
+	{
+		if(_currentLevel_round3 < levels_round3.Length-1)
 		{
-			_tablet.EnableDrawCanvas();
+			var level = levels_round3[_currentLevel_round3];
+			//backgroundImage_round3.GetComponent<CanvasGroup>().DOFade(0f, 0.4f);
+			//await level.FadeVisuals(0.4f);
+			level.levelRoot.SetActive(false);
+
+			_currentLevel_round3++;
+
+
+			LoadLevel_Round3(_currentLevel_round3);
+		}
+		else
+		{
+			//EndGame
+		}
+	}
+
+	[Serializable]
+	public class Level_Round3
+	{
+		public GameObject levelRoot;
+		public Texture2D backgroundImage;
+		public RawImage[] imagesToDisplay;
+		public Button NextButton;
+
+		public void Initialize(Texture2D[] textures, int index)
+		{
+			if(imagesToDisplay.Length > 1)
+			{
+				int j = index - 1;
+				for (int i = 0; i < imagesToDisplay.Length; i++)
+				{
+					imagesToDisplay[i].texture = textures[j];
+					j++;
+
+				}
+			}
+			else
+			{
+				imagesToDisplay[0].texture = textures[index];
+			}
+
+
+			if (imagesToDisplay.Length > 0)
+			{
+				imagesToDisplay[imagesToDisplay.Length - 1].transform.localScale = Vector3.zero;
+			}
+
+			NextButton.gameObject.SetActive(false);
+		}
+
+		public async UniTask FadeVisuals(float time)
+		{
+			foreach (var item in imagesToDisplay) {
+				await item.DOFade(0, time).AsyncWaitForCompletion();
+			}
+		}
+
+		public RawImage GetImageToFill()
+		{
+			return imagesToDisplay[imagesToDisplay.Length - 1];
+		}
+
+		public async UniTask SpawnImages()
+		{
+			for (int i = 0; i < imagesToDisplay.Length; i++)
+			{
+				var image = imagesToDisplay[i];
+
+				if (i == imagesToDisplay.Length - 1)
+				{
+					await SpawnIconAnimated(image);
+				}
+				else SpawnIconImmediately(image);
+				
+			}		
+		}
+
+		void SpawnIconImmediately(RawImage image)
+		{
+			image.transform.localScale = Vector3.one;
+		}
+
+		async UniTask SpawnIconAnimated(RawImage imageToAnimate)
+		{
+			Transform t = imageToAnimate.transform;
+
+			// Start at 0 scale
+			t.localScale = Vector3.zero;
+
+			// Sequence for cartoony pop
+			Sequence seq = DOTween.Sequence();
+
+			// Step 1: Quickly stretch up and squash sideways (overshoot)
+			seq.Append(t.DOScaleX(1.2f, 0.35f).SetEase(Ease.OutBack));
+			seq.Join(t.DOScaleY(0.8f, 0.35f).SetEase(Ease.OutBack));
+
+			// Step 2: Bounce to normal scale
+			seq.Append(t.DOScaleX(1f, 0.3f).SetEase(Ease.OutBack));
+			seq.Join(t.DOScaleY(1f, 0.3f).SetEase(Ease.OutBack));
+
+			await seq.AsyncWaitForCompletion();
+
+			NextButton.gameObject.SetActive(true);
 		}
 	}
 

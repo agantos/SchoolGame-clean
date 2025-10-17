@@ -22,18 +22,20 @@ public class DrawCanvas : MonoBehaviour
 	[Header("Audio")]
 	[SerializeField] AudioSource audioSource;
 
+	public TextMeshProUGUI ui_text;
 	public void StartSession(string text = "", Texture2D initialTexture = null)
 	{
 		canvas.ClearDrawing();
 		canvas.InitializeOverlay(initialTexture);
 		if (initialTexture == null) canvas.ClearDrawing();		
 
-		TextMeshProUGUI ui_text = GetComponentInChildren<TextMeshProUGUI>();
 		ui_text.text = text;
 	}
 
 	public void Initialize(string text = "")
 	{
+		ui_text = GetComponentInChildren<TextMeshProUGUI>();
+
 		// Init Color Buttons
 		foreach (var cb in colorButtons)
 		{
