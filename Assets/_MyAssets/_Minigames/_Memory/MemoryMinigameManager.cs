@@ -1,53 +1,352 @@
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
+using System;
+using System.Collections.Generic;
+using TMPro;
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class MemoryMinigameManager : MonoBehaviour
 {
-	public GameObject Cabinet;
 
-	CinemachineCameraChanger _changer;
-	public CinemachineCamera farCamera;
+	CinemachineCameraChanger _cameraChanger;
+	public GameObject Clicks;
 
-	public CabinetContentsAnimations_Base[] cabinetContents;
+	MemoryGameLevel _currentLevel;
+	int _currentLevelIndex;
 
-	private void Awake()
+
+
+	[Space]
+	[Space]
+	[Header("Level 1")]
+	public MemoryGameLevel level1;
+
+	[Space]
+	[Space]
+	[Header("Level 2")]
+	[Space]
+
+	public MemoryGameLevel level2;
+	[Space]
+	[Header("Level 3")]
+	[Space]
+	
+	public MemoryGameLevel level3;
+
+	private async void Awake()
 	{
-		_changer = FindAnyObjectByType<CinemachineCameraChanger>();
+		_cameraChanger = FindAnyObjectByType<CinemachineCameraChanger>();
+		Clicks.SetActive(true);
 
-		foreach (var item in cabinetContents)
-		{
-			item.gameObject.SetActive(false);
-		}
+		await UniTask.Delay(2000);
+		LoadLevel_Index(0);
 	}
 
-	public void TriggerRandomIntroduction()
+	public async UniTask LoadLevel(MemoryGameLevel level) {
+		Clicks.SetActive(false);
+		await _cameraChanger.TransitionToCam(level.farCamera);
+		level.InitializeLevel_Random();		
+
+		await UniTask.Delay(1000);
+		await PlayIntroductionShort(level);
+	}
+
+	public void LoadLevel_Index(int levelIndex)
 	{
-		int index = Random.Range(0, cabinetContents.Length);
-		PlayItemIntroduction(cabinetContents[index]);
+		MemoryGameLevel[] levels = {level1, level2, level3};
+
+		_currentLevel = levels[levelIndex];
+		_currentLevelIndex = levelIndex;
+
+		LoadLevel(_currentLevel);
+	}
+
+	public void LoadNextLevel()
+	{
+		MemoryGameLevel[] levels = { level1, level2, level3 };
+
+		if (_currentLevelIndex < levels.Length - 1)
+		{
+			_currentLevelIndex++;
+			LoadLevel_Index(_currentLevelIndex);
+		}
+		else
+		{
+			Debug.Log("Finished");
+		}
+
+	}
+
+	async UniTask PlayIntroductionShort(MemoryGameLevel level)
+	{
+		Clicks.SetActive(false);
+
+		// Text Animation 
+		level.roundText.gameObject.SetActive(true);
+		level.roundText.transform.localScale = Vector3.zero;
+		await level.roundText.transform
+			.DOScale(Vector3.one, 0.8f) // final size, duration
+			.SetEase(Ease.OutBack, 2.5f) // back ease = cartoon bounce
+			.SetDelay(0.1f).AsyncWaitForCompletion(); // optional small delay for timing polish
+
+		await UniTask.Delay(100);
+
+		await level.roundText.transform
+		.DOScale(Vector3.zero, 0.8f) // final size, duration
+		.SetEase(Ease.OutBack, 2.5f) // back ease = cartoon bounce
+		.SetDelay(0.1f).AsyncWaitForCompletion(); // optional small delay for timing polish
+
+
+		foreach (var c in level.initializedItems)
+		{
+			c.item.cabinetDoor.SetActive(false);
+		}
+
+		await UniTask.Delay(3000);
+
+
+		foreach (var c in level.initializedItems)
+		{
+			c.item.cabinetDoor.SetActive(true);
+		}
+
+		Clicks.SetActive(true);
+	}
+
+	async UniTask PlayIntroduction(MemoryGameLevel level)
+	{
+		Clicks.SetActive(false);
+
+		// Text Animation 
+		level.roundText.gameObject.SetActive(true);
+		level.roundText.transform.localScale = Vector3.zero;
+		await level.roundText.transform
+			.DOScale(Vector3.one, 0.8f) // final size, duration
+			.SetEase(Ease.OutBack, 2.5f) // back ease = cartoon bounce
+			.SetDelay(0.1f).AsyncWaitForCompletion(); // optional small delay for timing polish
+
+		await UniTask.Delay(100);
+
+		await level.roundText.transform
+		.DOScale(Vector3.zero, 0.8f) // final size, duration
+		.SetEase(Ease.OutBack, 2.5f) // back ease = cartoon bounce
+		.SetDelay(0.1f).AsyncWaitForCompletion(); // optional small delay for timing polish
+
+
+		// Open Doors
+		foreach (var c in level.initializedItems)
+		{
+			c.item.OpenCabinetDoor();
+			await UniTask.Delay(300);
+		}
+
+		await UniTask.Delay(3000);
+
+		foreach (var c in level.initializedItems)
+		{
+			c.item.cabinetDoor.SetActive(false);
+		}
+
+		foreach (var cabinet in level._cabinetPositions)
+		{
+			foreach(var c in level.initializedItems)
+			{
+				if(cabinet == c.cabinetPosition)
+				{
+					await PlayItemIntroduction(c.item);
+				}
+			}
+		}
+		
+		await _cameraChanger.TransitionToCam(level.farCamera);
+		await UniTask.Delay(2000);
+
+		foreach (var c in level.initializedItems)
+		{
+			c.item.cabinetDoor.SetActive(true);
+		}
+
+		foreach (var c in level.initializedItems)
+		{
+			c.item.CloseCabinetDoor();
+			await UniTask.Delay(300);
+		}
+
+		await UniTask.Delay(600);
+		Clicks.SetActive(true);
 	}
 
 	async UniTask PlayItemIntroduction(CabinetContentsAnimations_Base item)
 	{
 		item.gameObject.SetActive(true);
 
-		_changer.TransitionToCam(item.viewCamera);
-		await UniTask.Delay(300);
-		await item.OpenCabinetDoor();
-		
+		await _cameraChanger.TransitionToCam(item.viewCamera);
 		await item.PlayIntroductionAnimation();
+	}
 
+	async UniTask PlayItemCorrect(CabinetContentsAnimations_Base item)
+	{
+		item.gameObject.SetActive(true);
 
-		_changer.TransitionToCam(farCamera);
-		await UniTask.Delay(300);
+		item.OpenCabinetDoor();
+		await _cameraChanger.TransitionToCam(item.viewCamera);
+		await item.PlayCorrectAnimation();
+		await UniTask.Delay(500);
+
+		_cameraChanger.TransitionToCam(_currentLevel.farCamera);
+		await UniTask.Delay(500);
 		await item.CloseCabinetDoor();
 	}
 
-	private void PlayIntroduction()
+	async UniTask PlayItemCorrectWrong(CabinetContentsAnimations_Base item)
 	{
-		foreach (var item in cabinetContents)
+		item.gameObject.SetActive(true);
+
+		item.OpenCabinetDoor();
+		await _cameraChanger.TransitionToCam(item.viewCamera);
+		await item.PlayWrongAnimation();
+		await UniTask.Delay(500);
+
+		_cameraChanger.TransitionToCam(_currentLevel.farCamera);
+		await UniTask.Delay(500);
+		await item.CloseCabinetDoor();
+	}
+
+	async UniTask OnClickCabinet(CabinetContentsAnimations_Base item, bool isCorrect, MemoryGame_CabinetPosition cabinet)
+	{
+		Clicks.SetActive(false);
+
+		if (isCorrect)
 		{
-			
+			await item.PrepareForCorrect();
+			await PlayItemCorrect(item);
+		}
+		else {
+			await item.PrepareForWrong();
+			await PlayItemCorrectWrong(item);
+		}
+		await UniTask.Delay(500);
+		Clicks.SetActive(true);
+
+		item.gameObject.SetActive(false);
+
+		item.Cleanup();
+		cabinet.clickButton.gameObject.SetActive(false);
+
+	}
+
+	void InitItem(CabinetContentsAnimations_Base item, MemoryGame_CabinetPosition position)
+	{
+		item.viewCamera = position.closeCamera;
+		item.cabinetDoor = position.door;
+
+	}
+
+	[Serializable]
+	public class MemoryGameLevel
+	{
+		public CabinetContentsAnimations_Base[] items;
+		public GameObject CabinetPositionParent;
+		public bool[] correctItemIndexes;
+		public CinemachineCamera farCamera;
+		public TextMeshProUGUI roundText;
+
+		public MemoryGame_CabinetPosition[] _cabinetPositions;
+		MemoryMinigameManager _minigameManager;
+
+		public List<MemoryGame_InitializedItem> initializedItems = new List<MemoryGame_InitializedItem>();
+
+		int _correctAnswersTotal = 0;
+		int _correctAnswersFound = 0;
+
+		public void InitializeLevel_Random()
+		{
+			_minigameManager = FindAnyObjectByType<MemoryMinigameManager>();
+			_cabinetPositions = CabinetPositionParent.GetComponentsInChildren<MemoryGame_CabinetPosition>();
+
+			foreach (var correct in correctItemIndexes) { 
+				if(correct) _correctAnswersTotal++;
+			}
+
+			// Safety checks
+			if (items == null || correctItemIndexes == null || _cabinetPositions == null)
+			{
+				Debug.LogError("MemoryGameLevel: Missing setup data!");
+				return;
+			}
+			if (items.Length != correctItemIndexes.Length)
+			{
+				Debug.LogError("MemoryGameLevel: items and correctItemIndexes must have the same length!");
+				return;
+			}
+			if (_cabinetPositions.Length < items.Length)
+			{
+				Debug.LogWarning("MemoryGameLevel: Not enough cabinet positions for all items!");
+			}
+
+			// Clear previous data
+			initializedItems.Clear();
+
+			// Create a list of indexes and shuffle them for random placement
+			List<int> randomIndices = new List<int>();
+			for (int i = 0; i < _cabinetPositions.Length; i++)
+				randomIndices.Add(i);
+
+			// Fisher–Yates shuffle
+			for (int i = randomIndices.Count - 1; i > 0; i--)
+			{
+				int j = UnityEngine.Random.Range(0, i + 1);
+				(randomIndices[i], randomIndices[j]) = (randomIndices[j], randomIndices[i]);
+			}
+
+			// Assign items randomly to positions
+			for (int i = 0; i < items.Length; i++)
+			{
+				var initItem = new MemoryGame_InitializedItem
+				{
+					isCorrect = correctItemIndexes[i],
+					item = items[i],
+					cabinetPosition = _cabinetPositions[randomIndices[i]],
+				};
+
+				initItem.item.viewCamera = initItem.cabinetPosition.closeCamera;
+				initItem.item.cabinetDoor = initItem.cabinetPosition.door;
+				initItem.item.transformParent.SetParent(initItem.cabinetPosition.objectPosition);
+				initItem.item.transformParent.localPosition = Vector3.zero;
+				initItem.item.PrepareIntroduction();
+
+				initializedItems.Add(initItem);
+
+				// init button
+				initItem.cabinetPosition.clickButton.gameObject.SetActive(true);
+				initItem.cabinetPosition.clickButton.onClick.AddListener(async () =>
+				{
+					initItem.cabinetPosition.clickButton.onClick.RemoveAllListeners();
+
+					await _minigameManager.OnClickCabinet(initItem.item, initItem.isCorrect, initItem.cabinetPosition);
+					if(initItem.isCorrect) _correctAnswersFound++;				
+
+					if (_correctAnswersFound == _correctAnswersTotal)
+					{
+						_minigameManager.Clicks.gameObject.SetActive(false);
+						await UniTask.Delay(2000);
+						_minigameManager.LoadNextLevel();
+					}
+						
+
+				});
+			}
+
+			Debug.Log($"Initialized {initializedItems.Count} randomized memory game items.");
+		}
+
+		public struct MemoryGame_InitializedItem
+		{
+			public bool isCorrect;
+			public CabinetContentsAnimations_Base item;
+			public MemoryGame_CabinetPosition cabinetPosition;
 		}
 	}
 

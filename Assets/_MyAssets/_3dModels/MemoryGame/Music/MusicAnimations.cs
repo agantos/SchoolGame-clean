@@ -6,8 +6,6 @@ using UnityEngine.Rendering;
 
 public class MusicAnimations : CabinetContentsAnimations_Base
 {
-
-
 	[Header("Game Objects")]
 
 	[SerializeField] GameObject noteSingle;
@@ -29,7 +27,7 @@ public class MusicAnimations : CabinetContentsAnimations_Base
 		await PlayCorrectEffect();
 		await MoveToPositions();
 		StartPerforming();
-		await UniTask.Delay(3000);
+		await UniTask.Delay(5000);
 		StopPerforming();
 	}
 
@@ -423,8 +421,35 @@ public class MusicAnimations : CabinetContentsAnimations_Base
 			note.DOPunchScale(Vector3.one * 0.1f, 0.3f, vibrato: 1, elasticity: 0.6f);
 		}
 	}
-	#endregion 
+	#endregion
 
 
 	#endregion
+
+	public override void Cleanup()
+	{
+		StopPerforming(); // Stop all tweens and loops
+
+		if (ambience != null)
+		{
+			ambience.Stop();
+			Destroy(ambience.gameObject);
+		}
+
+		// Clear references (optional)
+		noteSingle = null;
+		noteDouble = null;
+		solKey = null;
+		xylophone = null;
+		leftBaton = null;
+		rightBaton = null;
+		recorder = null;
+		BatonLeftHits = null;
+		BatonRightHits = null;
+		BatonUpLeft = null;
+		BatonUpRight = null;
+
+		// Finally, destroy this GameObject
+		Destroy(this.gameObject);
+	}
 }

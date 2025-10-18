@@ -123,4 +123,17 @@ public class GlobeAnimationController : CabinetContentsAnimations_Base
 			.SetEase(Ease.OutCubic)
 			.AsyncWaitForCompletion();
 	}
+
+	public override void Cleanup()
+	{
+
+		if (ambience != null)
+		{
+			ambience.Stop();
+			Destroy(ambience.gameObject);
+		}
+
+		// Finally, destroy this GameObject
+		Destroy(this.gameObject);
+	}
 }
