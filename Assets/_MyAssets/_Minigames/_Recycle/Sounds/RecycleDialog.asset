@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08b42a0dbf8327e48835bf7d615d551f, type: 3}
+  m_Name: RecycleDialog
+  m_EditorClassIdentifier: 
+  steps:
+  - stepText: Look all around the classroom and find the trash on the floor or tables.
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: 0be81ce1ba42ede46999d4325e3893d9, type: 3}
+    nextDelay: 0
+    dialogueView: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: Click on the hand to pick up the object.
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: 4df53c9489d38ca4ebb67470e4a3d597, type: 3}
+    nextDelay: 0
+    dialogueView: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: ' Then walk over to the trash bins and look carefully'
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: 74792fa3f91ea3141ba7aafb7972afc7, type: 3}
+    nextDelay: 0
+    dialogueView: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: which one is the right bin for your object?
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: 2139351473ebddd4cbebb3fd5e30dbe2, type: 3}
+    nextDelay: 0
+    dialogueView: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: ' Choose the correct bin, drop it in, and help keep our classroom clean
+      and shiny.'
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: d74863d8ec0d78c42b3b4d07dc53eb16, type: 3}
+    nextDelay: 0
+    dialogueView: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  options: []
+  tag: 
+  autoChangeSteps: 0

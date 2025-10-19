@@ -5,13 +5,14 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.Cinemachine;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class MemoryMinigameManager : MonoBehaviour
 {
 
 	CinemachineCameraChanger _cameraChanger;
 	public GameObject Clicks;
+	Button[] _buttons;
 
 	MemoryGameLevel _currentLevel;
 	int _currentLevelIndex;
@@ -38,32 +39,48 @@ public class MemoryMinigameManager : MonoBehaviour
 	private async void Awake()
 	{
 		_cameraChanger = FindAnyObjectByType<CinemachineCameraChanger>();
-		Clicks.SetActive(true);
+		_buttons = Clicks.GetComponentsInChildren<Button>();
+		ToggleButtons(true);
 
 		await UniTask.Delay(2000);
 		LoadLevel_Index(0);
 	}
 
 	public async UniTask LoadLevel(MemoryGameLevel level) {
-		Clicks.SetActive(false);
+		ToggleButtons(false);
 		await _cameraChanger.TransitionToCam(level.farCamera);
 		level.InitializeLevel_Random();		
 
 		await UniTask.Delay(1000);
-		await PlayIntroductionShort(level);
+		await PlayIntroduction(level);
 	}
 
-	public void LoadLevel_Index(int levelIndex)
+	void ResetButtons()
+	{
+		foreach (Button button in _buttons) { 
+			button.onClick.RemoveAllListeners();
+		}
+	}
+
+	void ToggleButtons(bool b)
+	{
+		foreach (Button button in _buttons)
+		{
+			button.gameObject.SetActive(b);
+		}
+	}
+
+	public async void LoadLevel_Index(int levelIndex)
 	{
 		MemoryGameLevel[] levels = {level1, level2, level3};
 
 		_currentLevel = levels[levelIndex];
 		_currentLevelIndex = levelIndex;
 
-		LoadLevel(_currentLevel);
+		await LoadLevel(_currentLevel);
 	}
 
-	public void LoadNextLevel()
+	public async void LoadNextLevel()
 	{
 		MemoryGameLevel[] levels = { level1, level2, level3 };
 
@@ -74,14 +91,61 @@ public class MemoryMinigameManager : MonoBehaviour
 		}
 		else
 		{
-			Debug.Log("Finished");
+			_cameraChanger.TransitionBackToPlayerCamera();
+			await UniTask.Delay(3000);
+			gameObject.SetActive(false);
 		}
 
 	}
 
+	#region Animations
+	async UniTask PlayItemIntroduction(CabinetContentsAnimations_Base item)
+	{
+		item.gameObject.SetActive(true);
+
+		await _cameraChanger.TransitionToCam(item.viewCamera);
+		await item.PlayIntroductionAnimation();
+	}
+
+	async UniTask PlayItemCorrect(CabinetContentsAnimations_Base item)
+	{
+		item.gameObject.SetActive(true);
+
+		item.OpenCabinetDoor();
+		await _cameraChanger.TransitionToCam(item.viewCamera);
+		await item.PlayCorrectAnimation();
+		await UniTask.Delay(500);
+
+		_cameraChanger.TransitionToCam(_currentLevel.farCamera);
+		await UniTask.Delay(500);
+		await item.CloseCabinetDoor();
+	}
+
+	async UniTask PlayItemCorrectWrong(CabinetContentsAnimations_Base item)
+	{
+		item.gameObject.SetActive(true);
+
+		item.OpenCabinetDoor();
+		await _cameraChanger.TransitionToCam(item.viewCamera);
+		await item.PlayWrongAnimation();
+		await UniTask.Delay(500);
+
+		_cameraChanger.TransitionToCam(_currentLevel.farCamera);
+		await UniTask.Delay(500);
+		await item.CloseCabinetDoor();
+	}
+
+	#endregion
+
+	#region
+	#endregion
+
+	#region
+	#endregion
+
 	async UniTask PlayIntroductionShort(MemoryGameLevel level)
 	{
-		Clicks.SetActive(false);
+		ToggleButtons(false);
 
 		// Text Animation 
 		level.roundText.gameObject.SetActive(true);
@@ -112,12 +176,12 @@ public class MemoryMinigameManager : MonoBehaviour
 			c.item.cabinetDoor.SetActive(true);
 		}
 
-		Clicks.SetActive(true);
+		ToggleButtons(true);
 	}
 
 	async UniTask PlayIntroduction(MemoryGameLevel level)
 	{
-		Clicks.SetActive(false);
+		ToggleButtons(false);
 
 		// Text Animation 
 		level.roundText.gameObject.SetActive(true);
@@ -175,48 +239,14 @@ public class MemoryMinigameManager : MonoBehaviour
 		}
 
 		await UniTask.Delay(600);
-		Clicks.SetActive(true);
+		ToggleButtons(true);
 	}
 
-	async UniTask PlayItemIntroduction(CabinetContentsAnimations_Base item)
-	{
-		item.gameObject.SetActive(true);
 
-		await _cameraChanger.TransitionToCam(item.viewCamera);
-		await item.PlayIntroductionAnimation();
-	}
-
-	async UniTask PlayItemCorrect(CabinetContentsAnimations_Base item)
-	{
-		item.gameObject.SetActive(true);
-
-		item.OpenCabinetDoor();
-		await _cameraChanger.TransitionToCam(item.viewCamera);
-		await item.PlayCorrectAnimation();
-		await UniTask.Delay(500);
-
-		_cameraChanger.TransitionToCam(_currentLevel.farCamera);
-		await UniTask.Delay(500);
-		await item.CloseCabinetDoor();
-	}
-
-	async UniTask PlayItemCorrectWrong(CabinetContentsAnimations_Base item)
-	{
-		item.gameObject.SetActive(true);
-
-		item.OpenCabinetDoor();
-		await _cameraChanger.TransitionToCam(item.viewCamera);
-		await item.PlayWrongAnimation();
-		await UniTask.Delay(500);
-
-		_cameraChanger.TransitionToCam(_currentLevel.farCamera);
-		await UniTask.Delay(500);
-		await item.CloseCabinetDoor();
-	}
 
 	async UniTask OnClickCabinet(CabinetContentsAnimations_Base item, bool isCorrect, MemoryGame_CabinetPosition cabinet)
 	{
-		Clicks.SetActive(false);
+		ToggleButtons(false);
 
 		if (isCorrect)
 		{
@@ -228,19 +258,12 @@ public class MemoryMinigameManager : MonoBehaviour
 			await PlayItemCorrectWrong(item);
 		}
 		await UniTask.Delay(500);
-		Clicks.SetActive(true);
+		ToggleButtons(true);
 
 		item.gameObject.SetActive(false);
 
 		item.Cleanup();
 		cabinet.clickButton.gameObject.SetActive(false);
-
-	}
-
-	void InitItem(CabinetContentsAnimations_Base item, MemoryGame_CabinetPosition position)
-	{
-		item.viewCamera = position.closeCamera;
-		item.cabinetDoor = position.door;
 
 	}
 
@@ -320,26 +343,28 @@ public class MemoryMinigameManager : MonoBehaviour
 				initializedItems.Add(initItem);
 
 				// init button
-				initItem.cabinetPosition.clickButton.gameObject.SetActive(true);
-				initItem.cabinetPosition.clickButton.onClick.AddListener(async () =>
+				initItem.cabinetPosition.clickButton.onClick.AddListener(() =>
 				{
-					initItem.cabinetPosition.clickButton.onClick.RemoveAllListeners();
-
-					await _minigameManager.OnClickCabinet(initItem.item, initItem.isCorrect, initItem.cabinetPosition);
-					if(initItem.isCorrect) _correctAnswersFound++;				
-
-					if (_correctAnswersFound == _correctAnswersTotal)
-					{
-						_minigameManager.Clicks.gameObject.SetActive(false);
-						await UniTask.Delay(2000);
-						_minigameManager.LoadNextLevel();
-					}
-						
-
+					// Fire the async handler without holding up Unity events
+					_ = HandleCabinetClick(initItem);
 				});
 			}
 
-			Debug.Log($"Initialized {initializedItems.Count} randomized memory game items.");
+		}
+
+		private async UniTask HandleCabinetClick(MemoryGame_InitializedItem initItem)
+		{
+			await _minigameManager.OnClickCabinet(initItem.item, initItem.isCorrect, initItem.cabinetPosition);
+
+			if (initItem.isCorrect) _correctAnswersFound++;
+
+			if (_correctAnswersFound == _correctAnswersTotal)
+			{
+				_minigameManager.ToggleButtons(false);
+				_minigameManager.ResetButtons();
+				await UniTask.Delay(2000);
+				_minigameManager.LoadNextLevel();
+			}
 		}
 
 		public struct MemoryGame_InitializedItem

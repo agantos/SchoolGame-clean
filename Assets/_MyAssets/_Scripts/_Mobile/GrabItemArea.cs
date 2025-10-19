@@ -17,10 +17,13 @@ public class GrabItemArea : TriggerArea
 	}
 	protected override void OnPlayerEnter()
 	{
-		_rightSideButtonsHandler?.ToggleGrabButton(true);
-		_rightSideButtonsHandler.GrabButton.onClick.RemoveAllListeners();
+		if(_playerManager.grabbedObject == null)
+		{
+			_rightSideButtonsHandler?.ToggleGrabButton(true);
+			_rightSideButtonsHandler.GrabButton.onClick.RemoveAllListeners();
 
-		_rightSideButtonsHandler.GrabButton.onClick.AddListener(OnGrabClick);
+			_rightSideButtonsHandler.GrabButton.onClick.AddListener(OnGrabClick);
+		}		
 	}
 
 	async void OnGrabClick()

@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
 
-public class TabletController_Colorsinigame : MonoBehaviour
+public class TabletController_ColorsMinigame : MonoBehaviour
 {
 	[Header("Particles")]
 	[SerializeField] ParticleEffect sparksEffect;
@@ -29,12 +29,9 @@ public class TabletController_Colorsinigame : MonoBehaviour
 	{
 		wrongOverlay.alpha = 0f;
 		correctOverlay.alpha = 0f;
-
-		StartGame();
-		//InitializeRound2();
 	}
 
-	void StartGame()
+	public void StartGame()
 	{
 		foreach(ChoiceButton choice in choices)
 		{
@@ -43,6 +40,8 @@ public class TabletController_Colorsinigame : MonoBehaviour
 
 		PlayIntroductionVideo();
 	}
+
+	public Func<UniTask> OnEnd;
 
 	#region Video View
 	[Header("Video View")]
@@ -92,11 +91,11 @@ public class TabletController_Colorsinigame : MonoBehaviour
 		backgroundCanvasGroup.alpha = 0;
 		backgroundImage_round1.texture = startImage_Round1;
 
-		await videoCanvasGroup.DOFade(0f, 1f).AsyncWaitForCompletion();
+		await videoCanvasGroup.DOFade(0f, 0.7f).AsyncWaitForCompletion();
 
 		EnableImageView_Round1();
 
-		await backgroundCanvasGroup.DOFade(1f, 1f).AsyncWaitForCompletion();
+		await backgroundCanvasGroup.DOFade(1f, 0.7f).AsyncWaitForCompletion();
 
 		var imageButton = backgroundImage_round1.GetComponent<Button>();
 		imageButton.enabled = true;
@@ -105,7 +104,7 @@ public class TabletController_Colorsinigame : MonoBehaviour
 		{
 			imageButton.enabled = false;
 			imageButton.onClick.RemoveAllListeners();
-			await backgroundCanvasGroup.DOFade(0f, 1f).AsyncWaitForCompletion();
+			await backgroundCanvasGroup.DOFade(0f, 0.7f).AsyncWaitForCompletion();
 			LoadFindColorLevel(0);
 		});
 	}
@@ -155,7 +154,7 @@ public class TabletController_Colorsinigame : MonoBehaviour
 			//fade round1 image
 			confettiEffect.Play();
 			await UniTask.Delay(1000);
-			await backgroundCanvas.DOFade(0, 1f).AsyncWaitForCompletion();
+			await backgroundCanvas.DOFade(0, 0.7f).AsyncWaitForCompletion();
 
 			//change image views
 			round2CanvasGroup.alpha = 0f;
@@ -164,14 +163,14 @@ public class TabletController_Colorsinigame : MonoBehaviour
 			EnableImageView_Round2();
 
 			// fade in round 2 starting image
-			await round2CanvasGroup.DOFade(1, 1f).AsyncWaitForCompletion();
+			await round2CanvasGroup.DOFade(1, 0.7f).AsyncWaitForCompletion();
 			confettiEffect.Play();
 			await UniTask.Delay(1000);
 
 			//fade transition round 2 game image
-			await round2CanvasGroup.DOFade(0, 1f).AsyncWaitForCompletion();
+			await round2CanvasGroup.DOFade(0, 0.7f).AsyncWaitForCompletion();
 			backgroundImage_round2.texture = mainImage_Round2;
-			await round2CanvasGroup.DOFade(1, 1f).AsyncWaitForCompletion();
+			await round2CanvasGroup.DOFade(1, 0.7f).AsyncWaitForCompletion();
 
 			InitializeGameRound2();
 		}
@@ -277,6 +276,8 @@ public class TabletController_Colorsinigame : MonoBehaviour
 	{
 		drawCanvas.enabled = true;
 		drawCanvas.ClearDrawing();
+		drawCanvas.InitializeOverlay();
+
 		_correctAnswers = 0;
 
 		foreach (var colorSet in colorsSet) {
@@ -358,7 +359,6 @@ public class TabletController_Colorsinigame : MonoBehaviour
 		await UniTask.Delay(1400);
 		confettiEffect.Play();
 		await UniTask.Delay(1400);
-		confettiEffect.Play();
 
 		drawCanvas.ClearDrawing();
 
@@ -366,10 +366,13 @@ public class TabletController_Colorsinigame : MonoBehaviour
 		backgroundImage_round2.texture = endImage;
 		await canvasGroup.DOFade(1, 1f).AsyncWaitForCompletion();
 
-		await UniTask.Delay(500);
+		await UniTask.Delay(2000);
 		confettiEffect.Play();
-		await UniTask.Delay(1400);
-		confettiEffect.Play();
+
+		await UniTask.Delay(4000);
+		
+		if(OnEnd != null)
+			await OnEnd();
 	}
 
 	void OnColorEnter(ColorZoneSet currentColor)

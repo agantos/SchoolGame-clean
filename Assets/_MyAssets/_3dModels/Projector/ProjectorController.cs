@@ -33,6 +33,11 @@ public class ProjectorController : MonoBehaviour
 		_playerManager = FindAnyObjectByType<PlayerManager>();	
 	}
 
+	public void CleanOnCloseEvent()
+	{
+		onProjectorClosed = null;
+	}
+
 	public async void OpenProjectorVideo(VideoClip clip)
 	{
 		_playerManager.PlayerMovementController.DisableMovement();

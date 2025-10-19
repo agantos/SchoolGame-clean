@@ -53,13 +53,19 @@ public class CinemachineCameraChanger : MonoBehaviour
         }
     }
 
-    public void TransitionBackToPlayerCamera()
+    public async UniTask TransitionBackToPlayerCamera()
 	{
 		if (_activeChangedCamera == null || _activeChangedCamera == playerCamera) return;
+
 
 		playerCamera.gameObject.SetActive(true);
 		_activeChangedCamera.gameObject.SetActive(false);
 		_activeChangedCamera = playerCamera;
+
+		await UniTask.WaitUntil(() => cinemachineBrain.IsBlending);
+
+		// Wait until blending finishes
+		await UniTask.WaitWhile(() => cinemachineBrain.IsBlending);
 	}
 
     public void PositionPlayerToActiveCamera()
