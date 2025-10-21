@@ -44,5 +44,5 @@ MonoBehaviour:
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
   options: []
-  tag: 
-  autoChangeSteps: 0
+  tag: 3_10_FinalDialogue
+  autoChangeSteps: 1

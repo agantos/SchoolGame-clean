@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks;
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.Video;
 
 public class DialogueEventPlanner_4 : DialogueEventPlanner_Base
 {
@@ -8,7 +9,9 @@ public class DialogueEventPlanner_4 : DialogueEventPlanner_Base
     ScreenFader _screenFader;
     DialogueManager _dialogueManager;
     PlayerManager _playerManager;
+    ProjectorController _projector;
     CinemachineCameraChanger _cameraChanger;
+    SceneController _sceneController;
 
     [Header("Cameras")]
     [SerializeField] private CinemachineCamera classRoomView;
@@ -24,13 +27,17 @@ public class DialogueEventPlanner_4 : DialogueEventPlanner_Base
     [Header("Dialogues")]
     [SerializeField] private SCR_DialogueNode wantToGoToToilet;
 
-    private void Start()
+	[Header("Videos")]
+	[SerializeField] private VideoClip rulesVideo;
+
+	private void Start()
     {
         _screenFader = FindAnyObjectByType<ScreenFader>();
         _dialogueManager = FindAnyObjectByType<DialogueManager>();
         _playerManager = FindAnyObjectByType<PlayerManager>();
         _cameraChanger = FindAnyObjectByType<CinemachineCameraChanger>();
-
+        _projector = FindAnyObjectByType<ProjectorController>();
+        _sceneController = FindAnyObjectByType<SceneController>();
 
         CreateEvent("EnterClassroom", DialogueEvent.OnDialogueEvent.OPTION_A, EnterClassroom);
         
@@ -40,29 +47,36 @@ public class DialogueEventPlanner_4 : DialogueEventPlanner_Base
         CreateEvent("4_4_good", DialogueEvent.OnDialogueEvent.END_NODE, LeaveClassroom);
     }
 
-    async UniTask EnterClassroom()
-    {
-        //toClassroom.PerformTransitions();
-        _cameraChanger.TransitionToCam(classRoomView);
-        await UniTask.Delay(2500);
+	async UniTask EnterClassroom()
+	{
+		await _cameraChanger.TransitionToCam(classRoomView);
+		await UniTask.Delay(1000);
+		_projector.onProjectorClosed += PlayWantToiletDialogue;
+		_projector.OpenProjectorVideo(rulesVideo);
+	}
 
-        await _screenFader.PerformFadeTransition(3, 4, 3, message: "The lesson starts and time goes by...");
-        _dialogueManager.DialogueToStart = wantToGoToToilet;
-        _dialogueManager.StartDialogue();
-    }
+	async UniTask PlayWantToiletDialogue()
+	{
+		await _cameraChanger.TransitionToCam(classRoomView);
 
-    async UniTask TransitionToPlayerCam()
+		await UniTask.Delay(2000);
+		_dialogueManager.DialogueToStart = wantToGoToToilet;
+		_dialogueManager.StartDialogue();
+	}
+
+	async UniTask TransitionToPlayerCam()
     {
         _cameraChanger.PositionPlayerToActiveCamera();
-        _cameraChanger.TransitionBackToPlayerCamera();
+		_ = _cameraChanger.TransitionBackToPlayerCamera();
+        await _sceneController.LoadNextScene();
     }
 
     async UniTask AttemptLeaveClassroom()
     {
-        _cameraChanger.TransitionThroughCams(attemptLeaveClassroomView, lookTeacherView);
+        _ = _cameraChanger.TransitionThroughCams(attemptLeaveClassroomView, lookTeacherView);
         await UniTask.Delay(2000);
         _cameraChanger.PositionPlayerToActiveCamera();
-        _cameraChanger.TransitionBackToPlayerCamera();
+		_ = _cameraChanger.TransitionBackToPlayerCamera();
     }
 
     async UniTask LeaveClassroom()
@@ -71,6 +85,7 @@ public class DialogueEventPlanner_4 : DialogueEventPlanner_Base
 
         await _cameraChanger.TransitionToCam(leaveClassroomView);
         _cameraChanger.PositionPlayerToActiveCamera();
-        _cameraChanger.TransitionBackToPlayerCamera();
-    }
+		_ = _cameraChanger.TransitionBackToPlayerCamera();
+		await _sceneController.LoadNextScene();
+	}
 }

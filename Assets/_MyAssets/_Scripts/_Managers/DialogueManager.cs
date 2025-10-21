@@ -7,7 +7,6 @@ public class DialogueManager : MonoBehaviour
     public SCR_DialogueNode DialogueToStart;
 
     SCR_DialogueNode currentNode;
-    SCR_DialogueNode _nextNode;
 
     public DialogueEventPlanner_Base EventPlanner;
     [SerializeField] DialogueUI dialogueUI;

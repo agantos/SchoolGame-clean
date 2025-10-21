@@ -51,8 +51,8 @@ MonoBehaviour:
     rightSpeakerImage: {fileID: 0}
   options:
   - optionText: "Say \u201Cthank you\u201D and try one biscuit."
-    nextNode: {fileID: 0}
+    nextNode: {fileID: 11400000, guid: d80ad3489f337034eaf7c7ca8323f936, type: 2}
   - optionText: Grab one biscuit!
-    nextNode: {fileID: 0}
+    nextNode: {fileID: 11400000, guid: 624c0ebbf9e3f774981f1bda03b36092, type: 2}
   tag: 
-  autoChangeSteps: 0
+  autoChangeSteps: 1

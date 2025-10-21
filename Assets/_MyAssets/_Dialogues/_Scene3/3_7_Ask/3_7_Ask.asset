@@ -17,8 +17,9 @@ MonoBehaviour:
     speakerName: Peter
     clip: {fileID: 8300000, guid: ddb510f351a31d0409fb1937227b1b2e, type: 3}
     nextDelay: 0
+    dialogueView: -1
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
   options: []
-  tag: 
-  autoChangeSteps: 0
+  tag: 3_7_AskMilk
+  autoChangeSteps: 1

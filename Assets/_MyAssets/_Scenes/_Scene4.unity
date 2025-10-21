@@ -119,6 +119,63 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &61702758
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 385059807177921501, guid: 8eaaec78c20743e498778c9daae1910b, type: 3}
+      propertyPath: m_Name
+      value: Projector
+      objectReference: {fileID: 0}
+    - target: {fileID: 7425788819320612095, guid: 8eaaec78c20743e498778c9daae1910b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.123
+      objectReference: {fileID: 0}
+    - target: {fileID: 7425788819320612095, guid: 8eaaec78c20743e498778c9daae1910b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.565
+      objectReference: {fileID: 0}
+    - target: {fileID: 7425788819320612095, guid: 8eaaec78c20743e498778c9daae1910b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 7425788819320612095, guid: 8eaaec78c20743e498778c9daae1910b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.99968636
+      objectReference: {fileID: 0}
+    - target: {fileID: 7425788819320612095, guid: 8eaaec78c20743e498778c9daae1910b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.025045445
+      objectReference: {fileID: 0}
+    - target: {fileID: 7425788819320612095, guid: 8eaaec78c20743e498778c9daae1910b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7425788819320612095, guid: 8eaaec78c20743e498778c9daae1910b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7425788819320612095, guid: 8eaaec78c20743e498778c9daae1910b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 2.87
+      objectReference: {fileID: 0}
+    - target: {fileID: 7425788819320612095, guid: 8eaaec78c20743e498778c9daae1910b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7425788819320612095, guid: 8eaaec78c20743e498778c9daae1910b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8eaaec78c20743e498778c9daae1910b, type: 3}
 --- !u!1 &125497501
 GameObject:
   m_ObjectHideFlags: 0
@@ -10531,6 +10588,7 @@ MonoBehaviour:
   leaveClassroomView: {fileID: 865921937}
   exitCameraTransform: {fileID: 865921936}
   wantToGoToToilet: {fileID: 11400000, guid: 160cbcdc0dc994e49840cfd8fc2b47cf, type: 2}
+  rulesVideo: {fileID: 32900000, guid: 64ca07d5ea29b4b43959ca7d41a4e7d1, type: 3}
 --- !u!4 &725215016
 Transform:
   m_ObjectHideFlags: 0
@@ -11993,3 +12051,4 @@ SceneRoots:
   - {fileID: 798689656}
   - {fileID: 1435634162}
   - {fileID: 725215016}
+  - {fileID: 61702758}

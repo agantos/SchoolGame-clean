@@ -32,7 +32,7 @@ MonoBehaviour:
       me.*\r"
     speakerName: Peter
     clip: {fileID: 8300000, guid: 07dcaf33237bbaa4a9b824f7392b6093, type: 3}
-    nextDelay: 0
+    nextDelay: 1
     dialogueView: 0
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}

@@ -48,10 +48,9 @@ public class DialogueEventPlanner_6 : DialogueEventPlanner_Base
     async UniTask EnterClassroomAndSit()
     {
         //toClassroom.PerformTransitions();
-        _cameraChanger.TransitionToCam(sitDownView);
+        await _cameraChanger.TransitionToCam(sitDownView);
         await UniTask.Delay(2500);
 
-        await _screenFader.PerformFadeTransition(3, 4, 3, message: "The lesson continues...");
         _dialogueManager.DialogueToStart = boredDialogue;
         _dialogueManager.StartDialogue();
     }

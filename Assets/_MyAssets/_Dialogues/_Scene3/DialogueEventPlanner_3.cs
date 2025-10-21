@@ -8,6 +8,7 @@ public class DialogueEventPlanner_3 : DialogueEventPlanner_Base
     ScreenFader _screenFader;
     PlayerManager _playerManager;
     CinemachineCameraChanger _cameraChanger;
+    SceneController _sceneController;
 
     [SerializeField] Transform margaret;
     
@@ -15,62 +16,100 @@ public class DialogueEventPlanner_3 : DialogueEventPlanner_Base
     [SerializeField] Transform afterQueueRotation;
     [SerializeField] SCR_DialogueNode afterQueueDialogue;
 
-    [SerializeField] private CinemachineCameraTransition toNotAskingCamera;
+    [Header("Dialogues")]
     [SerializeField] SCR_DialogueNode notAskedDialogue;
-
-    [SerializeField] SCR_DialogueNode askDialogue;
-
+    [SerializeField] SCR_DialogueNode notAskedConsequences;
 
 
+	[Header("Dialogue Area")]
+	[SerializeField] DialogueArea askDialogueArea;
+	[SerializeField] DialogueArea MargaretEndDialog;
 
-    private void Start()
+
+
+
+
+	private void Start()
     {
         _dialogueManager = FindAnyObjectByType<DialogueManager>();
         _playerManager = FindAnyObjectByType<PlayerManager>();
         _screenFader = FindAnyObjectByType<ScreenFader>();
         _cameraChanger = FindAnyObjectByType<CinemachineCameraChanger>();
+        _sceneController = FindAnyObjectByType<SceneController>();
 
         CreateEvent("Polite_1", DialogueEvent.OnDialogueEvent.START_NODE, LookAtMargaret);
-        CreateEvent("Polite_1", DialogueEvent.OnDialogueEvent.END_NODE, QueueTransition);
+        CreateEvent("Polite_1", DialogueEvent.OnDialogueEvent.END_NODE, QueueTransitionPolite);
 
         CreateEvent("3_2_Rude", DialogueEvent.OnDialogueEvent.START_NODE, LookAtMargaret);
-        CreateEvent("3_2_Rude", DialogueEvent.OnDialogueEvent.END_NODE, QueueTransition);
+        CreateEvent("3_2_Rude", DialogueEvent.OnDialogueEvent.END_NODE, QueueTransitionRude);
 
-        CreateEvent("3_5", DialogueEvent.OnDialogueEvent.OPTION_B, NotAsked);
-        CreateEvent("3_6_NoAsk", DialogueEvent.OnDialogueEvent.END_NODE, GoAsk);
+        CreateEvent("3_6_NoAsk", DialogueEvent.OnDialogueEvent.END_NODE, NotAsked);
+		CreateEvent("3_7_AskMilk", DialogueEvent.OnDialogueEvent.END_NODE, SpawnBiscuitDialogArea);
 
-    }
+		CreateEvent("3_10_FinalDialogue", DialogueEvent.OnDialogueEvent.END_NODE, LoadScene4);
+	}
 
-    async UniTask NotAsked()
+	async UniTask SpawnBiscuitDialogArea()
     {
-        await toNotAskingCamera.PerformTransitions();
-        await UniTask.Delay(200);
-    }
+		MargaretEndDialog.gameObject.SetActive(true);
 
-    async UniTask GoAsk()
+	}
+
+	async UniTask NotAsked()
     {
-        _cameraChanger.TransitionBackToPlayerCamera();
-        await UniTask.Delay(2000);
+        _playerManager.PlayerMovementController.EnableMovement();
+        await UniTask.Delay(10000);
 
-        _dialogueManager.DialogueToStart = askDialogue;
+		_dialogueManager.DialogueToStart = notAskedConsequences;
+		_dialogueManager.StartDialogue();
+        askDialogueArea.gameObject.SetActive(true);
+	}
+    async UniTask QueueTransitionPolite()
+    {
+		await UniTask.Delay(1000);
+
+		_playerManager.PlayerMovementController.DisableMovement();
+		await _screenFader.PerformFadeTransition(5, 3.5f, 4, "A moment later...", callBack: PositionAndRotatePeter);
+		_playerManager.PlayerMovementController.DisableMovement();
+
+		_dialogueManager.DialogueToStart = afterQueueDialogue;
         _dialogueManager.StartDialogue();
     }
 
-    async UniTask QueueTransition()
-    {
-        await _screenFader.PerformFadeTransition(2, 2, 3, "A moment later...", callBack: PositionAndRotatePeter);
-        _dialogueManager.DialogueToStart = afterQueueDialogue;
-        _dialogueManager.StartDialogue();
-    }
+	async UniTask QueueTransitionRude()
+	{
+		await PlayNumbers();
+		await UniTask.Delay(1000);
+		
+        _playerManager.PlayerMovementController.DisableMovement();
+		await _screenFader.PerformFadeTransition(5, 3.5f, 4, "A moment later...", callBack: PositionAndRotatePeter);
+		_playerManager.PlayerMovementController.DisableMovement();
+		_dialogueManager.DialogueToStart = afterQueueDialogue;
+		_dialogueManager.StartDialogue();
+	}
 
-    void PositionAndRotatePeter()
+	async UniTask PlayNumbers()
+	{
+		var playNumbers = FindAnyObjectByType<NumberAnimationController>();
+		await playNumbers.StartAnimation(20);
+	}
+
+	void PositionAndRotatePeter()
     {
-        _playerManager.MoveToPosition(afterQueuePosition.transform.position);
+		_playerManager.PlayerMovementController.EnableMovement();
+		_playerManager.MoveToPosition(afterQueuePosition.transform.position);
         _playerManager.LookImmediately(afterQueueRotation);
-    }
 
-    async UniTask LookAtMargaret()
+	}
+
+	async UniTask LookAtMargaret()
     {
         await _playerManager.CameraLookAt(margaret, playerLooksThereToo: true);
     }
+
+    async UniTask LoadScene4()
+    {
+		await _sceneController.LoadNextScene();
+
+	}
 }

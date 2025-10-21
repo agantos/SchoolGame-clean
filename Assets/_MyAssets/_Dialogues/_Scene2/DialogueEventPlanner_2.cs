@@ -6,28 +6,34 @@ public class DialogueEventPlanner_2 : DialogueEventPlanner_Base
     DialogueManager _dialogueManager;
     PlayerManager _playerManager;
     PlayerMovementController _playerMovementController;
+	SceneController _sceneController;
 
-    [SerializeField] Transform margaret;
+	[SerializeField] Transform margaret;
 
     [SerializeField] SCR_DialogueNode margaretSadDialogue;
     [SerializeField] SCR_DialogueNode returnToMargaretDialogue;
     [SerializeField] DialogueArea returnToMargaretDialogueArea;
 
 
-    private void Start()
+
+
+	private void Start()
     {
         _dialogueManager = FindAnyObjectByType<DialogueManager>();
         _playerManager = FindAnyObjectByType<PlayerManager>();
         _playerMovementController = FindAnyObjectByType<PlayerMovementController>();
+        _sceneController = FindAnyObjectByType<SceneController>();
 
         CreateEvent("StartDialogueMargaret_1", DialogueEvent.OnDialogueEvent.START_NODE, LookAtMargaret);
         CreateEvent("StartDialogueMargaret_1", DialogueEvent.OnDialogueEvent.OPTION_B, SpawnMargaretSadDialogue);
+        CreateEvent("StartDialogueMargaret_1", DialogueEvent.OnDialogueEvent.OPTION_A, ToScene3);
 
-        CreateEvent("NoTalk", DialogueEvent.OnDialogueEvent.END_NODE, SpawnReturnToMargaretDialogue);
+		CreateEvent("NoTalk", DialogueEvent.OnDialogueEvent.END_NODE, SpawnReturnToMargaretDialogue);
         CreateEvent("GoTalk", DialogueEvent.OnDialogueEvent.START_NODE, LookAtMargaret);
 
         CreateEvent("GoToSnackShopDialogue", DialogueEvent.OnDialogueEvent.START_NODE, LookAtMargaret);
-    }
+        CreateEvent("GoToSnackShopDialogue", DialogueEvent.OnDialogueEvent.END_NODE, ToScene3);
+	}
 
     async UniTask SpawnMargaretSadDialogue()
     {
@@ -54,6 +60,14 @@ public class DialogueEventPlanner_2 : DialogueEventPlanner_Base
     async UniTask LookAtMargaret()
     {
         await _playerManager.CameraLookAt(margaret, playerLooksThereToo: true);
+    }
+
+    async UniTask ToScene3()
+    {
+        if(_sceneController != null)
+        {
+            await _sceneController.LoadNextScene();
+        }
     }
 
 }
