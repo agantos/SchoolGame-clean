@@ -33,6 +33,10 @@ public class DialogueEventPlanner_9 : DialogueEventPlanner_Base
 	[SerializeField] private SCR_DialogueNode startColorsGame;
 	[SerializeField] private SCR_DialogueNode startRecycleVideo;
 	[SerializeField] private SCR_DialogueNode startRecycleGame;
+	[SerializeField] private SCR_DialogueNode congratulateAfterRecycleGame;
+
+	[Header("Teacher Look at")]
+	[SerializeField] Transform teacher;
 
 
 
@@ -55,9 +59,27 @@ public class DialogueEventPlanner_9 : DialogueEventPlanner_Base
 		CreateEvent("StartColorVideo", DialogueEvent.OnDialogueEvent.END_NODE, StartColorsGame);
 		CreateEvent("WatchRecycleVideo", DialogueEvent.OnDialogueEvent.OPTION_A, WatchRecycleVideo);
 		CreateEvent("StartRecycleGame", DialogueEvent.OnDialogueEvent.END_NODE, StartRecycleGame);
+		CreateEvent("CompleteGame", DialogueEvent.OnDialogueEvent.END_NODE, AfterCompleteGame);
+		CreateEvent("Congratulations", DialogueEvent.OnDialogueEvent.END_NODE, ToNextScene);
+
+		_dialogueManager.EventPlanner = this;
 	}
 
+	async UniTask ToNextScene()
+	{
 
+	}
+
+	async UniTask AfterCompleteGame()
+	{
+		await UniTask.Delay(1500);//Bell Rings
+		
+		teacher.gameObject.SetActive(true);
+		await _playerManager.CameraLookAt(teacher);
+
+		_dialogueManager.DialogueToStart = congratulateAfterRecycleGame;
+		_dialogueManager.StartDialogue();
+	}
 
 	async UniTask SitDown()
 	{

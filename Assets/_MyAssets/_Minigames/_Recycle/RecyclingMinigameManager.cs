@@ -19,7 +19,7 @@ public class RecyclingMinigameManager : MonoBehaviour
 	private CinemachineCameraChanger _cameraChanger;
 	private PlayerManager _playerManager;
 
-	public RecycleGameIntroduction gameIntroduction;
+	public RecycleGameNarrative gameIntroduction;
 
 	private void Awake()
 	{
@@ -61,10 +61,22 @@ public class RecyclingMinigameManager : MonoBehaviour
 		await UniTask.Delay(2000);
 	}
 
-	public void CompleteTrash()
+	public async UniTask EndGame()
 	{
-		_completedTrash++;
+		await gameIntroduction.EndAnimation();
+		UI_Canvas?.gameObject.SetActive(false);
+	}
+
+	public async void CompleteTrash()
+	{
+		_completedTrash++;	
 		UpdateUIonCorrect();
+
+		if(_completedTrash == waste.Length + recycleTrash.Length)
+		{
+			await EndGame();
+			Debug.Log("Game Finished");
+		}
 	}
 
 	public bool GetIsWaste(GameObject obj)
@@ -137,7 +149,7 @@ public class RecyclingMinigameManager : MonoBehaviour
 		AnimateText(completedText, 1.5f);
 	}
 
-	void UpdateText()
+	public void UpdateText()
 	{
 		completedText.gameObject.SetActive(true);
 		string completedColor = "#6BCB77"; // green

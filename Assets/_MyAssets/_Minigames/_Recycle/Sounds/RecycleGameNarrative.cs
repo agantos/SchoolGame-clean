@@ -1,13 +1,15 @@
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using System.Threading.Tasks;
+using TMPro;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class RecycleGameIntroduction : MonoBehaviour
+public class RecycleGameNarrative : MonoBehaviour
 {
 	private CinemachineCameraChanger _cameraChanger;
+	private PlayerManager _playerManager;
 
 	public SCR_DialogueNode dialog;
 
@@ -17,11 +19,19 @@ public class RecycleGameIntroduction : MonoBehaviour
 	public RawImage recycleButton;
 	public RawImage wasteButton;
 
+	public TextMeshProUGUI congratulationsText;
 
 	[Header("Cameras")]
     public CinemachineCamera binsCamera;
     public CinemachineCamera objectCamera;
 	public CinemachineCamera classRoomCamera;
+
+	[Header("Particles")]
+	[SerializeField] ParticleEffect confettiEnd_1;
+	[SerializeField] ParticleEffect confettiEnd_2;
+
+	[Header("EndDialogue")]
+	[SerializeField] SCR_DialogueNode completeGameDialogue;
 
 	private DialogueManager _dialogueManager;
 
@@ -32,13 +42,17 @@ public class RecycleGameIntroduction : MonoBehaviour
 		wasteButton.gameObject.SetActive(false);
 	}
 
-	private async void Start()
+	private void Start()
 	{
-
+		_playerManager = FindAnyObjectByType<PlayerManager>();
 		_cameraChanger = FindAnyObjectByType<CinemachineCameraChanger>();
 		_dialogueManager = FindAnyObjectByType<DialogueManager>();
+
+		congratulationsText.alpha = 0f;
+		congratulationsText.transform.localScale = Vector3.zero;
 	}
 
+	#region Introduction
 	public async UniTask PlayIntroduction()
 	{
 		await NarrationStep_0();
@@ -82,9 +96,6 @@ public class RecycleGameIntroduction : MonoBehaviour
 		// play buttons animation constantly
 		PlayButtonPulse(wasteButton);
 		PlayButtonPulse(recycleButton);
-
-		Debug.Log("Start Buttons animation");
-
 	}
 
 	async UniTask NarrationStep_3()
@@ -129,5 +140,80 @@ public class RecycleGameIntroduction : MonoBehaviour
 		button.gameObject.SetActive(false);
 
 	}
+
+	#endregion
+
+	#region Final Animation
+
+	public async UniTask EndAnimation()
+	{
+		await UniTask.Delay(500);
+
+		await _cameraChanger.TransitionToCam(classRoomCamera);
+
+		congratulationsText.gameObject.SetActive(true);
+		_ = PlayCongratulationTextAnimation();
+		await UniTask.Delay(1000);
+		confettiEnd_1.PlayDisplaced(0.1f, 0.1f, 0f);
+
+		await UniTask.Delay(1000);
+		confettiEnd_2.PlayDisplaced(0.1f, 0.1f, 0f);
+
+		await UniTask.Delay(1200);
+		congratulationsText.DOFade(0f, 1f);
+		confettiEnd_1.PlayDisplaced(0.2f, 0.15f, 0f);
+
+		await UniTask.Delay(500);
+		confettiEnd_2.PlayDisplaced(0.1f, 0.1f, 0f);
+
+		_dialogueManager.DialogueToStart = completeGameDialogue;
+		_dialogueManager.StartDialogue();
+		await _cameraChanger.TransitionBackToPlayerCamera();
+	}
+
+	private float fadeDuration = 0.2f;
+	private float scaleDuration = 1f;
+	private float overshootScale = 1.3f;
+	private float bounceAmount = 50f;
+	private float bounceDuration = 0.5f;
+	private Ease scaleEase = Ease.OutBack;
+
+	public async UniTask PlayCongratulationTextAnimation()
+	{
+		Vector3 originalPosition = congratulationsText.transform.localPosition;
+
+		// Reset state
+		congratulationsText.DOKill(true);
+		congratulationsText.transform.DOKill(true);
+
+		congratulationsText.alpha = 0f;
+		congratulationsText.transform.localScale = Vector3.zero;
+		congratulationsText.transform.localPosition = originalPosition;
+
+		Sequence seq = DOTween.Sequence();
+
+		// --- Phase 1: Fade + scale in with overshoot ---
+		seq.Append(congratulationsText.DOFade(1f, fadeDuration));
+		seq.Join(congratulationsText.transform
+			.DOScale(Vector3.one * overshootScale, scaleDuration)
+			.SetEase(scaleEase));
+
+		seq.Append(congratulationsText.transform
+		.DOScale(Vector3.one, scaleDuration/3)
+		.SetEase(scaleEase));
+
+		// --- Phase 2: Bounce (move up and down) ---
+		seq.Append(congratulationsText.transform
+			.DOLocalMoveY(originalPosition.y + bounceAmount, bounceDuration)
+			.SetEase(Ease.OutQuad));
+		seq.Append(congratulationsText.transform
+			.DOLocalMoveY(originalPosition.y, bounceDuration)
+			.SetEase(Ease.InQuad));
+
+		await seq.Play().AsyncWaitForCompletion();
+
+
+	}
+	#endregion
 
 }
