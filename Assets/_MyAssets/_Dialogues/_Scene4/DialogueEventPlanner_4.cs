@@ -26,20 +26,29 @@ public class DialogueEventPlanner_4 : DialogueEventPlanner_Base
 
     [Header("Dialogues")]
     [SerializeField] private SCR_DialogueNode wantToGoToToilet;
+    [SerializeField] private SCR_DialogueNode startVideo;
 
 	[Header("Videos")]
 	[SerializeField] private VideoClip rulesVideo;
 
+    private TransitionToCameraArea transitionArea;
+
 	private void Start()
     {
         _screenFader = FindAnyObjectByType<ScreenFader>();
-        _dialogueManager = FindAnyObjectByType<DialogueManager>();
         _playerManager = FindAnyObjectByType<PlayerManager>();
         _cameraChanger = FindAnyObjectByType<CinemachineCameraChanger>();
         _projector = FindAnyObjectByType<ProjectorController>();
         _sceneController = FindAnyObjectByType<SceneController>();
 
-        CreateEvent("EnterClassroom", DialogueEvent.OnDialogueEvent.OPTION_A, EnterClassroom);
+        transitionArea = FindAnyObjectByType<TransitionToCameraArea>();
+        transitionArea.callback = StartRulesVideoDialogue;
+
+		_dialogueManager = FindAnyObjectByType<DialogueManager>();
+		_dialogueManager.EventPlanner = this;
+
+
+		CreateEvent("StartVideo", DialogueEvent.OnDialogueEvent.END_NODE, PlayProjectorVideo);
         
         CreateEvent("AskOrNo", DialogueEvent.OnDialogueEvent.OPTION_A, AttemptLeaveClassroom);
         CreateEvent("4_3_bad", DialogueEvent.OnDialogueEvent.END_NODE, TransitionToPlayerCam);
@@ -47,9 +56,17 @@ public class DialogueEventPlanner_4 : DialogueEventPlanner_Base
         CreateEvent("4_4_good", DialogueEvent.OnDialogueEvent.END_NODE, LeaveClassroom);
     }
 
-	async UniTask EnterClassroom()
+    async UniTask StartRulesVideoDialogue()
+    {
+        _playerManager.PlayerMovementController.DisableMovement();
+		await UniTask.Delay(1000);
+		_dialogueManager.DialogueToStart = startVideo;
+		_dialogueManager.StartDialogue();
+	}
+
+	async UniTask PlayProjectorVideo()
 	{
-		await _cameraChanger.TransitionToCam(classRoomView);
+		_playerManager.PlayerMovementController.DisableMovement();
 		await UniTask.Delay(1000);
 		_projector.onProjectorClosed += PlayWantToiletDialogue;
 		_projector.OpenProjectorVideo(rulesVideo);

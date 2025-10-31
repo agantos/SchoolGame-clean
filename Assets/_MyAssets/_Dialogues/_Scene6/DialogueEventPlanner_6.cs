@@ -14,9 +14,10 @@ public class DialogueEventPlanner_6 : DialogueEventPlanner_Base
 
     [SerializeField] private SCR_DialogueNode badEndingDialogue;
     [SerializeField] private SCR_DialogueNode boredDialogue;
+    [SerializeField] private SCR_DialogueNode startGame;
 
 
-    ScreenFader _screenFader;
+	ScreenFader _screenFader;
     DialogueManager _dialogueManager;
     PlayerManager _playerManager;
     CinemachineCameraChanger _cameraChanger;
@@ -24,32 +25,38 @@ public class DialogueEventPlanner_6 : DialogueEventPlanner_Base
     TabletController_ShapesMinigame _minigame_shapes_controller;
     TabletAnimationController _tabletAnimationController;
 
+    TransitionToCameraArea _sitDownArea;
+
     private void Start()
     {
         _screenFader = FindAnyObjectByType<ScreenFader>();
-        _dialogueManager = FindAnyObjectByType<DialogueManager>();
         _playerManager = FindAnyObjectByType<PlayerManager>();
         _cameraChanger = FindAnyObjectByType<CinemachineCameraChanger>();
         _tabletAnimationController = FindAnyObjectByType<TabletAnimationController>();
         _minigame_shapes_controller = FindAnyObjectByType<TabletController_ShapesMinigame>();
 
+        _sitDownArea = FindAnyObjectByType<TransitionToCameraArea>();
+        _sitDownArea.callback = StartBoredDialogue;
 
-        CreateEvent("sitDown", DialogueEvent.OnDialogueEvent.OPTION_A, EnterClassroomAndSit);
+		_dialogueManager = FindAnyObjectByType<DialogueManager>();
+        _dialogueManager.EventPlanner = this;
 
         CreateEvent("dillema", DialogueEvent.OnDialogueEvent.OPTION_A, AttemptLeaveClassroom);
         CreateEvent("bad_1", DialogueEvent.OnDialogueEvent.END_NODE, StartBadEndingDialogue);
 
         CreateEvent("bad_2", DialogueEvent.OnDialogueEvent.END_NODE, BadEndingEvent);
         CreateEvent("good", DialogueEvent.OnDialogueEvent.END_NODE, GoodEndingEvent);
-    }
 
-    #region Dialogue - Sit Transitions
+		CreateEvent("startGame", DialogueEvent.OnDialogueEvent.END_NODE, OpenTabletAndGame);
 
-    async UniTask EnterClassroomAndSit()
+	}
+
+	#region Dialogue - Sit Transitions
+
+	async UniTask StartBoredDialogue()
     {
-        //toClassroom.PerformTransitions();
-        await _cameraChanger.TransitionToCam(sitDownView);
-        await UniTask.Delay(2500);
+		_playerManager.PlayerMovementController.DisableMovement();
+		await UniTask.Delay(2500);
 
         _dialogueManager.DialogueToStart = boredDialogue;
         _dialogueManager.StartDialogue();
@@ -60,17 +67,24 @@ public class DialogueEventPlanner_6 : DialogueEventPlanner_Base
         // sit down
         await _cameraChanger.TransitionToCam(sitDownView);
         await _screenFader.PerformFadeTransition(3, 2, 3, message: "Time passes quickly...");
-        OpenTabletAndGame();
+        await UniTask.Delay(1000);
+		StartGameDialogue();
+	}
 
-    }
-
-    async UniTask GoodEndingEvent()
+	async UniTask GoodEndingEvent()
     {
         await _screenFader.PerformFadeTransition(3, 2, 3, message: "Time passes quickly...");
-        OpenTabletAndGame();
+		await UniTask.Delay(1000);
+        StartGameDialogue();
     }
 
-    async UniTask StartBadEndingDialogue()
+	async UniTask StartGameDialogue()
+	{
+		_dialogueManager.DialogueToStart = startGame;
+		_dialogueManager.StartDialogue();
+	}
+
+	async UniTask StartBadEndingDialogue()
     {
         _dialogueManager.DialogueToStart = badEndingDialogue;
         _dialogueManager.StartDialogue();

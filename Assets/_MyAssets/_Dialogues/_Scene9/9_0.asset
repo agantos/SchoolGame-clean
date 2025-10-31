@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: 9_0
   m_EditorClassIdentifier: 
   steps:
-  - stepText: We are going to learn about colors! Click on your brushes!
+  - stepText: "Who remembers the colours? Let\u2019s see if our dinosaur friends
+      can help us remember!"
     speakerName: Mrs Anne
-    clip: {fileID: 8300000, guid: 67d4a823b7ddd0e4fa1e9fdc3316906f, type: 3}
+    clip: {fileID: 8300000, guid: 5d268b600e2648c4ca960619543b3bb5, type: 3}
     nextDelay: 0
     dialogueView: -1
     leftSpeakerImage: {fileID: 0}

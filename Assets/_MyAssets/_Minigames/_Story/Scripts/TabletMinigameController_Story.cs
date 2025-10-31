@@ -33,11 +33,11 @@ public class TabletMinigameController_Story : MonoBehaviour
 
 		InitalizeDrawAreas_Round1();
 
-		//PlayIntroductionVideo();
+		PlayIntroductionVideo();
 
 		//Test
-		EnableImageView_Round1();
-		LoadLevel_Round1(0);
+		//EnableImageView_Round1();
+		//LoadLevel_Round1(0);
 	}
 
 	#region Draw Canvas Methods

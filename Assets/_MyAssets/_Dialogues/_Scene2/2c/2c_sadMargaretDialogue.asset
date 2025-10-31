@@ -17,14 +17,14 @@ MonoBehaviour:
     speakerName: Margaret
     clip: {fileID: 8300000, guid: 764977eedf980ed4b9c4904c25a6c35a, type: 3}
     nextDelay: 0.5
-    dialogueView: -1
+    dialogueView: 0
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
   - stepText: "*Doesn\u2019t he wanna talk to me?*"
     speakerName: Margaret
     clip: {fileID: 8300000, guid: d32d0bc2fa04fc842a3aeb0963fb5601, type: 3}
     nextDelay: 0
-    dialogueView: -1
+    dialogueView: 0
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
   options: []

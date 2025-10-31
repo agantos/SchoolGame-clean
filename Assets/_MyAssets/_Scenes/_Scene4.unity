@@ -10588,6 +10588,7 @@ MonoBehaviour:
   leaveClassroomView: {fileID: 865921937}
   exitCameraTransform: {fileID: 865921936}
   wantToGoToToilet: {fileID: 11400000, guid: 160cbcdc0dc994e49840cfd8fc2b47cf, type: 2}
+  startVideo: {fileID: 11400000, guid: 45125783df1e6a8459589993a1ebfc19, type: 2}
   rulesVideo: {fileID: 32900000, guid: 64ca07d5ea29b4b43959ca7d41a4e7d1, type: 3}
 --- !u!4 &725215016
 Transform:
@@ -11567,9 +11568,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1928583275}
   - component: {fileID: 1928583277}
-  - component: {fileID: 1928583276}
   - component: {fileID: 1928583281}
   - component: {fileID: 1928583280}
+  - component: {fileID: 1928583282}
   m_Layer: 0
   m_Name: SitDownDialog
   m_TagString: Untagged
@@ -11586,30 +11587,12 @@ Transform:
   m_GameObject: {fileID: 1928583274}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.093, y: 0.69, z: -3.456}
+  m_LocalPosition: {x: -0.693, y: 0.69, z: -2.058}
   m_LocalScale: {x: 5.094024, y: 4.6327195, z: 5.094024}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1928583276
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1928583274}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60ad3dbb599762349828dae35934e4ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 16384
-  dialog: {fileID: 11400000, guid: 45125783df1e6a8459589993a1ebfc19, type: 2}
-  eventPlanner: {fileID: 725215015}
-  startOnTriggerEnter: 0
 --- !u!135 &1928583277
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -11684,6 +11667,22 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &1928583282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1928583274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3dd70d7576f23046a6ae815cd32a92b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 16384
+  cam: {fileID: 456775736}
 --- !u!1 &1929926251
 GameObject:
   m_ObjectHideFlags: 0

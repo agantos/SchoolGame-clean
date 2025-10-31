@@ -40,7 +40,7 @@ public class MobileTurnCamera : MonoBehaviour
 	{
 		Vector2 lookDelta = _playerActions.Look.ReadValue<Vector2>();
 
-		transform.position = player.position + new Vector3(0f, playerModel.localScale.y / 1.5f, 0f);
+		transform.position = player.position + new Vector3(0f, playerModel.localScale.y / 1.2f, 0f);
 
 		if (lookDelta.sqrMagnitude > 0.001f && !IsPointerOverUI())
 		{

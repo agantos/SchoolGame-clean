@@ -1,0 +1,487 @@
+fileFormatVersion: 2
+guid: 9ee1b74bbb9d6fd45aab66a3cfa75ecf
+ModelImporter:
+  serializedVersion: 22200
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Blue
+    second: {fileID: 2100000, guid: decdabd4668518b4695911ec1cdf8f98, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Bottle
+    second: {fileID: 2100000, guid: 3e3d97df849988f448d9ac4241102f88, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cover
+    second: {fileID: 2100000, guid: 5cda4025a91616e4d9c9b0c901a4ba47, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cup
+    second: {fileID: 2100000, guid: 4226a481fc87eeb478c53de19c971baa, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material
+    second: {fileID: 2100000, guid: 6fdf16fbc3b021e4a9990a851a0141cb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #50
+    second: {fileID: 2100000, guid: 39587d7002e61c64db067e3d0197a1e8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PencilBlack
+    second: {fileID: 2100000, guid: 9560c9c5da15370419055f9a4124d543, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PencilGreen
+    second: {fileID: 2100000, guid: 918634fdd36d7c8468680996698113ec, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PencilGrey
+    second: {fileID: 2100000, guid: ea0661c46f5654f43b2edcfd90959efe, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PencilLightBlue
+    second: {fileID: 2100000, guid: d0ca58bf742b00f4ca9cb8979dd71c38, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PencilLightGreen
+    second: {fileID: 2100000, guid: b7a65aa849704434490e83279a89ebdb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PencilOrange
+    second: {fileID: 2100000, guid: ecc83ea4698337849b78ef186dca630f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PencilPink
+    second: {fileID: 2100000, guid: cd1245befaaecea4094b5c7aa6f8395b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PencilYellow
+    second: {fileID: 2100000, guid: 5a7a6cdf7cdd5274cb917d5afafd3917, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PendilRed
+    second: {fileID: 2100000, guid: 4ead6bd4ba35ceb48a54a85dbbdf3947, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Poster
+    second: {fileID: 2100000, guid: 9bbdcbd43f49c5343b5781864575ea8a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Support Cover
+    second: {fileID: 2100000, guid: 8ed65f72d27d39e429d3ee11f8a5c2d8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: aiStandardSurface1
+    second: {fileID: 2100000, guid: e2d6f64bd8423e340bf0c7986fad355c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: highlighter_blue
+    second: {fileID: 2100000, guid: 037c3f8c6a7665f43931452250d307e5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: highlighter_orange
+    second: {fileID: 2100000, guid: bde364ee299245a46a718788ad3d65df, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: highlighter_pink
+    second: {fileID: 2100000, guid: e31896e7521b19c45b8d3227ea26da2c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: highlighter_yellow
+    second: {fileID: 2100000, guid: f56185075c208c84693b6b7c8a8f7f76, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: higlighter_black
+    second: {fileID: 2100000, guid: 6b758001e22cb13469b52fc7ebe27f1c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: initialShadingGroup
+    second: {fileID: 2100000, guid: 9e41585016165e34382ef6177de6e56a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert2SG
+    second: {fileID: 2100000, guid: 58578d6a8d47fdc4794480b4df77dbc2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert3
+    second: {fileID: 2100000, guid: 4c5b65d7bac41dc4bbde75fc0571f2f9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: paper
+    second: {fileID: 2100000, guid: 96583cce4d87c4a4485a9152064a4f7b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: papersheets
+    second: {fileID: 2100000, guid: ca7727ada072b86468032c6150ac1743, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pencil_wood
+    second: {fileID: 2100000, guid: ded61204bae53744eab7b44ed867f7e6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pencil_yellow
+    second: {fileID: 2100000, guid: c482280512b02af478c268910394ee00, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: post_it_1_tex
+    second: {fileID: 2100000, guid: d568678a489edad43910b09562b26a87, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: post_it_2
+    second: {fileID: 2100000, guid: 90a5a76a76cef054b9f6153f1530f73c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: silver
+    second: {fileID: 2100000, guid: 3339a964bba79d74f96bb5a41df49f66, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Bottle_albedo
+    second: {fileID: 2800000, guid: 1b28eb3ae23aa54438e839d91070935c, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Bottle_metallic
+    second: {fileID: 2800000, guid: 88fa876df4bd0434f82eca11793a9a87, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Bottle_normal
+    second: {fileID: 2800000, guid: b0e8201e98a25d2419603ea8442ba4cc, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Bottle_roughness
+    second: {fileID: 2800000, guid: 493ed326a04e8054fac53979fc46fd2b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Bread_base_1002
+    second: {fileID: 2800000, guid: 29d4be08ce0bdba45aa840f145b0bbb5, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cover_albedo
+    second: {fileID: 2800000, guid: 360dd9a72989df14dbada03ae41bda58, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cover_metallic
+    second: {fileID: 2800000, guid: d5c893a073d8c0e46a7f78f6b28a8b29, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cover_normal
+    second: {fileID: 2800000, guid: 681f246ae0c6ebd4aa928e803a7a3399, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cover_roughness
+    second: {fileID: 2800000, guid: f1c437e59f1a28d42b08d3f572b048a5, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CupAlbedo
+    second: {fileID: 2800000, guid: 36d0ba9bfa39e574ebd360c35e7b1ddd, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CupNormal
+    second: {fileID: 2800000, guid: d9febf377f2a1434c9ad715b27a688a9, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CupRough
+    second: {fileID: 2800000, guid: a84174ea056c48342810a2c2a17d4bdd, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: PencilBlackAlbedo
+    second: {fileID: 2800000, guid: fb098c5689f7cde4d97e9ec5000757b7, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: PencilBlueAlbedo
+    second: {fileID: 2800000, guid: 2551d589d62d7de439b4485438663d2f, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: PencilGreenAlbedo
+    second: {fileID: 2800000, guid: 113217b9d92e09c4bb946b0e1a7635a6, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: PencilGreyAlbedo
+    second: {fileID: 2800000, guid: 9d15a5423015b3a4e84baa19d2df7b9c, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: PencilLightBlue
+    second: {fileID: 2800000, guid: 7558c533fa9f1ea458fbb59cf7aef6d6, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: PencilLightGreenAlbedo
+    second: {fileID: 2800000, guid: 9c88496f4e8078149ba1600ad99ab5b6, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: PencilNormal
+    second: {fileID: 2800000, guid: 76edd342ed28a874e95d4edf3147abc4, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: PencilOrange
+    second: {fileID: 2800000, guid: 5c107912c4555dc459edd29d3aab59a2, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: PencilPinkAlbedo
+    second: {fileID: 2800000, guid: 725669cb48b9db14e97036a5646d2929, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: PencilRedAlbedo
+    second: {fileID: 2800000, guid: 687c88a2299d03e438c5733d0ecf4099, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: PencilRough
+    second: {fileID: 2800000, guid: 0f38a89c19eda73458ad8f8f2bd29c8c, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: PencilVioletteAlbedo
+    second: {fileID: 2800000, guid: 729946afeb2222b4eb4cdb2b03c9e0ea, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: PencilYellowAlbedo
+    second: {fileID: 2800000, guid: b6522d5a312c0194b9e05e05cc11bdc7, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Poster_albedo
+    second: {fileID: 2800000, guid: 92fef0b9234d7094b84ef3ab41455f55, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Support Cover_albedo
+    second: {fileID: 2800000, guid: 93149787a6c7f0444bc068f1c7ea69ca, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Support Cover_metallic
+    second: {fileID: 2800000, guid: d29a3e6ee1f243048808fbf64faf2b71, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Support Cover_normal
+    second: {fileID: 2800000, guid: c4078a40b1cce884fb77977e08f1a734, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Support Cover_roughness
+    second: {fileID: 2800000, guid: e1b2b48103f77a342a4effd3268a9340, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: block_texture
+    second: {fileID: 2800000, guid: 116eed7a9629d9e49b4e8917b58a0eb7, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: bread_lambert1_Metallic_1002
+    second: {fileID: 2800000, guid: 63a3d72882ccdbb4c97447bf42efd626, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: bread_lambert1_Roughness.1002
+    second: {fileID: 2800000, guid: ad99b8b181ee16a4cb85c73935adb6b1, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: egg_1002lambert1_Normal_1002
+    second: {fileID: 2800000, guid: cd756eddba999fb438536f2e11c64932, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: egg_low_lambert1_BaseColor.1001
+    second: {fileID: 2800000, guid: 3772f62f3735969468a1a38be4e31856, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: egg_low_lambert1_Metallic.1001
+    second: {fileID: 2800000, guid: 3728213606b5e1349a309fb1b0e7b288, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: egg_low_lambert1_Roughness.1001
+    second: {fileID: 2800000, guid: c52ad01bf9e381f4b80aaa93a7f7e86d, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: llet
+    second: {fileID: 2800000, guid: c961a27798ac59b4881f0a70a31d0268, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: paper_sketches
+    second: {fileID: 2800000, guid: 3d086ca9f038f464497ae7bfd044fbb1, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: paper_tex
+    second: {fileID: 2800000, guid: 947bedc43c61fa54d836999b0522a325, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: papersheets_Normal
+    second: {fileID: 2800000, guid: 923a79c7effd85c499bc6c9855cb6f16, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: post_it_1
+    second: {fileID: 2800000, guid: 92852845e3273034db9536faeaff678d, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: post_it_2
+    second: {fileID: 2800000, guid: c180f2e91439a8041b2681845bc1a60f, type: 3}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 1
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    strictVertexDataChecks: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

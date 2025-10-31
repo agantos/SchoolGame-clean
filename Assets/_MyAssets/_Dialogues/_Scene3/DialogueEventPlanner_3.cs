@@ -24,11 +24,6 @@ public class DialogueEventPlanner_3 : DialogueEventPlanner_Base
 	[Header("Dialogue Area")]
 	[SerializeField] DialogueArea askDialogueArea;
 	[SerializeField] DialogueArea MargaretEndDialog;
-
-
-
-
-
 	private void Start()
     {
         _dialogueManager = FindAnyObjectByType<DialogueManager>();
@@ -94,11 +89,12 @@ public class DialogueEventPlanner_3 : DialogueEventPlanner_Base
 		await playNumbers.StartAnimation(20);
 	}
 
-	void PositionAndRotatePeter()
+	async void PositionAndRotatePeter()
     {
 		_playerManager.PlayerMovementController.EnableMovement();
 		_playerManager.MoveToPosition(afterQueuePosition.transform.position);
-        _playerManager.LookImmediately(afterQueueRotation);
+		await UniTask.NextFrame();
+		_playerManager.LookImmediately(afterQueueRotation);
 
 	}
 

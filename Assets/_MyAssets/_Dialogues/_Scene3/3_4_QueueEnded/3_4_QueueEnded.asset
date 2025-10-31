@@ -21,7 +21,7 @@ MonoBehaviour:
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
   options:
-  - optionText: Ask for your usual milk.
+  - optionText: Search for what you want.
     nextNode: {fileID: 11400000, guid: b132a155b6ed2204a8129c4de3d86571, type: 2}
   tag: 
   autoChangeSteps: 0

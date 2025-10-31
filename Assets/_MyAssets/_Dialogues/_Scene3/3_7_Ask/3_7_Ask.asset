@@ -13,9 +13,24 @@ MonoBehaviour:
   m_Name: 3_7_Ask
   m_EditorClassIdentifier: 
   steps:
-  - stepText: Excuse me! Do you have sandwich?
+  - stepText: Hello, sir. Could I please have the milk in the green box?
     speakerName: Peter
-    clip: {fileID: 8300000, guid: ddb510f351a31d0409fb1937227b1b2e, type: 3}
+    clip: {fileID: 8300000, guid: d9fe26f1685b2f445b09decd2742aeed, type: 3}
+    nextDelay: 0.5
+    dialogueView: -1
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: "Oops, we don\u2019t have that one right now. But you should try this
+      one, it\u2019s really yummy too!"
+    speakerName: Lunch Man
+    clip: {fileID: 8300000, guid: 008c90868a055f24188e03e2339bb3f4, type: 3}
+    nextDelay: 0.5
+    dialogueView: -1
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: "Okay, I\u2019ll try that one then! Thank you!"
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: 2e93b0f2975097c43b2e25d3bb801926, type: 3}
     nextDelay: 0
     dialogueView: -1
     leftSpeakerImage: {fileID: 0}

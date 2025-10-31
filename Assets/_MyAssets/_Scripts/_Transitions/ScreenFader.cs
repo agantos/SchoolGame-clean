@@ -45,7 +45,7 @@ public class ScreenFader : MonoBehaviour
         await FadeOut(fadeOutTime, token);
     }
 
-	private float _textAnimationDuration = 0.6f;
+	private float _textAnimationDuration = 1.6f;
 	public async UniTask ShowMessage(string message)
 	{
 		if (string.IsNullOrEmpty(message) || fadeText == null)

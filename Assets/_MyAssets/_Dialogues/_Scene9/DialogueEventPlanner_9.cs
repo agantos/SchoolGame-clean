@@ -30,6 +30,7 @@ public class DialogueEventPlanner_9 : DialogueEventPlanner_Base
 
 
 	[Header("Dialogs")]
+	[SerializeField] private SCR_DialogueNode startColorsVideo;
 	[SerializeField] private SCR_DialogueNode startColorsGame;
 	[SerializeField] private SCR_DialogueNode startRecycleVideo;
 	[SerializeField] private SCR_DialogueNode startRecycleGame;
@@ -49,16 +50,23 @@ public class DialogueEventPlanner_9 : DialogueEventPlanner_Base
 		_screenFader = FindAnyObjectByType<ScreenFader>();
 		_sceneController = FindAnyObjectByType<SceneController>();
 		_playerManager = FindAnyObjectByType<PlayerManager>();		 
-		_dialogueManager = FindAnyObjectByType<DialogueManager>();
 		_colorsMinigame = FindAnyObjectByType<TabletController_ColorsMinigame>();
 		_recyclingMinigameManager = FindAnyObjectByType<RecyclingMinigameManager>();
 
 		_projectorController = FindAnyObjectByType<ProjectorController>();
 
-		CreateEvent("EnterClassroom", DialogueEvent.OnDialogueEvent.OPTION_A, SitDown);
-		CreateEvent("StartColorVideo", DialogueEvent.OnDialogueEvent.END_NODE, StartColorsGame);
+		_dialogueManager = FindAnyObjectByType<DialogueManager>();
+		_dialogueManager.EventPlanner = this;
+
+		FindAnyObjectByType<TransitionToCameraArea>().callback = OnSitDown;
+
+
+		CreateEvent("StartColorVideo", DialogueEvent.OnDialogueEvent.END_NODE, StartColorsVideo);
+		CreateEvent("StartColorGame", DialogueEvent.OnDialogueEvent.END_NODE, StartColoursGame);
+
 		CreateEvent("WatchRecycleVideo", DialogueEvent.OnDialogueEvent.OPTION_A, WatchRecycleVideo);
 		CreateEvent("StartRecycleGame", DialogueEvent.OnDialogueEvent.END_NODE, StartRecycleGame);
+		
 		CreateEvent("CompleteGame", DialogueEvent.OnDialogueEvent.END_NODE, AfterCompleteGame);
 		CreateEvent("Congratulations", DialogueEvent.OnDialogueEvent.END_NODE, ToNextScene);
 
@@ -81,19 +89,17 @@ public class DialogueEventPlanner_9 : DialogueEventPlanner_Base
 		_dialogueManager.StartDialogue();
 	}
 
-	async UniTask SitDown()
+	async UniTask OnSitDown()
 	{
 		_playerManager.PlayerMovementController.DisableMovement();
-
-		await _cameraChanger.TransitionToCam(seatCamera);
 		await UniTask.Delay(2000);
 
-		_dialogueManager.DialogueToStart = startColorsGame;
+		_dialogueManager.DialogueToStart = startColorsVideo;
 		_dialogueManager.StartDialogue();
 
 	}
 
-	async UniTask StartColorsGame()
+	async UniTask StartColorsVideo()
 	{
 		_playerManager.PlayerMovementController.DisableMovement();
 
@@ -106,11 +112,18 @@ public class DialogueEventPlanner_9 : DialogueEventPlanner_Base
 			_colorsMinigame.OnEnd = EndColoursGame;
 			await _cameraChanger.TransitionToCam(seatCamera);
 			await UniTask.Delay(1500);
-			await _cameraChanger.TransitionToCam(tabletCamera);
-			await tabletAnimationController.SlideTabletOut();
-			_colorsMinigame.StartGame();
-		};
-	
+
+			_dialogueManager.DialogueToStart = startColorsGame;
+			_dialogueManager.StartDialogue();
+		};	
+	}
+
+	async UniTask StartColoursGame()
+	{
+		_playerManager.PlayerMovementController.DisableMovement();
+		await _cameraChanger.TransitionToCam(tabletCamera);
+		await tabletAnimationController.SlideTabletOut();
+		_colorsMinigame.StartGame();
 	}
 
 	async UniTask WatchRecycleVideo()
