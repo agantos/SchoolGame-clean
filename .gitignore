@@ -97,3 +97,14 @@ InitTestScene*.unity*
 
 # Auto-generated scenes by play mode tests
 /[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
+
+# Lightmap and lighting cache files
+/[Aa]ssets/**/[Ll]ightmap-*
+/[Aa]ssets/**/[Ll]ightProbes.asset
+/[Aa]ssets/**/[Ll]ightingData.asset
+/[Aa]ssets/**/ReflectionProbe-*
+/[Aa]ssets/**/OcclusionCullingData.asset
+/[Aa]ssets/**/GICache/
+
+# GI cache (Unity global illumination cache)
+[Ll]ibrary/GICache/
