@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08b42a0dbf8327e48835bf7d615d551f, type: 3}
+  m_Name: 7_1_PeterWantsToPlay
+  m_EditorClassIdentifier: 
+  steps:
+  - stepText: Margaret and Greg are playing! I wanna play too!
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: ce07916be477ea84f98fd9321394c469, type: 3}
+    nextDelay: 0
+    dialogueView: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: Hey, can I play with you?
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: 8e5c7b19356bcd04f8a2003b84801306, type: 3}
+    nextDelay: 0
+    dialogueView: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: "We\u2019re almost done with this round, then you can play with us!"
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: bb634935a5f9b8d479040e4e6cd2c509, type: 3}
+    nextDelay: 0
+    dialogueView: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: Do I wait my turn or do I steal the ball and dash?
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: ee91d6387dfb7464d99316184b7e6fe9, type: 3}
+    nextDelay: 0
+    dialogueView: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  options:
+  - optionText: Wait patiently for them to finish the round.
+    nextNode: {fileID: 0}
+  - optionText: Take the ball and start running, you are angry.
+    nextNode: {fileID: 0}
+  tag: 7_1_PeterWantsToPlay
+  autoChangeSteps: 1

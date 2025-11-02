@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08b42a0dbf8327e48835bf7d615d551f, type: 3}
+  m_Name: 7_9_2_GameEnded
+  m_EditorClassIdentifier: 
+  steps:
+  - stepText: "The game finished. Our team didn\u2019t win, but it didn\u2019t matter.
+      I had such an amazing time playing with my friends."
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: 62f2cc46cf59eac40b62ab51d8d40590, type: 3}
+    nextDelay: 0
+    dialogueView: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: "Yay! It\u2019s time to go back to the classroom \u2018cause it\u2019s
+      ART time!"
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: aa6294b98d6af554eafb7bd77f20aba8, type: 3}
+    nextDelay: 0
+    dialogueView: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  options: []
+  tag: 
+  autoChangeSteps: 0

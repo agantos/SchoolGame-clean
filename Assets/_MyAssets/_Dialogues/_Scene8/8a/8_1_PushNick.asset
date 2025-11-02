@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08b42a0dbf8327e48835bf7d615d551f, type: 3}
+  m_Name: 8_1_PushNick
+  m_EditorClassIdentifier: 
+  steps:
+  - stepText: "Oh wow, they\u2019re shouting sooo loud! I closed my ears to try to
+      block out the noise"
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: 139813d6ab82d3e4490ea7a1d7414773, type: 3}
+    nextDelay: 0
+    dialogueView: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: but somehow, without even realizing it, I pushed Nick, and he fell
+      on the floor!
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: 31a5514d72726a94e9e9ca5da32e5348, type: 3}
+    nextDelay: 0
+    dialogueView: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: "I felt a little scared. Just then, Mrs. Anne appeared and looked at
+      us. I didn\u2019t know what to say, I was confused."
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: a374b6e5ab9fc384e80d4c254052485e, type: 3}
+    nextDelay: 0
+    dialogueView: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  options: []
+  tag: 8_1_PushNick
+  autoChangeSteps: 1

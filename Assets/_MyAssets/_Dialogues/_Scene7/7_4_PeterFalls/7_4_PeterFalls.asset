@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08b42a0dbf8327e48835bf7d615d551f, type: 3}
+  m_Name: 7_4_PeterFalls
+  m_EditorClassIdentifier: 
+  steps:
+  - stepText: "And suddenly\u2026 I fell down! I hurt my knee and saw a little blood.
+      It looked kind of scary, but I didn\u2019t really feel pain."
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: 5ff1c1098c7b1af4180f0f6891497e79, type: 3}
+    nextDelay: 0.3
+    dialogueView: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: "Peter, if you tell Mrs. Anna, she can help you!!\" \"Even if it doesn\u2019t
+      hurt, there\u2019s blood."
+    speakerName: Margaret
+    clip: {fileID: 8300000, guid: 37612e910f353fb4a96aa65f27df5656, type: 3}
+    nextDelay: 0
+    dialogueView: -1
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: "It could get germs and then hurt later or get infected. Even if it
+      doesn\u2019t hurt now, it might hurt later."
+    speakerName: Margaret
+    clip: {fileID: 8300000, guid: 7d4e3c644c0324c4b9aaa7f93f4f4ef9, type: 3}
+    nextDelay: 0
+    dialogueView: -1
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: Should I keep playing because it is a tiny cut, or should i tell the
+      teacher even if it doesn't even hurt?
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: 4e657015755b9484189b73036f0b128d, type: 3}
+    nextDelay: 0
+    dialogueView: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  options:
+  - optionText: "Keep playing like nothing happened. It\u2019s just a little cut!"
+    nextNode: {fileID: 0}
+  - optionText: "Go tell the teacher what happened, even if it doesn\u2019t hurt."
+    nextNode: {fileID: 0}
+  tag: 
+  autoChangeSteps: 1

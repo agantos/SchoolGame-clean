@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08b42a0dbf8327e48835bf7d615d551f, type: 3}
+  m_Name: 7_7_BallFlies
+  m_EditorClassIdentifier: 
+  steps:
+  - stepText: "Yes! The bell rang, it\u2019s time for basketball!"
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: 4eff4fa2573d0b141b076dbe45ac8787, type: 3}
+    nextDelay: 0
+    dialogueView: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: The trainer made the groups, and we all got ready to start playing.
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: 0d8bb735e0dc72c499bd2a7266004fa5, type: 3}
+    nextDelay: 0.5
+    dialogueView: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: "I put too much strength into my throw, and\u2026 Whoops! The ball
+      went flying right out of the school yard."
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: 979976f0013cfc6419744c52311e0937, type: 3}
+    nextDelay: 0
+    dialogueView: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: What do you think I should do? Should I tell the coach and ask for
+      help to get the ball?
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: c32ba74dda36b0a4783aaf629a506f50, type: 3}
+    nextDelay: 0
+    dialogueView: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: Or just grab it myself even though it's outside the yard?
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: 210e9977989dcf54daaee0d4bb7c7b58, type: 3}
+    nextDelay: 0
+    dialogueView: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  options:
+  - optionText: Inform the trainer and ask for help to get the ball.
+    nextNode: {fileID: 0}
+  - optionText: Go pick up the ball on your own.
+    nextNode: {fileID: 0}
+  tag: 7_7_BallFlies
+  autoChangeSteps: 1

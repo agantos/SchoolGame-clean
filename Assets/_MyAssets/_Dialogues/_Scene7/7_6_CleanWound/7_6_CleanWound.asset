@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08b42a0dbf8327e48835bf7d615d551f, type: 3}
+  m_Name: 7_6_CleanWound
+  m_EditorClassIdentifier: 
+  steps:
+  - stepText: Mrs.Anna cleaned the cut and put a bandage on it.
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: 595fbc47ec20f024aa5ad0ddfd9e5871, type: 3}
+    nextDelay: 0
+    dialogueView: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: Now it feels much better! Now I can play safe and have fun with my
+      friends!
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: be1dd1267f5da234fa110764bae8aec5, type: 3}
+    nextDelay: 0
+    dialogueView: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  options: []
+  tag: 7_6_CleanWound
+  autoChangeSteps: 1

@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08b42a0dbf8327e48835bf7d615d551f, type: 3}
+  m_Name: 8_4_Apology
+  m_EditorClassIdentifier: 
+  steps:
+  - stepText: "I asked Nick how he was feeling, and I told him I\u2019m sorry. I
+      didn\u2019t want to push him on purpose."
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: c8e4e17e70f0c404097cbbe592961140, type: 3}
+    nextDelay: 0
+    dialogueView: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: 'I helped him get up, and he smiled a little, saying:'
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: cea031b03c47e1f448768e2c199961a0, type: 3}
+    nextDelay: 0.2
+    dialogueView: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: "I\u2019m fine, Peter, thank you for asking!"
+    speakerName: Nick
+    clip: {fileID: 8300000, guid: c58af3ecb1178374885c7cb8e5e9ac64, type: 3}
+    nextDelay: 0
+    dialogueView: -1
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: We both walked back to the classroom together. It felt good to know
+      I cared about him.
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: 6118daf86cc99c448a542a6ed6de1885, type: 3}
+    nextDelay: 0
+    dialogueView: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: "When you make things right, it makes you feel happy inside, and I
+      didn\u2019t want him to feel bad."
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: e7532d7e17c239c429ff542aa7a1f846, type: 3}
+    nextDelay: 0
+    dialogueView: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: "I think it\u2019s always good to check on your friends and make sure
+      they\u2019re okay."
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: ace7bbc433df25c4797120e67e8f2db6, type: 3}
+    nextDelay: 0
+    dialogueView: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  options: []
+  tag: 
+  autoChangeSteps: 0

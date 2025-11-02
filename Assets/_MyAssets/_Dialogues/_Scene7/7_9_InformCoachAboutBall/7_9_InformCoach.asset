@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08b42a0dbf8327e48835bf7d615d551f, type: 3}
+  m_Name: 7_9_InformCoach
+  m_EditorClassIdentifier: 
+  steps:
+  - stepText: 'I decided it was better to inform the coach. I ran up to him and said:'
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: 5745f2371fa2d1147a488be2814d0b47, type: 3}
+    nextDelay: 0
+    dialogueView: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: Coach, I threw the ball too hard, and it went outside the yard!
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: 190bcaa67ecbcbd438b142033de0adb0, type: 3}
+    nextDelay: 0
+    dialogueView: -1
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: "Thanks for telling me, Peter. Let\u2019s go get it together!"
+    speakerName: Coach
+    clip: {fileID: 8300000, guid: 1a506a23ccd5a194fa2ba081d6a19bdc, type: 3}
+    nextDelay: 0
+    dialogueView: -1
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: "He didn\u2019t yell at me. We both walked over to the gate. The trainer
+      made sure it was safe before we tried to get the ball."
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: 08eeb4e1798fb484794763594a68fae7, type: 3}
+    nextDelay: 0
+    dialogueView: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: I felt a lot better knowing I made the smart choice by asking for help!
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: c221ac31cff8fbe4595a6ec274c70f7a, type: 3}
+    nextDelay: 0
+    dialogueView: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  options: []
+  tag: 7_9_InformCoach
+  autoChangeSteps: 1

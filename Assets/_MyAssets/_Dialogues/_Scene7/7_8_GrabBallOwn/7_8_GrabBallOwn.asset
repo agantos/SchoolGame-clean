@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08b42a0dbf8327e48835bf7d615d551f, type: 3}
+  m_Name: 7_8_GrabBallOwn
+  m_EditorClassIdentifier: 
+  steps:
+  - stepText: I decided to go pick up the ball on my own.
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: 204941d0455f69544954acb9cf7aeef2, type: 3}
+    nextDelay: 0
+    dialogueView: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: The cars were driving really fast, and I could hear my trainer running
+      behind me, calling out my name.
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: c72ea49f790bb4743a3d46cfe8a208fe, type: 3}
+    nextDelay: 0
+    dialogueView: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: The cars were driving really fast, and I could hear my trainer running
+      behind me, calling out my name.
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: 75121445bf75bce4c93ce06e842d888e, type: 3}
+    nextDelay: 0
+    dialogueView: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: A car ran right over the ball!
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: 6b5d54f74903a544e9c606a1774ecc15, type: 3}
+    nextDelay: 0
+    dialogueView: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: It was so dangerous! I froze for a second, feeling scared.
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: 86a1c1eae683aed4bbd3594c029f0bd5, type: 3}
+    nextDelay: 0
+    dialogueView: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: "I quickly stepped back, realizing it wasn\u2019t safe to go any further."
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: 88521d20438a8e64aaac9c6f5751d9f3, type: 3}
+    nextDelay: 0
+    dialogueView: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: "I knew I\u2019d be more careful next time."
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: d803463312a1864459f9fea795b7b747, type: 3}
+    nextDelay: 0
+    dialogueView: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: I told the coach what happened and said sorry for not being careful.
+      He gave us a new ball.
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: 82be480e87cb37b4eb02ce9802d00e0b, type: 3}
+    nextDelay: 0
+    dialogueView: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  options: []
+  tag: 
+  autoChangeSteps: 1

@@ -1,0 +1,80 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08b42a0dbf8327e48835bf7d615d551f, type: 3}
+  m_Name: 8_2_MrsAnneCame
+  m_EditorClassIdentifier: 
+  steps:
+  - stepText: Peter, Nick, what happened here? Are you both okay?
+    speakerName: Mrs. Anne
+    clip: {fileID: 8300000, guid: ccc217c251d612148a55f6540222b92b, type: 3}
+    nextDelay: 0.2
+    dialogueView: -1
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: "I didn\u2019t mean to, Mrs. Anne! It was really loud, and I didn\u2019t
+      notice."
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: 28f8c32b670786240ad67eec854ab0c1, type: 3}
+    nextDelay: 0
+    dialogueView: -1
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: "It\u2019s important to be careful, Peter."
+    speakerName: Mrs. Anne
+    clip: {fileID: 8300000, guid: 5c3c70210832f884b86fcfbebfa3b650, type: 3}
+    nextDelay: 0.1
+    dialogueView: -1
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: If you feel upset or rushed, try taking a deep breath and count to
+      10 before doing anything.
+    speakerName: Mrs. Anne
+    clip: {fileID: 8300000, guid: afa4722befb356743a747fa9b3bd9da6, type: 3}
+    nextDelay: 0
+    dialogueView: -1
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: Mrs. Anne was right, Nick could have got hurt.
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: d780c5f2835aa8748ad09e6e8f9b0dae, type: 3}
+    nextDelay: 0
+    dialogueView: -1
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: Mrs. Anne was right, Nick could have got hurt.
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: d780c5f2835aa8748ad09e6e8f9b0dae, type: 3}
+    nextDelay: 0
+    dialogueView: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: Should I just go back to the classroom and try not think about it,
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: 6903b456249542f4581b5492103a2d82, type: 3}
+    nextDelay: 0
+    dialogueView: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: or should I say sorry to Nick, ask if he is okay and help him get up?
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: 18a6fbc98b11fce45b7071e16b3de8b6, type: 3}
+    nextDelay: 0
+    dialogueView: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  options:
+  - optionText: Go to the classroom and not think about it anymore.
+    nextNode: {fileID: 0}
+  - optionText: "Apologize to Nick, ask if he\u2019s okay, and help him get up"
+    nextNode: {fileID: 0}
+  tag: 8_2_MrsAnneCame
+  autoChangeSteps: 1
