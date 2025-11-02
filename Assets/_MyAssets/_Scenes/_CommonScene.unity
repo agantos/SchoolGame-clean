@@ -93,7 +93,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 112000004, guid: 32192cb79e219b44a893555ef601e8d3, type: 2}
+  m_LightingDataAsset: {fileID: 0}
   m_LightingSettings: {fileID: 4890085278179872738, guid: c808cd51a06222046836a4eaf95c7192, type: 2}
 --- !u!196 &4
 NavMeshSettings:
@@ -2521,6 +2521,11 @@ PrefabInstance:
     - target: {fileID: 6199732143562714534, guid: b6ce3d97c0874a3459db32ede7ff858c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6984771870601012027, guid: b6ce3d97c0874a3459db32ede7ff858c, type: 3}
+      propertyPath: m_text
+      value: "The game ended. Our team didn\u2019t win, but that\u2019s okay. I had
+        so much fun playing with my friends!"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

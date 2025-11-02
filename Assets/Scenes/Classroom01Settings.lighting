@@ -30,7 +30,7 @@ LightingSettings:
   m_MixedBakeMode: 2
   m_LightmapsBakeMode: 1
   m_FilterMode: 1
-  m_LightmapParameters: {fileID: 15204, guid: 0000000000000000f000000000000000, type: 0}
+  m_LightmapParameters: {fileID: 111300000, guid: 64ee80c56ab58654aa432d9a231e6517, type: 2}
   m_ExportTrainingData: 0
   m_EnableWorkerProcessBaking: 1
   m_TrainingDataDestination: TrainingData
@@ -39,12 +39,12 @@ LightingSettings:
   m_ForceUpdates: 0
   m_PVRCulling: 1
   m_PVRSampling: 1
-  m_PVRDirectSampleCount: 64
-  m_PVRSampleCount: 64
-  m_PVREnvironmentSampleCount: 16
+  m_PVRDirectSampleCount: 4
+  m_PVRSampleCount: 4
+  m_PVREnvironmentSampleCount: 8
   m_PVREnvironmentReferencePointCount: 2048
   m_LightProbeSampleCountMultiplier: 20
-  m_PVRBounces: 20
+  m_PVRBounces: 2
   m_PVRMinBounces: 1
   m_PVREnvironmentImportanceSampling: 0
   m_PVRFilteringMode: 2
