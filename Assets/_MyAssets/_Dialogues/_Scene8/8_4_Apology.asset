@@ -60,5 +60,5 @@ MonoBehaviour:
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
   options: []
-  tag: 
-  autoChangeSteps: 0
+  tag: 8_4_Apology
+  autoChangeSteps: 1

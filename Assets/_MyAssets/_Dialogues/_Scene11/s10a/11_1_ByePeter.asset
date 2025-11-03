@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08b42a0dbf8327e48835bf7d615d551f, type: 3}
+  m_Name: 11_1_ByePeter
+  m_EditorClassIdentifier: 
+  steps:
+  - stepText: Bye Peter!
+    speakerName: Margaret
+    clip: {fileID: 8300000, guid: 75417d3540787e447a484a2f2fb31e55, type: 3}
+    nextDelay: 0.7
+    dialogueView: -1
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: Do I stop to say bye to Margaret or just run home fast without talking
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: 4e0ac920e3cb29c46b1e64cc76824839, type: 3}
+    nextDelay: 0
+    dialogueView: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  options:
+  - optionText: Say goodbye to Margaret.
+    nextNode: {fileID: 11400000, guid: 15ca96400bed89c4284069d192cd0772, type: 2}
+  - optionText: "Don\u2019t talk, you\u2019re in a hurry to go home."
+    nextNode: {fileID: 11400000, guid: 67f29c76c34fc9d44a63850b66dd59fa, type: 2}
+  tag: ByePeter
+  autoChangeSteps: 1

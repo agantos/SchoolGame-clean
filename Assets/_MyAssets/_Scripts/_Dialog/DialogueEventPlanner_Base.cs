@@ -64,7 +64,20 @@ public class DialogueEventPlanner_Base : MonoBehaviour
 		}
 	}
 
-    public void CreateEvent(string tag, DialogueEvent.OnDialogueEvent callTime, Func<UniTask> functionToInvoke)
+	public async UniTask OnStep(SCR_DialogueNode node, int stepNum)
+	{
+		if (!events.ContainsKey(node.tag)) return;
+
+		foreach (var e in events[node.tag])
+		{
+			if (e.stepToCall == stepNum && e.callTime == DialogueEvent.OnDialogueEvent.STEP && e.eventToCallAsync != null)
+			{
+				await e.eventToCallAsync.Invoke();
+			}
+		}
+	}
+
+	public void CreateEvent(string tag, DialogueEvent.OnDialogueEvent callTime, Func<UniTask> functionToInvoke, int step = 0)
     {
         if (string.IsNullOrEmpty(tag))
         {

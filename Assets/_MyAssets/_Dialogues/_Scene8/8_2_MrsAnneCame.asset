@@ -47,13 +47,6 @@ MonoBehaviour:
     speakerName: Peter
     clip: {fileID: 8300000, guid: d780c5f2835aa8748ad09e6e8f9b0dae, type: 3}
     nextDelay: 0
-    dialogueView: -1
-    leftSpeakerImage: {fileID: 0}
-    rightSpeakerImage: {fileID: 0}
-  - stepText: Mrs. Anne was right, Nick could have got hurt.
-    speakerName: Peter
-    clip: {fileID: 8300000, guid: d780c5f2835aa8748ad09e6e8f9b0dae, type: 3}
-    nextDelay: 0
     dialogueView: 0
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
@@ -73,8 +66,8 @@ MonoBehaviour:
     rightSpeakerImage: {fileID: 0}
   options:
   - optionText: Go to the classroom and not think about it anymore.
-    nextNode: {fileID: 0}
+    nextNode: {fileID: 11400000, guid: b04e55bc1801e594bad1719ffbc18643, type: 2}
   - optionText: "Apologize to Nick, ask if he\u2019s okay, and help him get up"
-    nextNode: {fileID: 0}
+    nextNode: {fileID: 11400000, guid: 5f3a5a65bc8082d48aa7a9a64f335e0d, type: 2}
   tag: 8_2_MrsAnneCame
   autoChangeSteps: 1

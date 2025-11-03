@@ -70,26 +70,29 @@ public class DialogueManager : MonoBehaviour
 
         waitingOnAutomatic = true;
         await UniTask.Delay(delay);
-        waitingOnAutomatic = false;
+		if (EventPlanner != null) await EventPlanner.OnStep(currentNode, _currentStep);
+		waitingOnAutomatic = false;
 
 
-        // Last Step
-        if (_currentStep == currentNode.steps.Count - 1)
+
+		// Last Step
+		if (_currentStep == currentNode.steps.Count - 1)
         {
-            return;
+			return;
         }
 
-        _currentStep++;
+		_currentStep++;
 
         var step = currentNode.steps[_currentStep];
         Update_Dialog_AudioVisuals();
 
     }
 
-    public void OnNextPressed()
+    public async UniTask OnNextPressed()
     {
         if (waitingOnAutomatic) return;
 
+		if (EventPlanner != null) await EventPlanner.OnStep(currentNode, _currentStep);
 		_currentStep++;
 
 		if (_currentStep == currentNode.steps.Count)

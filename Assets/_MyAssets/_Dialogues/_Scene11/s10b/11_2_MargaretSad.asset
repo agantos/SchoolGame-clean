@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08b42a0dbf8327e48835bf7d615d551f, type: 3}
+  m_Name: 11_2_MargaretSad
+  m_EditorClassIdentifier: 
+  steps:
+  - stepText: Peter! I sad bye. Why didn't you say "bye" back. I thought we were
+      friends...
+    speakerName: Margaret
+    clip: {fileID: 8300000, guid: f7a44e6133fa5074f9a34705d3707cbc, type: 3}
+    nextDelay: 0.4
+    dialogueView: -1
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: "Oh no, I didn\u2019t say goodbye to Margaret... I didn\u2019t mean
+      to make her sad. I was just in a hurry to get home."
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: 07056a6d6fd4c1f469036c72fc51162a, type: 3}
+    nextDelay: 0
+    dialogueView: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: "I think I should\u2019ve taken a second to say goodbye, she\u2019s
+      my friend."
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: 7847cdde5fc8a354e86754422ee5f903, type: 3}
+    nextDelay: 0
+    dialogueView: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: "I\u2019ll go back and say goodbye to Margaret!"
+    speakerName: Peter
+    clip: {fileID: 8300000, guid: 173b7547456fc3e43872b55a06f61f51, type: 3}
+    nextDelay: 0
+    dialogueView: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  options: []
+  tag: MargaretSad
+  autoChangeSteps: 1
