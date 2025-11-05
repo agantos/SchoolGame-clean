@@ -47,8 +47,8 @@ MonoBehaviour:
     rightSpeakerImage: {fileID: 0}
   options:
   - optionText: "Keep playing like nothing happened. It\u2019s just a little cut!"
-    nextNode: {fileID: 0}
+    nextNode: {fileID: 11400000, guid: a67643bb983ccf14eb88087aa8c31b02, type: 2}
   - optionText: "Go tell the teacher what happened, even if it doesn\u2019t hurt."
-    nextNode: {fileID: 0}
-  tag: 
+    nextNode: {fileID: 11400000, guid: 6bf8a3e2221d59141afd4f486d3b3e82, type: 2}
+  tag: 7_4_PeterFalls
   autoChangeSteps: 1

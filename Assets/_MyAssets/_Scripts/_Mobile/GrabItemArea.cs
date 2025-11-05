@@ -15,7 +15,7 @@ public class GrabItemArea : TriggerArea
 		_recycleGameBinArea = FindAnyObjectByType<BinArea>();
 
 	}
-	protected override void OnPlayerEnter()
+	protected override void OnObjectEnter(GameObject obj = null)
 	{
 		if(_playerManager.grabbedObject == null)
 		{
@@ -54,7 +54,7 @@ public class GrabItemArea : TriggerArea
 		_recycleGameBinArea?.Disable();
 	}
 
-	protected override void OnPlayerExit()
+	protected override void OnObjectExit(GameObject obj = null)
 	{
 		_rightSideButtonsHandler?.ToggleGrabButton(false);
 	}

@@ -24,14 +24,14 @@ MonoBehaviour:
     speakerName: Peter
     clip: {fileID: 8300000, guid: 8e5c7b19356bcd04f8a2003b84801306, type: 3}
     nextDelay: 0
-    dialogueView: 0
+    dialogueView: -1
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
   - stepText: "We\u2019re almost done with this round, then you can play with us!"
-    speakerName: Peter
+    speakerName: Margaret
     clip: {fileID: 8300000, guid: bb634935a5f9b8d479040e4e6cd2c509, type: 3}
     nextDelay: 0
-    dialogueView: 0
+    dialogueView: -1
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
   - stepText: Do I wait my turn or do I steal the ball and dash?
@@ -43,8 +43,8 @@ MonoBehaviour:
     rightSpeakerImage: {fileID: 0}
   options:
   - optionText: Wait patiently for them to finish the round.
-    nextNode: {fileID: 0}
+    nextNode: {fileID: 11400000, guid: 586ade8a5e585964db062aa190e33236, type: 2}
   - optionText: Take the ball and start running, you are angry.
-    nextNode: {fileID: 0}
+    nextNode: {fileID: 11400000, guid: 7fb350a48b64e9b45ae1b591432f0d0d, type: 2}
   tag: 7_1_PeterWantsToPlay
   autoChangeSteps: 1

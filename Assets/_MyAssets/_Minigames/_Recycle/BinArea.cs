@@ -94,11 +94,11 @@ public class BinArea : TriggerArea
 
 	public void Disable()
 	{
-		OnPlayerExit();
+		OnObjectExit();
 		base.Disable();
 	}
 
-	protected override void OnPlayerEnter()
+	protected override void OnObjectEnter(GameObject obj = null)
 	{
 		if (_playerManager.grabbedObject != null) {
 			if (_recyclingMinigameManager.IsTrash(_playerManager.grabbedObject))
@@ -123,7 +123,7 @@ public class BinArea : TriggerArea
 
 	}
 
-	protected override void OnPlayerExit() {
+	protected override void OnObjectExit(GameObject obj = null) {
 
 		ResetBinButtons();
 	}

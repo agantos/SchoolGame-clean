@@ -42,8 +42,6 @@ public class MemoryMinigameManager : MonoBehaviour
 		_buttons = Clicks.GetComponentsInChildren<Button>();
 		ToggleButtons(true);
 
-		await UniTask.Delay(2000);
-		LoadLevel_Index(0);
 	}
 
 	public async UniTask LoadLevel(MemoryGameLevel level) {
@@ -70,7 +68,7 @@ public class MemoryMinigameManager : MonoBehaviour
 		}
 	}
 
-	public async void LoadLevel_Index(int levelIndex)
+	public async UniTask LoadLevel_Index(int levelIndex)
 	{
 		MemoryGameLevel[] levels = {level1, level2, level3};
 

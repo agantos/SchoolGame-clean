@@ -22,5 +22,5 @@ MonoBehaviour:
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
   options: []
-  tag: 
-  autoChangeSteps: 0
+  tag: 7_3_2_PeterEndWait
+  autoChangeSteps: 1

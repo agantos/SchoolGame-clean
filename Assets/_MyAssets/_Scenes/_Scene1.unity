@@ -648,7 +648,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60ad3dbb599762349828dae35934e4ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerLayer:
+  objectLayer:
     serializedVersion: 2
     m_Bits: 16384
   dialog: {fileID: 11400000, guid: fe47f612b8fe5a84292283138ddfe407, type: 2}

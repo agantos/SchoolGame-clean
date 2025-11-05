@@ -52,5 +52,5 @@ MonoBehaviour:
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
   options: []
-  tag: 
+  tag: 7_2_PeterStealsBall
   autoChangeSteps: 1

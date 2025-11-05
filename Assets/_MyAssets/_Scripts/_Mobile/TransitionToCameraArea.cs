@@ -18,7 +18,7 @@ public class TransitionToCameraArea : TriggerArea
 		_cameraChanger = FindAnyObjectByType<CinemachineCameraChanger>();
 	}
 
-	protected override async void OnPlayerEnter()
+	protected override async void OnObjectEnter(GameObject obj)
 	{
 		_playerManager.PlayerMovementController.DisableMovement();
 		await _cameraChanger.TransitionToCam(cam);
@@ -32,7 +32,7 @@ public class TransitionToCameraArea : TriggerArea
 		}
 	}
 
-	protected override void OnPlayerExit()
+	protected override void OnObjectExit(GameObject obj)
 	{
 		return;
 	}

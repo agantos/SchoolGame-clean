@@ -26,9 +26,6 @@ public class DialogueEventPlanner8 : DialogueEventPlanner_Base
 
 		CreateEvent("8_3_NotApology", DialogueEvent.OnDialogueEvent.END_NODE, StartApology);
 		CreateEvent("8_4_Apology", DialogueEvent.OnDialogueEvent.START_NODE, OnApology);
-
-
-
 	}
 
 	async UniTask EnableMrsAnne()

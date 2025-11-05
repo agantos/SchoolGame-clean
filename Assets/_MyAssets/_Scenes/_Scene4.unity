@@ -11679,7 +11679,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3dd70d7576f23046a6ae815cd32a92b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerLayer:
+  objectLayer:
     serializedVersion: 2
     m_Bits: 16384
   cam: {fileID: 456775736}

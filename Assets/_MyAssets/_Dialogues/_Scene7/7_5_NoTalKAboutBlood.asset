@@ -37,5 +37,5 @@ MonoBehaviour:
     leftSpeakerImage: {fileID: 0}
     rightSpeakerImage: {fileID: 0}
   options: []
-  tag: 
+  tag: 7_5_NoTalkAboutBlood
   autoChangeSteps: 1

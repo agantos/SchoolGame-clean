@@ -2,32 +2,32 @@ using UnityEngine;
 
 public abstract class TriggerArea : MonoBehaviour
 {
-	[SerializeField] protected LayerMask playerLayer;
+	[SerializeField] protected LayerMask objectLayer;
 
 	protected void OnTriggerEnter(Collider other)
 	{
-		if (IsPlayer(other.gameObject))
+		if (IsTriggerObject(other.gameObject))
 		{
-			OnPlayerEnter();
+			OnObjectEnter(other.gameObject);
 		}
 	}
 
 	protected void OnTriggerExit(Collider other)
 	{
-		if (IsPlayer(other.gameObject))
+		if (IsTriggerObject(other.gameObject))
 		{
-			OnPlayerExit();
+			OnObjectExit(other.gameObject);
 		}
 	}
 
-	protected bool IsPlayer(GameObject obj)
+	protected bool IsTriggerObject(GameObject obj)
 	{
-		return ((1 << obj.layer) & playerLayer) != 0;
+		return ((1 << obj.layer) & objectLayer) != 0;
 	}
 
-	protected abstract void OnPlayerEnter();
+	protected abstract void OnObjectEnter(GameObject obj = null);
 
-	protected abstract void OnPlayerExit();
+	protected abstract void OnObjectExit(GameObject obj = null);
 
 	public void Disable()
 	{

@@ -15,7 +15,7 @@ public class DialogueArea : TriggerArea
         _dialogueManager = FindAnyObjectByType<DialogueManager>();
 	}
 
-    protected override void OnPlayerEnter()
+    protected override void OnObjectEnter(GameObject obj)
     {
         _dialogueManager.EventPlanner = eventPlanner;
 		_dialogueManager.DialogueToStart = dialog;
@@ -30,7 +30,7 @@ public class DialogueArea : TriggerArea
         }
     }
 
-    protected override void OnPlayerExit()
+    protected override void OnObjectExit(GameObject obj)
     {
         _rightSideButtonsHandler?.ToggleDialogueButton(false);
         _dialogueManager.DialogueToStart = null;

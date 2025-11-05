@@ -85,12 +85,13 @@ public class DialogueEventPlanner_Base : MonoBehaviour
             return;
         }
 
-        DialogueEvent newEvent = new DialogueEvent
-        {
-            callTime = callTime,
-            eventToCallAsync = functionToInvoke,
-            NodeTag = tag
-        };
+		DialogueEvent newEvent = new DialogueEvent
+		{
+			callTime = callTime,
+			eventToCallAsync = functionToInvoke,
+			NodeTag = tag,
+			stepToCall = step
+		};
 
         if (events.ContainsKey(tag))
         {

@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08b42a0dbf8327e48835bf7d615d551f, type: 3}
+  m_Name: IntroductionMemoryGame
+  m_EditorClassIdentifier: 
+  steps:
+  - stepText: "Before we leave the school, let\u2019s check if all the lockers are
+      clean and have the correct objects."
+    speakerName: 
+    clip: {fileID: 8300000, guid: 94acfbd073488194c9b04efcbe188dd9, type: 3}
+    nextDelay: 0
+    dialogueView: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: Tomorrow we have music
+    speakerName: 
+    clip: {fileID: 8300000, guid: 88548acf9c0605d40a33da75e47cf408, type: 3}
+    nextDelay: 0
+    dialogueView: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: ' math,'
+    speakerName: 
+    clip: {fileID: 8300000, guid: 28063df4942f0394ba589b1ce5fade37, type: 3}
+    nextDelay: 0
+    dialogueView: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: ' Language Arts,'
+    speakerName: 
+    clip: {fileID: 8300000, guid: 4201301a6ca9da44cada5571b0f917b3, type: 3}
+    nextDelay: 0
+    dialogueView: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: and discovering the world!
+    speakerName: 
+    clip: {fileID: 8300000, guid: e5dd8e4ee2fbd7c42982ddcdc9e8217d, type: 3}
+    nextDelay: 0
+    dialogueView: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: The objects are in the lockers. When the lockers close, you have to
+      remember which ones we will need.
+    speakerName: 
+    clip: {fileID: 8300000, guid: 9ce913bf3e4684f43bb77fe199151ae1, type: 3}
+    nextDelay: 0
+    dialogueView: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: Then, click only on the ones we need for our lessons!
+    speakerName: 
+    clip: {fileID: 8300000, guid: 3c3de17a8b711c24d9b2145ce7067393, type: 3}
+    nextDelay: 0
+    dialogueView: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: "Let\u2019s see how good your memory is!"
+    speakerName: 
+    clip: {fileID: 8300000, guid: 53ad391b9e31f114ab52cfadd56479bd, type: 3}
+    nextDelay: 0
+    dialogueView: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  options: []
+  tag: IntroductionMemoryGame
+  autoChangeSteps: 1
