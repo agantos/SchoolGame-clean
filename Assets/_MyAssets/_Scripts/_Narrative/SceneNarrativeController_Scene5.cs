@@ -10,6 +10,6 @@ public class SceneNarrativeController_Scene5 : SceneNarrativeController
 		controller = FindAnyObjectByType<SceneController>();
 
 		await UniTask.Delay(10000);
-		await controller.LoadNextScene();
+		//await controller.LoadNextScene();
 	}
 }
