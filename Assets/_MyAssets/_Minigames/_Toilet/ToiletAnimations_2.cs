@@ -63,6 +63,9 @@ public class ToiletAnimations_2 : MonoBehaviour
 	{
 		foamInside.gameObject.SetActive(false);
 		foamOutside.gameObject.SetActive(false);
+
+		HandFront_towel.gameObject.SetActive(false);
+		HandBack_towel.gameObject.SetActive(false);
 	}
 
 	private async void Update()
@@ -98,6 +101,10 @@ public class ToiletAnimations_2 : MonoBehaviour
 
 	public async UniTask DryHandsAnimation()
 	{
+
+		HandFront_towel.gameObject.SetActive(true);
+		HandBack_towel.gameObject.SetActive(true);
+
 		// Get Towel Out
 		await AnimateTowel();
 		await UniTask.Delay(400);
@@ -113,7 +120,7 @@ public class ToiletAnimations_2 : MonoBehaviour
 		await WiggleHandAsync(HandBack_towel, () => { 
 			TowelMove.rotation = Quaternion.Euler(towelOriginalRotation.eulerAngles.x + Random.Range(-15, 15), towelOriginalRotation.eulerAngles.y + Random.Range(-15, 15), Random.Range(-45, 45));
 			if (Random.Range(0f, 1f) < 0.8f)
-				TowelMove.localScale /= 1.1f;
+				TowelMove.localScale /= 1.08f;
 			else
 				TowelMove.localScale *= 1.05f;
 		});
@@ -132,6 +139,9 @@ public class ToiletAnimations_2 : MonoBehaviour
 
 	public async UniTask WashHandsAnimations()
 	{
+		HandBack.gameObject.SetActive(true);
+		HandFront.gameObject.SetActive(true);
+
 		HandBack.GetComponent<SpriteRenderer>().sortingOrder += 10;
 		HandFront.GetComponent<SpriteRenderer>().sortingOrder += 10;
 		foamInside.GetComponent<SpriteRenderer>().sortingOrder += 10;

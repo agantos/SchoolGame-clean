@@ -1229,7 +1229,7 @@ GameObject:
   - component: {fileID: 235350941}
   - component: {fileID: 235350943}
   m_Layer: 5
-  m_Name: bin
+  m_Name: wetHandsButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1249,9 +1249,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1583258000}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 162.5, y: -150}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 325, y: 325}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &235350941
@@ -1274,7 +1274,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 8508eba3a8c0fff4e82224efb28633e0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: acc93d340d206c642b22e5ed1660998b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1463,7 +1463,7 @@ GameObject:
   - component: {fileID: 332272747}
   - component: {fileID: 332272749}
   m_Layer: 5
-  m_Name: hands
+  m_Name: WashHandsButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1483,9 +1483,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1583258000}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1462.5, y: -150}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 325, y: 325}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &332272747
@@ -2191,7 +2191,7 @@ GameObject:
   - component: {fileID: 529682165}
   - component: {fileID: 529682167}
   m_Layer: 5
-  m_Name: shampoo
+  m_Name: SoapButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2211,9 +2211,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1583258000}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1137.5, y: -150}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 325, y: 325}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &529682165
@@ -2710,93 +2710,6 @@ ReflectionProbe:
   m_UseOcclusionCulling: 1
   m_Importance: 1
   m_CustomBakedTexture: {fileID: 0}
---- !u!1 &657744417
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 657744418}
-  - component: {fileID: 657744419}
-  m_Layer: 0
-  m_Name: hand_receive
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &657744418
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 657744417}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.31407794, z: -0, w: 0.94939727}
-  m_LocalPosition: {x: 16.912, y: 1.872, z: -19.209}
-  m_LocalScale: {x: 0.023536958, y: 0.023536958, z: 0.023536958}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 794939549}
-  m_LocalEulerAnglesHint: {x: 0, y: -36.61, z: 0}
---- !u!212 &657744419
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 657744417}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ec39403fa853a6047a47c9a81443a2ba, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 8.21, y: 7.66}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
 --- !u!1 &663291477
 GameObject:
   m_ObjectHideFlags: 0
@@ -3417,7 +3330,6 @@ Transform:
   - {fileID: 126045135}
   - {fileID: 437514647}
   - {fileID: 1080473661}
-  - {fileID: 657744418}
   m_Father: {fileID: 435023595}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &803725054
@@ -4448,7 +4360,7 @@ GameObject:
   - component: {fileID: 1210814086}
   - component: {fileID: 1210814088}
   m_Layer: 5
-  m_Name: paper
+  m_Name: DryHandsButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4468,9 +4380,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1583258000}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 487.5, y: -150}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 325, y: 325}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1210814086
@@ -5170,9 +5082,6 @@ MonoBehaviour:
   startWaterAnimation: 0
   stopWaterAnimation: 0
   pressShampoo: 0
-  shampooCamera: {fileID: 0}
-  waterCamera: {fileID: 0}
-  normalCamera: {fileID: 0}
   rotationAngle_sink: 180
   rotationDuration_sink: 0.8
   delayBetweenHandles: 0.2
@@ -6042,7 +5951,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1583258000
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7052,7 +6961,7 @@ Transform:
   m_GameObject: {fileID: 1790920635}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.020133903, z: -0, w: 0.99979734}
-  m_LocalPosition: {x: -0.2501011, y: 0.0399, z: -0.337}
+  m_LocalPosition: {x: -0.2487, y: 0.0399, z: -0.3019}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7071,7 +6980,7 @@ GameObject:
   - component: {fileID: 1829312273}
   - component: {fileID: 1829312275}
   m_Layer: 5
-  m_Name: sink
+  m_Name: OpenWaterButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7091,9 +7000,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1583258000}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 812.5, y: -150}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 325, y: 325}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1829312273
@@ -8287,6 +8196,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2144885532}
+  - component: {fileID: 2144885533}
   m_Layer: 0
   m_Name: ToiletGameManagers
   m_TagString: Untagged
@@ -8311,6 +8221,28 @@ Transform:
   - {fileID: 435023595}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2144885533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2144885531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04caf83071f7091438e255ccec328b66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  originalCamera: {fileID: 1790920636}
+  waterCamera: {fileID: 1025296662}
+  towelCamera: {fileID: 1425711491}
+  soapCamera: {fileID: 1282707683}
+  binCamera: {fileID: 1188711582}
+  dryButton: {fileID: 1210814088}
+  wetHandsButton: {fileID: 235350943}
+  waterButton: {fileID: 1829312275}
+  washHandsButton: {fileID: 332272749}
+  soapButton: {fileID: 529682167}
 --- !u!4 &543450653251497420
 Transform:
   m_ObjectHideFlags: 0

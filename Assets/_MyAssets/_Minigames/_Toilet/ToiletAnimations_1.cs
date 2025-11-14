@@ -22,15 +22,6 @@ public class ToiletAnimations_1 : MonoBehaviour
 	public bool stopWaterAnimation;
 	public bool pressShampoo;
 
-	private CinemachineCameraChanger _cameraChanger;
-
-	[Header("Cameras")]
-
-	public CinemachineCamera shampooCamera;
-	public CinemachineCamera waterCamera;
-	public CinemachineCamera normalCamera;
-
-
 	private void Start()
 	{
 		foreach (var s in WaterSprites)
@@ -46,7 +37,7 @@ public class ToiletAnimations_1 : MonoBehaviour
 		if (startWaterAnimation)
 		{
 			startWaterAnimation = false;
-			await StartWater();
+			await StartWaterAnimation();
 			await UniTask.Delay(200);
 		}
 
@@ -54,7 +45,7 @@ public class ToiletAnimations_1 : MonoBehaviour
 		{
 			stopWaterAnimation = false;
 			await ResetHandles();
-			StopWaterAnimation();
+			StopWaterFlow();
 		}
 
 		if (pressShampoo) { 
@@ -66,7 +57,7 @@ public class ToiletAnimations_1 : MonoBehaviour
 
 	private void OnDisable()
 	{
-		StopWaterAnimation();
+		StopWaterFlow();
 	}
 
 	public async UniTask ShampooAnimation()
@@ -74,10 +65,10 @@ public class ToiletAnimations_1 : MonoBehaviour
 		await PressShampoo();
 	}
 
-	public async UniTask StopWater()
+	public async UniTask StopWaterAnimation()
 	{
 		await ResetHandles();
-		StopWaterAnimation();
+		StopWaterFlow();
 	}
 
 	#region Water Animation
@@ -92,7 +83,7 @@ public class ToiletAnimations_1 : MonoBehaviour
 
 
 
-	public async UniTask StartWater()
+	public async UniTask StartWaterAnimation()
 	{
 		if (OpenSinkCold == null || OpenSinkHot == null)
 			return;
@@ -115,7 +106,7 @@ public class ToiletAnimations_1 : MonoBehaviour
 				.OnStart(async () =>
 				{
 					await UniTask.Delay(300);
-					StartWaterAnimation();
+					StartWaterFlow();
 				})
 		);
 
@@ -144,7 +135,7 @@ public class ToiletAnimations_1 : MonoBehaviour
 		await OpenSinkHot.transform.DOLocalRotate(Vector3.zero, 0.4f).SetEase(Ease.InOutSine).AsyncWaitForCompletion();
 	}
 
-	public async UniTask StartWaterAnimation()
+	async UniTask StartWaterFlow()
 	{
 		if (_cts_WaterAnimation != null)
 			return;
@@ -153,7 +144,7 @@ public class ToiletAnimations_1 : MonoBehaviour
 		AnimateWaterSprites(_cts_WaterAnimation.Token).Forget();
 	}
 
-	public void StopWaterAnimation()
+	void StopWaterFlow()
 	{
 		foreach (var s in WaterSprites)
 		{
@@ -219,8 +210,6 @@ public class ToiletAnimations_1 : MonoBehaviour
 	public float blobLifetime_Shampoo = 1.2f;
 
 	private bool _isAnimating_Shampoo;
-
-
 
 	async UniTask PressShampoo()
 	{
@@ -290,8 +279,5 @@ public class ToiletAnimations_1 : MonoBehaviour
 		if (blob != null)
 			Destroy(blob);
 	}
-	#endregion
-
-	#region
 	#endregion
 }
