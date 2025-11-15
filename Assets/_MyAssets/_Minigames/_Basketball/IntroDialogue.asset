@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08b42a0dbf8327e48835bf7d615d551f, type: 3}
+  m_Name: IntroDialogue
+  m_EditorClassIdentifier: 
+  steps:
+  - stepText: Help me score in basketball! Lots of shapes will pop up, but we can
+      only shoot when the right one shows on the screen!
+    speakerName: 
+    clip: {fileID: 8300000, guid: c99a4dacacb3b694998e9a804e072256, type: 3}
+    nextDelay: 0
+    dialogueView: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  - stepText: Press the button to shoot when you spot the right shape, color, expression,
+      or even a combination!
+    speakerName: 
+    clip: {fileID: 8300000, guid: c55c02344f4433a4f8b3d2c957bddeba, type: 3}
+    nextDelay: 0
+    dialogueView: 0
+    leftSpeakerImage: {fileID: 0}
+    rightSpeakerImage: {fileID: 0}
+  options: []
+  tag: 
+  autoChangeSteps: 1

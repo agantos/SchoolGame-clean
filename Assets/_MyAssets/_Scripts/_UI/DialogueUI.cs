@@ -37,7 +37,7 @@ public class DialogueUI : MonoBehaviour
 
     [SerializeField] private Button nextButton;
 
-    DialogueManager _dialogueManager;
+    DialogueManager _dialogueManager; 
     #endregion
 
     #region Events
@@ -210,7 +210,7 @@ public class DialogueUI : MonoBehaviour
 
 	void OnNext()
 	{
-		if (_activeTextTween != null && _activeTextTween.IsActive() && _activeTextTween.IsPlaying())
+		if (!_dialogueManager.IsUnskippable && _activeTextTween != null && _activeTextTween.IsActive() && _activeTextTween.IsPlaying())
 		{
 			CompleteTextTween();
 		}

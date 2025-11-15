@@ -14,16 +14,18 @@ public class DialogueManager : MonoBehaviour
     PlayerMovementController _playerMovementController;
 
     int _currentStep = 0;
+    public bool IsUnskippable;
 
     private void Start()
     {
         _playerMovementController = FindAnyObjectByType<PlayerMovementController>();
     }
 
-    public async void StartDialogue()
+    public async void StartDialogue(bool isUnskippable = false)
     {
         if (DialogueToStart != null) {
             _playerMovementController.DisableMovement();
+            IsUnskippable = isUnskippable;
             await OpenNode(DialogueToStart);
         }
     }
@@ -73,8 +75,6 @@ public class DialogueManager : MonoBehaviour
 		if (EventPlanner != null) await EventPlanner.OnStep(currentNode, _currentStep);
 		waitingOnAutomatic = false;
 
-
-
 		// Last Step
 		if (_currentStep == currentNode.steps.Count - 1)
         {
@@ -91,8 +91,16 @@ public class DialogueManager : MonoBehaviour
     public async UniTask OnNextPressed()
     {
         if (waitingOnAutomatic) return;
+        if (IsUnskippable) {
+			if (_currentStep == currentNode.steps.Count)
+			{
+				CloseDialogue();
+			}
+            return;
+		} 
 
 		if (EventPlanner != null) await EventPlanner.OnStep(currentNode, _currentStep);
+
 		_currentStep++;
 
 		if (_currentStep == currentNode.steps.Count)

@@ -92,7 +92,7 @@ public class ToiletAnimations_2 : MonoBehaviour
 		if (throwTrash)
 		{
 			throwTrash = false;
-			await WashHandsAnimations();
+			await ShampooHands();
 
 		}
 	}
@@ -137,7 +137,7 @@ public class ToiletAnimations_2 : MonoBehaviour
 		TowelMove.GetChild(1).gameObject.SetActive(true);
 	}
 
-	public async UniTask WashHandsAnimations()
+	public async UniTask ShampooHands()
 	{
 		HandBack.gameObject.SetActive(true);
 		HandFront.gameObject.SetActive(true);
@@ -172,9 +172,12 @@ public class ToiletAnimations_2 : MonoBehaviour
 
 		});
 		await UniTask.Delay(700);
+	}
 
+	public async UniTask WaterShampooedHands()
+	{
 		await AnimateTwoHandsAsync(HandFront, HandBack, HandFront, HandFrontEnd, HandBack, HandBackEnd);
-		await UniTask.Delay(100);
+		await UniTask.Delay(300);
 
 		durationPerMove = 0.4f;
 		steps = 15;
@@ -192,7 +195,7 @@ public class ToiletAnimations_2 : MonoBehaviour
 			foamOutside.localScale /= 1.2f;
 
 		});
-		
+
 		foamOutside.gameObject.SetActive(false);
 		foamInside.gameObject.SetActive(false);
 	}

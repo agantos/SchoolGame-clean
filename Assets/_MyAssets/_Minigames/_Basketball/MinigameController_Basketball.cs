@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using TMPro;
 using Unity.Cinemachine;
@@ -31,10 +32,13 @@ public class MinigameController_Basketball : MonoBehaviour
 	public GameObject circleGameObject;
 
 	[Space]
+	[Header("UI GameObjects")]
 	public Button ShootButton;
+	public GameObject HelpUI;
 
 	private CinemachineCameraChanger _cameraChanger;
 	private BasketBallShotAnimator _basketShotAnimator;
+	private DialogueManager _dialogueManager;
 
 	private Level _shownLevel;
 	private Level _currentLevel;
@@ -45,11 +49,13 @@ public class MinigameController_Basketball : MonoBehaviour
 	{
 		_cameraChanger = FindAnyObjectByType<CinemachineCameraChanger>();
 		_basketShotAnimator = FindAnyObjectByType<BasketBallShotAnimator>();
+		_dialogueManager = FindAnyObjectByType<DialogueManager>();
 	}
 
 	private async void Start()
 	{
-		ShootButton.enabled = false;
+		HelpUI.gameObject.SetActive(false);
+		ShootButton.gameObject.SetActive(false);
 		ShootButton.onClick.AddListener(async () => { await TryShoot(); });
 		
 		Level[] levels = { level1, level2, level3, level4, level5, level6 };
@@ -75,6 +81,11 @@ public class MinigameController_Basketball : MonoBehaviour
 	#region Game Logic
 	public async UniTask StartGame()
 	{
+		_dialogueManager.DialogueToStart = introductionDialogue;
+		_dialogueManager.StartDialogue(true);
+
+		await UniTask.Delay(15500);
+
 		InitializeRandomLevels();
 		_currentLevelIndex = 0;
 		await LoadLevel(level1);
@@ -163,9 +174,12 @@ public class MinigameController_Basketball : MonoBehaviour
 
 	async UniTask LoadLevel(Level level)
 	{
+		HelpUI.gameObject.SetActive(false);
+		ShootButton.gameObject.SetActive(false);
+
 		_currentLevel = level;
 		await _cameraChanger.TransitionToCam(level.camera);
-		ShootButton.enabled = true;
+
 		level.ball.SetActive(true);
 		_basketShotAnimator.ball = level.ball.transform;
 
@@ -192,6 +206,10 @@ public class MinigameController_Basketball : MonoBehaviour
 				texts[i].text = "";
 			}
 		}
+
+		await PlayLevelDialogue(level);
+		HelpUI.gameObject.SetActive(true);
+		ShootButton.gameObject.SetActive(true);
 
 		// Start spawining levels
 		StartSpawnLoop();
@@ -252,6 +270,77 @@ public class MinigameController_Basketball : MonoBehaviour
 
 	#endregion
 
+	#region Dialogue and Sounds
+
+	[Space]
+	[Header("Dialog & Sounds")]
+	public AudioSource audioSource;
+	public SCR_DialogueNode basketBallBaseDialogue;
+	public SCR_DialogueNode introductionDialogue;
+	public ColorSound[] colorSounds;
+	public FeelingSound[] feelingSounds;
+	public ShapeSound[] shapeSounds;
+
+	public async UniTask PlayLevelDialogue(Level level)
+	{
+		string color = level.correctColor.ToString();
+		string feeling = level.correctFeelings.ToString();
+		string shape = level.correctShapes.ToString();
+
+		int secondsToWait = 1000;
+
+		string dialogueText = "Shoot when you spot any ";
+
+		List<AudioClip>	clipsToPlay = new List<AudioClip>();
+
+		if(color != "none")
+		{
+			dialogueText += color;
+			dialogueText += " ";
+			clipsToPlay.Add(colorSounds.FirstOrDefault(f => f.color == level.correctColor).sound);
+			secondsToWait += 1000;
+		}
+
+		if(feeling != "none")
+		{
+			dialogueText += feeling;
+			dialogueText += " ";
+			clipsToPlay.Add(feelingSounds.FirstOrDefault(f => f.feeling == level.correctFeelings).sound);
+
+			secondsToWait += 1000;
+		}
+
+		if (shape != "none")
+		{
+			dialogueText += shape;
+			dialogueText += " ";
+			clipsToPlay.Add(shapeSounds.FirstOrDefault(f => f.shape == level.correctShapes).sound);
+
+			secondsToWait += 1000;
+		}
+
+		dialogueText += "shape";
+
+		SCR_DialogueNode runtimeNode = Instantiate(basketBallBaseDialogue);
+		runtimeNode.steps[0].stepText = dialogueText;
+		_dialogueManager.DialogueToStart = runtimeNode;
+		_dialogueManager.StartDialogue(isUnskippable: true);
+		await UniTask.Delay(500);
+
+		// PlaySounds
+		foreach (var clip in clipsToPlay)
+		{
+			audioSource.clip = clip;
+			audioSource.Play();
+
+			await UniTask.Delay((int)(clip.length * 1000));
+			await UniTask.Delay(500);
+		}
+
+		_dialogueManager.CloseDialogue();		
+	}	
+
+	#endregion
 
 	#region GetRandom
 	List<int> pool = new List<int>();
@@ -391,6 +480,28 @@ public class MinigameController_Basketball : MonoBehaviour
 	{
 		public Feelings feeling;
 		public Sprite sprite;
+	}
+
+	[System.Serializable]
+	public class FeelingSound
+	{
+		public Feelings feeling;
+		public AudioClip sound;
+	}
+
+	[System.Serializable]
+	public class ShapeSound
+	{
+		public Shapes shape;
+		public AudioClip sound;
+	}
+
+	[System.Serializable]
+	public class ColorSound
+	{
+		public Colors color;
+		public AudioClip sound;
+
 	}
 
 	public static T GetRandomEnumValue<T>() where T : Enum
